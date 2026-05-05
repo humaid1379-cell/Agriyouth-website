@@ -101,11 +101,10 @@ a {
 }
 
 .header-logo {
-    height: 120px;
+    height: 44px;
     width: auto;
-    max-width: 380px;
+    max-width: 280px;
     object-fit: contain;
-    /* SVG has large canvas padding - increase size to show artwork at proper scale */
 }
 
 .logo-text {
@@ -238,7 +237,7 @@ a {
 }
 
 .hero-logo {
-    width: 320px;
+    width: 160px;
     height: auto;
     margin-bottom: 32px;
     animation: float 3s ease-in-out infinite;
@@ -1030,7 +1029,7 @@ html[dir="rtl"] .level-card li::before {
 }
 
 .footer-logo {
-    width: 180px;
+    width: 80px;
     height: auto;
     margin-bottom: 12px;
     filter: brightness(0) invert(1);
@@ -1151,7 +1150,7 @@ html[dir="rtl"] .level-card li::before {
     }
 
     .hero-logo {
-        width: 240px;
+        width: 130px;
     }
 
     .initiatives-grid {
@@ -1252,8 +1251,8 @@ html[dir="rtl"] .level-card li::before {
     }
 
     .header-logo {
-        height: 90px;
-        max-width: 280px;
+        height: 38px;
+        max-width: 240px;
     }
 
     .lang-switcher {
@@ -1266,7 +1265,7 @@ html[dir="rtl"] .level-card li::before {
     }
 
     .hero-logo {
-        width: 200px;
+        width: 120px;
     }
 
     .page-header {
