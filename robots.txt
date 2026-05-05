@@ -1,4 +1,4 @@
-User-Agent: *
+User-agent: *
 Allow: /
-Disallow: /api/*
-Sitemap: https://uaeyouthagri-olqhz52n.manus.space/sitemap.xml
+
+Sitemap: https://agriyouth-website.pages.dev/sitemap.xml
