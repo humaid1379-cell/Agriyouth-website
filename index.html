@@ -35,13 +35,25 @@
     <!-- Hero Section -->
     <section id="home" class="hero-section">
         <div class="zigzag-divider"></div>
-        <div class="hero-content">
-            <img src="assets/Logoleaf2.svg" alt="AgriYouth Logo" class="hero-logo">
-            <h1 class="hero-title">
-                <span class="title-en" data-en="Empowering the Next Generation of UAE Farmers" data-ar="تمكين الجيل القادم من شباب الزراعة في الإمارات">Empowering the Next Generation of UAE Farmers</span>
-            </h1>
-            <p class="hero-subtitle" data-en="A government initiative dedicated to empowering Emirati youth and strengthening their engagement in the agricultural sector" data-ar="مبادرة حكومية مكرسة لتمكين الشباب الإماراتي وتعزيز مشاركتهم في القطاع الزراعي">A government initiative dedicated to empowering Emirati youth and strengthening their engagement in the agricultural sector</p>
-            <a href="#young-farmer" class="btn-primary" data-en="Explore Initiatives" data-ar="استكشف المبادرات">Explore Initiatives</a>
+        <div class="hero-inner">
+            <!-- Left: Video -->
+            <div class="hero-video-col">
+                <div class="hero-video-wrapper">
+                    <video controls preload="metadata" poster="assets/video-poster.jpg" playsinline>
+                        <source src="assets/community-intro.mp4" type="video/mp4">
+                        <p data-en="Your browser does not support the video tag." data-ar="متصفحك لا يدعم تشغيل الفيديو.">Your browser does not support the video tag.</p>
+                    </video>
+                </div>
+            </div>
+            <!-- Right: Text -->
+            <div class="hero-text-col">
+                <img src="assets/Logoleaf2.svg" alt="AgriYouth Logo" class="hero-logo">
+                <h1 class="hero-title">
+                    <span class="title-en" data-en="Empowering the Next Generation of UAE Farmers" data-ar="تمكين الجيل القادم من شباب الزراعة في الإمارات">Empowering the Next Generation of UAE Farmers</span>
+                </h1>
+                <p class="hero-subtitle" data-en="A government initiative dedicated to empowering Emirati youth and strengthening their engagement in the agricultural sector" data-ar="مبادرة حكومية مكرسة لتمكين الشباب الإماراتي وتعزيز مشاركتهم في القطاع الزراعي">A government initiative dedicated to empowering Emirati youth and strengthening their engagement in the agricultural sector</p>
+                <a href="#young-farmer" class="btn-primary" data-en="Explore Initiatives" data-ar="استكشف المبادرات">Explore Initiatives</a>
+            </div>
         </div>
         <div class="hero-pattern"></div>
     </section>
@@ -144,21 +156,7 @@
         </div>
     </section>
 
-    <!-- Community Video Section -->
-    <section class="video-section section">
-        <div class="container">
-            <div class="section-header">
-                <div class="zigzag-divider-small"></div>
-                <h2 data-en="Community Introduction" data-ar="تعريف المجتمع">Community Introduction</h2>
-            </div>
-            <div class="video-wrapper">
-                <video controls>
-                    <source src="assets/community-intro.mp4" type="video/mp4">
-                    <p data-en="Your browser does not support the video tag." data-ar="متصفحك لا يدعم تشغيل الفيديو.">Your browser does not support the video tag.</p>
-                </video>
-            </div>
-        </div>
-    </section>
+    <!-- Community Video Section removed — video moved to hero section -->
 
     <!-- Impact Stats -->
     <section class="stats-section section">

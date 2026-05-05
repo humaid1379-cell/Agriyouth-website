@@ -223,11 +223,60 @@ a {
 .hero-section {
     margin-top: 68px;
     padding: 0 0 80px;
-    text-align: center;
     position: relative;
     overflow: hidden;
 }
 
+/* Side-by-side hero inner layout */
+.hero-inner {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px 0;
+    position: relative;
+    z-index: 2;
+}
+
+/* Left column: video (40%) */
+.hero-video-col {
+    flex: 0 0 40%;
+    width: 40%;
+}
+
+.hero-video-wrapper {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-hover);
+    background: var(--primary-dark);
+}
+
+.hero-video-wrapper video {
+    width: 100%;
+    display: block;
+    max-height: 420px;
+    object-fit: cover;
+}
+
+/* Right column: text (60%) */
+.hero-text-col {
+    flex: 1;
+    text-align: left;
+    padding-left: 16px;
+}
+
+html[dir="rtl"] .hero-text-col {
+    text-align: right;
+    padding-left: 0;
+    padding-right: 16px;
+}
+
+html[dir="rtl"] .hero-inner {
+    flex-direction: row-reverse;
+}
+
+/* .hero-content kept for legacy — replaced by .hero-inner layout */
 .hero-content {
     max-width: 800px;
     margin: 0 auto;
@@ -262,7 +311,6 @@ a {
     opacity: 0.8;
     margin-bottom: 36px;
     max-width: 600px;
-    margin-left: auto;
     margin-right: auto;
 }
 
@@ -1337,6 +1385,35 @@ html[dir="rtl"] .level-card li::before {
     /* Fix hero section top margin for mobile */
     .hero-section {
         margin-top: 64px;
+    }
+
+    /* Stack hero columns vertically on mobile */
+    .hero-inner {
+        flex-direction: column !important;
+        gap: 28px;
+        padding-top: 28px;
+    }
+
+    .hero-video-col {
+        flex: none;
+        width: 100%;
+    }
+
+    .hero-text-col {
+        text-align: center;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
+    }
+
+    html[dir="rtl"] .hero-text-col {
+        text-align: center;
+        padding-right: 0;
+    }
+
+    .hero-subtitle {
+        margin-left: auto;
+        margin-right: auto;
     }
     
     /* Improve stats on mobile */
