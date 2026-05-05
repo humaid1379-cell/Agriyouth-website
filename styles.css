@@ -101,8 +101,10 @@ a {
 }
 
 .header-logo {
-    height: 44px;
+    height: 48px;
     width: auto;
+    max-width: 260px;
+    object-fit: contain;
 }
 
 .logo-text {
@@ -235,7 +237,7 @@ a {
 }
 
 .hero-logo {
-    width: 120px;
+    width: 140px;
     height: auto;
     margin-bottom: 32px;
     animation: float 3s ease-in-out infinite;
@@ -1027,7 +1029,7 @@ html[dir="rtl"] .level-card li::before {
 }
 
 .footer-logo {
-    width: 60px;
+    width: 70px;
     height: auto;
     margin-bottom: 12px;
     filter: brightness(0) invert(1);
