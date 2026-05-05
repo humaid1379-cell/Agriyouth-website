@@ -1,118 +1,142 @@
-// ===== Language State =====
-let currentLang = 'en';
+// ===== AGRIYOUTH WEBSITE SCRIPTS =====
 
-// ===== Navigation =====
-function navigateTo(page) {
-    // Hide all pages
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    
-    // Show target page
-    const targetPage = document.getElementById('page-' + page);
-    if (targetPage) {
-        targetPage.classList.add('active');
-    }
-    
-    // Update nav active state
-    document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
-    
-    // Close mobile menu
-    document.getElementById('nav').classList.remove('open');
-    
-    // Scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    // Update URL hash
-    history.pushState(null, '', '#' + page);
-}
+document.addEventListener('DOMContentLoaded', function() {
+    // State
+    let currentLang = 'en';
 
-// ===== Language Toggle =====
-function toggleLanguage() {
-    currentLang = currentLang === 'en' ? 'ar' : 'en';
-    applyLanguage();
-}
-
-function applyLanguage() {
-    const langBtn = document.getElementById('langBtn');
-    const body = document.body;
+    // Elements
     const html = document.documentElement;
-    
-    if (currentLang === 'ar') {
-        body.setAttribute('dir', 'rtl');
-        html.setAttribute('dir', 'rtl');
-        html.setAttribute('lang', 'ar');
-        langBtn.textContent = 'English';
-    } else {
-        body.setAttribute('dir', 'ltr');
-        html.setAttribute('dir', 'ltr');
-        html.setAttribute('lang', 'en');
-        langBtn.textContent = 'العربية';
-    }
-    
-    // Update all translatable elements
-    document.querySelectorAll('[data-en]').forEach(el => {
-        const text = el.getAttribute('data-' + currentLang);
-        if (text) {
-            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                el.placeholder = text;
-            } else {
+    const langSwitcher = document.getElementById('langSwitcher');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mainNav = document.getElementById('mainNav');
+    const header = document.getElementById('siteHeader');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // ===== LANGUAGE SWITCHER =====
+    function switchLanguage(lang) {
+        currentLang = lang;
+        
+        if (lang === 'ar') {
+            html.setAttribute('dir', 'rtl');
+            html.setAttribute('lang', 'ar');
+        } else {
+            html.setAttribute('dir', 'ltr');
+            html.setAttribute('lang', 'en');
+        }
+
+        // Update all elements with data-en/data-ar attributes
+        const elements = document.querySelectorAll('[data-en][data-ar]');
+        elements.forEach(el => {
+            const text = el.getAttribute('data-' + lang);
+            if (text) {
                 el.textContent = text;
             }
-        }
+        });
+
+        // Update lang switcher button text
+        langSwitcher.textContent = lang === 'en' ? 'العربية' : 'English';
+
+        // Store preference
+        localStorage.setItem('agriyouth-lang', lang);
+    }
+
+    langSwitcher.addEventListener('click', function() {
+        const newLang = currentLang === 'en' ? 'ar' : 'en';
+        switchLanguage(newLang);
     });
-}
 
-// ===== Mobile Menu =====
-function toggleMenu() {
-    const nav = document.getElementById('nav');
-    nav.classList.toggle('open');
-}
-
-// ===== Header Scroll Hide =====
-let lastScrollY = 0;
-let ticking = false;
-
-function handleScroll() {
-    const header = document.getElementById('header');
-    const currentScrollY = window.scrollY;
-    
-    if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        header.classList.add('hidden');
-    } else {
-        header.classList.remove('hidden');
+    // Check stored language preference
+    const storedLang = localStorage.getItem('agriyouth-lang');
+    if (storedLang) {
+        switchLanguage(storedLang);
     }
-    
-    lastScrollY = currentScrollY;
-    ticking = false;
-}
 
-window.addEventListener('scroll', () => {
-    if (!ticking) {
-        window.requestAnimationFrame(handleScroll);
-        ticking = true;
-    }
-});
+    // ===== MOBILE MENU =====
+    mobileMenuBtn.addEventListener('click', function() {
+        mainNav.classList.toggle('active');
+        this.classList.toggle('active');
+    });
 
-// ===== Handle URL Hash =====
-function handleHash() {
-    const hash = window.location.hash.replace('#', '');
-    if (hash) {
-        navigateTo(hash);
-    }
-}
+    // Close mobile menu on link click
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            mainNav.classList.remove('active');
+            mobileMenuBtn.classList.remove('active');
+        });
+    });
 
-// ===== Initialize =====
-document.addEventListener('DOMContentLoaded', () => {
-    handleHash();
-    
-    // Close menu on outside click
-    document.addEventListener('click', (e) => {
-        const nav = document.getElementById('nav');
-        const menuBtn = document.getElementById('menuBtn');
-        if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
-            nav.classList.remove('open');
+    // ===== STICKY HEADER =====
+    let lastScroll = 0;
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
         }
+
+        lastScroll = currentScroll;
+    });
+
+    // ===== ACTIVE NAV LINK =====
+    function updateActiveNav() {
+        const sections = document.querySelectorAll('section[id]');
+        const scrollPos = window.scrollY + 100;
+
+        sections.forEach(section => {
+            const top = section.offsetTop;
+            const height = section.offsetHeight;
+            const id = section.getAttribute('id');
+
+            if (scrollPos >= top && scrollPos < top + height) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + id) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }
+
+    window.addEventListener('scroll', updateActiveNav);
+
+    // ===== INTERSECTION OBSERVER FOR ANIMATIONS =====
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe cards and items
+    const animateElements = document.querySelectorAll(
+        '.initiative-card, .category-card, .level-card, .pillar-card, .goal-item, .why-item, .objective-item, .contact-card, .stat-item'
+    );
+    animateElements.forEach(el => {
+        el.style.opacity = '0';
+        observer.observe(el);
+    });
+
+    // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
     });
 });
-
-// Handle browser back/forward
-window.addEventListener('popstate', handleHash);

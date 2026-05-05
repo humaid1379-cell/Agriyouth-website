@@ -3,553 +3,567 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UAE Youth Agriculture Community | مجتمع شباب الإمارات للزراعة</title>
-    <meta name="description" content="A national youth platform connecting farmers, innovators, entrepreneurs, and agriculture enthusiasts to shape the future of food security and sustainable farming in the UAE.">
-    <link rel="icon" type="image/png" href="assets/logo-clean.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <title>AgriYouth UAE - مجتمع شباب الإمارات للزراعة</title>
+    <meta name="description" content="Empowering the Next Generation of UAE Farmers - تمكين الجيل القادم من شباب الزراعة في الإمارات">
+    <link rel="icon" href="assets/logo-clean.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- Header -->
-    <header class="header" id="header">
-        <div class="container header-inner">
-            <a href="#" class="logo" onclick="navigateTo('home')">
-                <img src="assets/logo-clean.png" alt="AgriYouth Logo">
+    <header class="site-header" id="siteHeader">
+        <div class="header-container">
+            <a href="#home" class="logo-link">
+                <img src="assets/logo-clean.png" alt="AgriYouth Logo" class="header-logo">
+                <span class="logo-text" data-en="AgriYouth" data-ar="شباب الزراعة">AgriYouth</span>
             </a>
-            <nav class="nav" id="nav">
-                <a href="#" onclick="navigateTo('home')" data-en="Home" data-ar="الرئيسية">Home</a>
-                <a href="#" onclick="navigateTo('young-farmer-seal')" data-en="Young Farmer Seal" data-ar="ختم المزارع الشاب">Young Farmer Seal</a>
-                <a href="#" onclick="navigateTo('ambassadors')" data-en="Agriculture Ambassadors" data-ar="سفراء الزراعة">Agriculture Ambassadors</a>
-                <a href="#" onclick="navigateTo('community')" data-en="Youth Community" data-ar="مجتمع الشباب">Youth Community</a>
-                <a href="#" onclick="navigateTo('contact')" data-en="Contact" data-ar="تواصل معنا">Contact</a>
+            <nav class="main-nav" id="mainNav">
+                <a href="#home" class="nav-link active" data-en="Home" data-ar="الرئيسية">Home</a>
+                <a href="#young-farmer" class="nav-link" data-en="Young Farmer Seal" data-ar="ختم المزارع الشاب">Young Farmer Seal</a>
+                <a href="#ambassadors" class="nav-link" data-en="Ambassadors" data-ar="سفراء الزراعة">Ambassadors</a>
+                <a href="#community" class="nav-link" data-en="Community" data-ar="المجتمع">Community</a>
+                <a href="#contact" class="nav-link" data-en="Contact" data-ar="تواصل">Contact</a>
             </nav>
             <div class="header-actions">
-                <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">العربية</button>
-                <button class="mobile-menu-btn" id="menuBtn" onclick="toggleMenu()">
+                <button class="lang-switcher" id="langSwitcher" data-en="العربية" data-ar="English">العربية</button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
                     <span></span><span></span><span></span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Pages Container -->
-    <main id="app">
-        <!-- HOME PAGE -->
-        <div class="page active" id="page-home">
-            <!-- Hero Section -->
-            <section class="hero">
-                <div class="hero-bg"></div>
-                <div class="container hero-content">
-                    <h1 data-en="Empowering the Next Generation of UAE Farmers" data-ar="تمكين الجيل القادم من شباب الزراعة في الإمارات">Empowering the Next Generation of UAE Farmers</h1>
-                    <p class="hero-subtitle" data-en="A national youth platform connecting farmers, innovators, entrepreneurs, and agriculture enthusiasts to shape the future of food security and sustainable farming." data-ar="منصة شبابية وطنية تجمع المزارعين الشباب والمبتكرين ورواد الأعمال والمهتمين بالزراعة لصناعة مستقبل الأمن الغذائي والزراعة المستدامة.">A national youth platform connecting farmers, innovators, entrepreneurs, and agriculture enthusiasts to shape the future of food security and sustainable farming.</p>
-                    <a href="#" onclick="navigateTo('contact')" class="btn btn-primary" data-en="Join the Movement" data-ar="انضم للحركة">Join the Movement</a>
-                </div>
-            </section>
-
-            <!-- About Section -->
-            <section class="section about-section">
-                <div class="container">
-                    <div class="section-header">
-                        <h2 data-en="About Us" data-ar="من نحن">About Us</h2>
-                        <p class="section-desc" data-en="A platform led by the Emirates Youth Council for Agriculture, operating under the Federal Youth Authority. We connect young farmers, innovators, and entrepreneurs to build the future of sustainable agriculture in the UAE." data-ar="منصة يقودها مجلس الإمارات للشباب الزراعي، تعمل تحت مظلة الهيئة الاتحادية للشباب. نربط المزارعين الشباب والمبتكرين ورواد الأعمال لبناء مستقبل الزراعة المستدامة في الإمارات.">A platform led by the Emirates Youth Council for Agriculture, operating under the Federal Youth Authority. We connect young farmers, innovators, and entrepreneurs to build the future of sustainable agriculture in the UAE.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Initiatives Section -->
-            <section class="section initiatives-section">
-                <div class="container">
-                    <div class="section-header">
-                        <h2 data-en="Our Initiatives" data-ar="مبادراتنا">Our Initiatives</h2>
-                    </div>
-                    <div class="cards-grid">
-                        <div class="card" onclick="navigateTo('young-farmer-seal')">
-                            <div class="card-icon">🌱</div>
-                            <h3 data-en="Young Farmer Seal" data-ar="ختم المزارع الشاب">Young Farmer Seal</h3>
-                            <p data-en="A certification program recognizing young agricultural entrepreneurs across 6 farming categories with tiered advancement levels." data-ar="برنامج اعتماد يكرّم رواد الأعمال الزراعيين الشباب عبر 6 فئات زراعية بمستويات تقدم متدرجة.">A certification program recognizing young agricultural entrepreneurs across 6 farming categories with tiered advancement levels.</p>
-                            <span class="card-link" data-en="Learn More →" data-ar="اعرف المزيد ←">Learn More →</span>
-                        </div>
-                        <div class="card" onclick="navigateTo('ambassadors')">
-                            <div class="card-icon">🌍</div>
-                            <h3 data-en="Agriculture Ambassadors" data-ar="سفراء الزراعة">Agriculture Ambassadors</h3>
-                            <p data-en="A comprehensive program to prepare young leaders in innovation and sustainable agriculture through councils, workshops, field visits, and international missions." data-ar="برنامج شامل لإعداد قادة شباب في الابتكار والزراعة المستدامة من خلال المجالس والورش والزيارات الميدانية والبعثات الدولية.">A comprehensive program to prepare young leaders in innovation and sustainable agriculture through councils, workshops, field visits, and international missions.</p>
-                            <span class="card-link" data-en="Learn More →" data-ar="اعرف المزيد ←">Learn More →</span>
-                        </div>
-                        <div class="card" onclick="navigateTo('community')">
-                            <div class="card-icon">🤝</div>
-                            <h3 data-en="Youth Agriculture Community" data-ar="مجتمع شباب الإمارات للزراعة">Youth Agriculture Community</h3>
-                            <p data-en="An interactive digital platform connecting young farmers, innovators, and entrepreneurs to exchange knowledge and support innovation in UAE agriculture." data-ar="منصة رقمية تفاعلية تربط المزارعين الشباب والمبتكرين ورواد الأعمال لتبادل المعرفة ودعم الابتكار في الزراعة الإماراتية.">An interactive digital platform connecting young farmers, innovators, and entrepreneurs to exchange knowledge and support innovation in UAE agriculture.</p>
-                            <span class="card-link" data-en="Learn More →" data-ar="اعرف المزيد ←">Learn More →</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Video Section -->
-            <section class="section video-section">
-                <div class="container">
-                    <div class="section-header">
-                        <h2 data-en="Community Introduction" data-ar="تعرّف على المجتمع">Community Introduction</h2>
-                    </div>
-                    <div class="video-wrapper">
-                        <video controls playsinline poster="assets/logo-clean.png">
-                            <source src="assets/community-intro.mp4" type="video/mp4">
-                            <p data-en="Your browser does not support the video tag." data-ar="متصفحك لا يدعم تشغيل الفيديو.">Your browser does not support the video tag.</p>
-                        </video>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Impact Stats -->
-            <section class="section stats-section">
-                <div class="container">
-                    <div class="section-header">
-                        <h2 data-en="Our Impact" data-ar="أثرنا">Our Impact</h2>
-                    </div>
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-number">6</div>
-                            <div class="stat-label" data-en="Farming Categories" data-ar="فئات زراعية">Farming Categories</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">5</div>
-                            <div class="stat-label" data-en="Program Pillars" data-ar="ركائز البرنامج">Program Pillars</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">7</div>
-                            <div class="stat-label" data-en="Emirates Covered" data-ar="إمارات مشمولة">Emirates Covered</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">3</div>
-                            <div class="stat-label" data-en="Core Initiatives" data-ar="مبادرات أساسية">Core Initiatives</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Why Join -->
-            <section class="section why-join-section">
-                <div class="container">
-                    <div class="section-header">
-                        <h2 data-en="Why Join Us?" data-ar="لماذا تنضم إلينا؟">Why Join Us?</h2>
-                    </div>
-                    <div class="benefits-grid">
-                        <div class="benefit-item">
-                            <div class="benefit-icon">🎓</div>
-                            <h4 data-en="Expert Training" data-ar="تدريب متخصص">Expert Training</h4>
-                            <p data-en="Access workshops and training programs led by agriculture experts and industry leaders." data-ar="الوصول إلى ورش عمل وبرامج تدريبية يقودها خبراء الزراعة وقادة الصناعة.">Access workshops and training programs led by agriculture experts and industry leaders.</p>
-                        </div>
-                        <div class="benefit-item">
-                            <div class="benefit-icon">🌐</div>
-                            <h4 data-en="Global Network" data-ar="شبكة عالمية">Global Network</h4>
-                            <p data-en="Connect with international organizations and participate in missions to leading agricultural nations." data-ar="تواصل مع المنظمات الدولية وشارك في بعثات إلى الدول الزراعية الرائدة.">Connect with international organizations and participate in missions to leading agricultural nations.</p>
-                        </div>
-                        <div class="benefit-item">
-                            <div class="benefit-icon">💡</div>
-                            <h4 data-en="Innovation Support" data-ar="دعم الابتكار">Innovation Support</h4>
-                            <p data-en="Get support to launch innovative agricultural startups and access funding opportunities." data-ar="احصل على الدعم لإطلاق مشاريع زراعية مبتكرة والوصول إلى فرص التمويل.">Get support to launch innovative agricultural startups and access funding opportunities.</p>
-                        </div>
-                        <div class="benefit-item">
-                            <div class="benefit-icon">🏆</div>
-                            <h4 data-en="Recognition" data-ar="التقدير">Recognition</h4>
-                            <p data-en="Earn official certifications and seals that enhance your credibility in the agricultural sector." data-ar="احصل على شهادات وأختام رسمية تعزز مصداقيتك في القطاع الزراعي.">Earn official certifications and seals that enhance your credibility in the agricultural sector.</p>
-                        </div>
-                        <div class="benefit-item">
-                            <div class="benefit-icon">🤝</div>
-                            <h4 data-en="Partnerships" data-ar="شراكات">Partnerships</h4>
-                            <p data-en="Build partnerships with government entities, private sector, and research institutions." data-ar="بناء شراكات مع الجهات الحكومية والقطاع الخاص والمؤسسات البحثية.">Build partnerships with government entities, private sector, and research institutions.</p>
-                        </div>
-                        <div class="benefit-item">
-                            <div class="benefit-icon">🌿</div>
-                            <h4 data-en="Sustainability" data-ar="الاستدامة">Sustainability</h4>
-                            <p data-en="Contribute to the UAE's food security goals and sustainable agriculture vision." data-ar="المساهمة في أهداف الأمن الغذائي والرؤية الزراعية المستدامة للإمارات.">Contribute to the UAE's food security goals and sustainable agriculture vision.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CTA Section -->
-            <section class="section cta-section">
-                <div class="container">
-                    <h2 data-en="Be part of the movement shaping the future of agriculture in the UAE" data-ar="كن جزءاً من الحركة التي تصنع مستقبل الزراعة في الإمارات">Be part of the movement shaping the future of agriculture in the UAE</h2>
-                    <div class="cta-buttons">
-                        <a href="https://forms.gle/5oyCZDzkuqCZ2YEZ8" target="_blank" class="btn btn-primary" data-en="Apply Now" data-ar="قدّم الآن">Apply Now</a>
-                        <a href="https://chat.whatsapp.com/Ha4RtfGRuv5LpeACxkQxYr" target="_blank" class="btn btn-secondary" data-en="Join WhatsApp Community" data-ar="انضم لمجتمع واتساب">Join WhatsApp Community</a>
-                    </div>
-                </div>
-            </section>
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="zigzag-divider"></div>
+        <div class="hero-content">
+            <img src="assets/logo-clean.png" alt="AgriYouth Logo" class="hero-logo">
+            <h1 class="hero-title">
+                <span class="title-en" data-en="Empowering the Next Generation of UAE Farmers" data-ar="تمكين الجيل القادم من شباب الزراعة في الإمارات">Empowering the Next Generation of UAE Farmers</span>
+            </h1>
+            <p class="hero-subtitle" data-en="A government initiative dedicated to empowering Emirati youth and strengthening their engagement in the agricultural sector" data-ar="مبادرة حكومية مكرسة لتمكين الشباب الإماراتي وتعزيز مشاركتهم في القطاع الزراعي">A government initiative dedicated to empowering Emirati youth and strengthening their engagement in the agricultural sector</p>
+            <a href="#young-farmer" class="btn-primary" data-en="Explore Initiatives" data-ar="استكشف المبادرات">Explore Initiatives</a>
         </div>
+        <div class="hero-pattern"></div>
+    </section>
 
-        <!-- YOUNG FARMER SEAL PAGE -->
-        <div class="page" id="page-young-farmer-seal">
-            <section class="page-hero">
-                <div class="container">
-                    <h1 data-en="Young Farmer Seal" data-ar="ختم المزارع الشاب">Young Farmer Seal</h1>
-                    <p class="page-hero-sub" data-en="An initiative by the Emirates Youth Council for Agriculture to certify and recognize young agricultural entrepreneurs." data-ar="مبادرة من مجلس الإمارات للشباب الزراعي لاعتماد وتكريم رواد الأعمال الزراعيين الشباب.">An initiative by the Emirates Youth Council for Agriculture to certify and recognize young agricultural entrepreneurs.</p>
-                </div>
-            </section>
-
-            <section class="section">
-                <div class="container page-content">
-                    <!-- Categories -->
-                    <div class="content-block">
-                        <h2 data-en="6 Farming Categories" data-ar="6 فئات زراعية">6 Farming Categories</h2>
-                        <div class="categories-grid">
-                            <div class="category-card">
-                                <div class="category-icon">💧</div>
-                                <h4 data-en="Hydroponics" data-ar="الزراعة المائية">Hydroponics</h4>
-                                <p data-en="Soilless farming using nutrient-rich water solutions for efficient crop production." data-ar="الزراعة بدون تربة باستخدام محاليل مائية غنية بالمغذيات لإنتاج محاصيل فعّال.">Soilless farming using nutrient-rich water solutions for efficient crop production.</p>
-                            </div>
-                            <div class="category-card">
-                                <div class="category-icon">🏠</div>
-                                <h4 data-en="Protected Agriculture" data-ar="الزراعة المحمية">Protected Agriculture</h4>
-                                <p data-en="Greenhouse and controlled environment agriculture for year-round production." data-ar="الزراعة في البيوت المحمية والبيئات المتحكم بها للإنتاج على مدار العام.">Greenhouse and controlled environment agriculture for year-round production.</p>
-                            </div>
-                            <div class="category-card">
-                                <div class="category-icon">🌿</div>
-                                <h4 data-en="Organic Farming" data-ar="الزراعة العضوية">Organic Farming</h4>
-                                <p data-en="Chemical-free farming practices promoting soil health and biodiversity." data-ar="ممارسات زراعية خالية من الكيماويات تعزز صحة التربة والتنوع البيولوجي.">Chemical-free farming practices promoting soil health and biodiversity.</p>
-                            </div>
-                            <div class="category-card">
-                                <div class="category-icon">🌾</div>
-                                <h4 data-en="Traditional Agriculture" data-ar="الزراعة التقليدية">Traditional Agriculture</h4>
-                                <p data-en="Heritage farming methods preserving UAE's agricultural traditions and knowledge." data-ar="أساليب زراعية تراثية تحافظ على تقاليد الإمارات الزراعية ومعارفها.">Heritage farming methods preserving UAE's agricultural traditions and knowledge.</p>
-                            </div>
-                            <div class="category-card">
-                                <div class="category-icon">🐄</div>
-                                <h4 data-en="Livestock" data-ar="الثروة الحيوانية">Livestock</h4>
-                                <p data-en="Animal husbandry and livestock management for sustainable food production." data-ar="تربية الحيوانات وإدارة الثروة الحيوانية لإنتاج غذائي مستدام.">Animal husbandry and livestock management for sustainable food production.</p>
-                            </div>
-                            <div class="category-card">
-                                <div class="category-icon">🏭</div>
-                                <h4 data-en="Food Industries" data-ar="الصناعات الغذائية">Food Industries</h4>
-                                <p data-en="Food processing, packaging, and value-added agricultural products." data-ar="تصنيع الأغذية والتعبئة والمنتجات الزراعية ذات القيمة المضافة.">Food processing, packaging, and value-added agricultural products.</p>
-                            </div>
-                        </div>
+    <!-- About Section -->
+    <section class="about-section section">
+        <div class="container">
+            <div class="section-header">
+                <div class="zigzag-divider-small"></div>
+                <h2 data-en="About AgriYouth" data-ar="عن مجتمع شباب الإمارات للزراعة">About AgriYouth</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p data-en="The UAE Youth Agriculture Community is a government initiative under the Federal Youth Authority, dedicated to empowering Emirati youth and strengthening their engagement in the agricultural sector, with a strong focus on sustainability, innovation, and modern farming practices." data-ar="مجتمع شباب الإمارات للزراعة هو مبادرة حكومية تحت مظلة المؤسسة الاتحادية للشباب، مكرسة لتمكين الشباب الإماراتي وتعزيز مشاركتهم في القطاع الزراعي، مع التركيز على الاستدامة والابتكار والممارسات الزراعية الحديثة.">The UAE Youth Agriculture Community is a government initiative under the Federal Youth Authority, dedicated to empowering Emirati youth and strengthening their engagement in the agricultural sector, with a strong focus on sustainability, innovation, and modern farming practices.</p>
+                    <div class="brand-vision">
+                        <div class="star-icon">✦</div>
+                        <blockquote data-en="To build an informed and impactful youth generation leading the future of sustainable agriculture in the UAE." data-ar="بناء جيل شبابي واعٍ ومؤثر يقود مستقبل الزراعة المستدامة في الإمارات.">To build an informed and impactful youth generation leading the future of sustainable agriculture in the UAE.</blockquote>
                     </div>
+                </div>
+                <div class="values-grid">
+                    <div class="value-item"><span class="value-icon">🌱</span><span data-en="Sustainability" data-ar="الاستدامة">Sustainability</span></div>
+                    <div class="value-item"><span class="value-icon">💡</span><span data-en="Innovation" data-ar="الابتكار">Innovation</span></div>
+                    <div class="value-item"><span class="value-icon">⚡</span><span data-en="Empowerment" data-ar="التمكين">Empowerment</span></div>
+                    <div class="value-item"><span class="value-icon">🤝</span><span data-en="Community" data-ar="المجتمع">Community</span></div>
+                    <div class="value-item"><span class="value-icon">🇦🇪</span><span data-en="National Responsibility" data-ar="المسؤولية الوطنية">National Responsibility</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    <!-- Requirements -->
-                    <div class="content-block">
-                        <h2 data-en="Requirements" data-ar="المتطلبات">Requirements</h2>
-                        <ul class="requirements-list">
-                            <li data-en="Applicant must be UAE youth (under 35 years)" data-ar="يجب أن يكون المتقدم شاباً إماراتياً (أقل من 35 عاماً)">Applicant must be UAE youth (under 35 years)</li>
-                            <li data-en="Project must be owned and managed by youth" data-ar="يجب أن يكون المشروع مملوكاً ومداراً من قبل الشباب">Project must be owned and managed by youth</li>
-                            <li data-en="Project linked to agricultural production or food processing" data-ar="المشروع مرتبط بالإنتاج الزراعي أو تصنيع الأغذية">Project linked to agricultural production or food processing</li>
-                            <li data-en="Compliance with local regulations" data-ar="الامتثال للأنظمة المحلية">Compliance with local regulations</li>
-                            <li data-en="Achieving qualifying points in technical evaluation" data-ar="تحقيق النقاط المؤهلة في التقييم الفني">Achieving qualifying points in technical evaluation</li>
+    <!-- Initiatives Cards -->
+    <section class="initiatives-section section">
+        <div class="container">
+            <div class="section-header">
+                <div class="zigzag-divider-small"></div>
+                <h2 data-en="Our Initiatives" data-ar="مبادراتنا">Our Initiatives</h2>
+            </div>
+            <div class="initiatives-grid">
+                <div class="initiative-card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 64 64" fill="none" stroke="#626843" stroke-width="2"><circle cx="32" cy="32" r="28"/><path d="M32 10v44M18 20l14 12 14-12M18 44l14-12 14 12"/></svg>
+                    </div>
+                    <h3 data-en="Young Farmer Seal" data-ar="ختم المزارع الشاب">Young Farmer Seal</h3>
+                    <p data-en="A certification system recognizing young Emirati farmers across 6 agricultural categories with progressive levels." data-ar="نظام شهادات يعترف بالمزارعين الشباب الإماراتيين عبر 6 فئات زراعية بمستويات تدريجية.">A certification system recognizing young Emirati farmers across 6 agricultural categories with progressive levels.</p>
+                    <a href="#young-farmer" class="btn-secondary" data-en="Learn More" data-ar="اعرف المزيد">Learn More</a>
+                </div>
+                <div class="initiative-card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 64 64" fill="none" stroke="#626843" stroke-width="2"><circle cx="32" cy="20" r="8"/><circle cx="16" cy="36" r="6"/><circle cx="48" cy="36" r="6"/><path d="M32 28v8M24 40h16M16 42v8M32 36v12M48 42v8"/></svg>
+                    </div>
+                    <h3 data-en="Agriculture Ambassadors" data-ar="سفراء الزراعة">Agriculture Ambassadors</h3>
+                    <p data-en="A comprehensive program preparing young agricultural leaders through councils, workshops, field visits, and innovation camps." data-ar="برنامج شامل لإعداد قادة زراعيين شباب من خلال المجالس والورش والزيارات الميدانية ومخيمات الابتكار.">A comprehensive program preparing young agricultural leaders through councils, workshops, field visits, and innovation camps.</p>
+                    <a href="#ambassadors" class="btn-secondary" data-en="Learn More" data-ar="اعرف المزيد">Learn More</a>
+                </div>
+                <div class="initiative-card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 64 64" fill="none" stroke="#626843" stroke-width="2"><rect x="12" y="16" width="40" height="32" rx="4"/><circle cx="32" cy="32" r="8"/><path d="M28 32l3 3 5-6"/></svg>
+                    </div>
+                    <h3 data-en="Youth Agriculture Community" data-ar="مجتمع شباب الإمارات للزراعة">Youth Agriculture Community</h3>
+                    <p data-en="An interactive digital platform on Instagram connecting young farmers, innovators, and entrepreneurs in the UAE agricultural sector." data-ar="منصة رقمية تفاعلية على إنستجرام تربط المزارعين الشباب والمبتكرين ورواد الأعمال في القطاع الزراعي الإماراتي.">An interactive digital platform on Instagram connecting young farmers, innovators, and entrepreneurs in the UAE agricultural sector.</p>
+                    <a href="#community" class="btn-secondary" data-en="Learn More" data-ar="اعرف المزيد">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Video Section -->
+    <section class="video-section section">
+        <div class="container">
+            <div class="section-header">
+                <div class="zigzag-divider-small"></div>
+                <h2 data-en="Community Introduction" data-ar="تعريف المجتمع">Community Introduction</h2>
+            </div>
+            <div class="video-wrapper">
+                <video controls poster="assets/logo-clean.png">
+                    <source src="assets/community-intro.mp4" type="video/mp4">
+                    <p data-en="Your browser does not support the video tag." data-ar="متصفحك لا يدعم تشغيل الفيديو.">Your browser does not support the video tag.</p>
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Stats -->
+    <section class="stats-section section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label" data-en="Farming Categories" data-ar="فئات زراعية">Farming Categories</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label" data-en="Program Pillars" data-ar="ركائز البرنامج">Program Pillars</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label" data-en="Strategic Objectives" data-ar="أهداف استراتيجية">Strategic Objectives</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label" data-en="Core Initiatives" data-ar="مبادرات أساسية">Core Initiatives</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Join Section -->
+    <section class="why-join-section section">
+        <div class="container">
+            <div class="section-header">
+                <div class="zigzag-divider-small"></div>
+                <h2 data-en="Why Join AgriYouth?" data-ar="لماذا تنضم لمجتمع شباب الزراعة؟">Why Join AgriYouth?</h2>
+            </div>
+            <div class="why-grid">
+                <div class="why-item">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="#626843" stroke-width="2"><path d="M24 4v40M4 24h40"/><circle cx="24" cy="24" r="20"/></svg>
+                    </div>
+                    <h4 data-en="Professional Development" data-ar="التطوير المهني">Professional Development</h4>
+                    <p data-en="Access training workshops, field visits, and mentorship from industry experts." data-ar="الوصول إلى ورش تدريبية وزيارات ميدانية وإرشاد من خبراء القطاع.">Access training workshops, field visits, and mentorship from industry experts.</p>
+                </div>
+                <div class="why-item">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="#626843" stroke-width="2"><path d="M8 40l16-32 16 32H8z"/><circle cx="24" cy="28" r="4"/></svg>
+                    </div>
+                    <h4 data-en="Innovation & Entrepreneurship" data-ar="الابتكار وريادة الأعمال">Innovation & Entrepreneurship</h4>
+                    <p data-en="Launch innovative agricultural startups with support from the Agripreneur Innovation Camp." data-ar="إطلاق مشاريع زراعية مبتكرة بدعم من المخيم الابتكاري.">Launch innovative agricultural startups with support from the Agripreneur Innovation Camp.</p>
+                </div>
+                <div class="why-item">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="#626843" stroke-width="2"><circle cx="24" cy="12" r="8"/><path d="M8 44c0-8 7-14 16-14s16 6 16 14"/></svg>
+                    </div>
+                    <h4 data-en="Community & Networking" data-ar="المجتمع والتواصل">Community & Networking</h4>
+                    <p data-en="Connect with like-minded youth, government entities, and private sector partners." data-ar="التواصل مع شباب ذوي اهتمامات مشتركة وجهات حكومية وشركاء من القطاع الخاص.">Connect with like-minded youth, government entities, and private sector partners.</p>
+                </div>
+                <div class="why-item">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="#626843" stroke-width="2"><rect x="8" y="8" width="32" height="32" rx="4"/><path d="M16 24l6 6 10-12"/></svg>
+                    </div>
+                    <h4 data-en="Official Recognition" data-ar="الاعتراف الرسمي">Official Recognition</h4>
+                    <p data-en="Earn the Young Farmer Seal certification recognized by UAE agricultural authorities." data-ar="الحصول على شهادة ختم المزارع الشاب المعترف بها من الجهات الزراعية.">Earn the Young Farmer Seal certification recognized by UAE agricultural authorities.</p>
+                </div>
+            </div>
+            <div class="cta-center">
+                <a href="https://forms.gle/5oyCZDzkuqCZ2YEZ8" target="_blank" class="btn-primary btn-large" data-en="Join Now" data-ar="انضم الآن">Join Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Young Farmer Seal Page -->
+    <section id="young-farmer" class="page-section section">
+        <div class="zigzag-divider"></div>
+        <div class="container">
+            <div class="page-header">
+                <h2 data-en="Young Farmer Seal" data-ar="ختم المزارع الشاب">Young Farmer Seal</h2>
+                <p class="page-subtitle" data-en="A certification initiative by the Emirates Youth Council for Agriculture" data-ar="مبادرة شهادات من مجلس شباب الإمارات للزراعة">A certification initiative by the Emirates Youth Council for Agriculture</p>
+            </div>
+
+            <!-- 6 Farming Categories -->
+            <div class="subsection">
+                <h3 data-en="6 Farming Categories" data-ar="6 فئات زراعية">6 Farming Categories</h3>
+                <div class="categories-grid">
+                    <div class="category-card">
+                        <div class="cat-icon">💧</div>
+                        <h4 data-en="Hydroponics" data-ar="الزراعة المائية">Hydroponics</h4>
+                    </div>
+                    <div class="category-card">
+                        <div class="cat-icon">🏠</div>
+                        <h4 data-en="Protected Agriculture" data-ar="الزراعة المحمية">Protected Agriculture</h4>
+                    </div>
+                    <div class="category-card">
+                        <div class="cat-icon">🌿</div>
+                        <h4 data-en="Organic Farming" data-ar="الزراعة العضوية">Organic Farming</h4>
+                    </div>
+                    <div class="category-card">
+                        <div class="cat-icon">🌾</div>
+                        <h4 data-en="Traditional Agriculture" data-ar="الزراعة التقليدية">Traditional Agriculture</h4>
+                    </div>
+                    <div class="category-card">
+                        <div class="cat-icon">🐄</div>
+                        <h4 data-en="Livestock" data-ar="الثروة الحيوانية">Livestock</h4>
+                    </div>
+                    <div class="category-card">
+                        <div class="cat-icon">🏭</div>
+                        <h4 data-en="Food Industries" data-ar="الصناعات الغذائية">Food Industries</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Requirements -->
+            <div class="subsection">
+                <h3 data-en="General Requirements" data-ar="المتطلبات العامة">General Requirements</h3>
+                <div class="requirements-list">
+                    <div class="req-item">
+                        <span class="req-icon">✦</span>
+                        <p data-en="Applicant must be UAE youth (under 35 years)" data-ar="أن يكون المتقدم من شباب الإمارات (أقل من 35 عاماً)">Applicant must be UAE youth (under 35 years)</p>
+                    </div>
+                    <div class="req-item">
+                        <span class="req-icon">✦</span>
+                        <p data-en="Project must be owned and managed by youth" data-ar="أن يكون المشروع مملوكاً ومداراً من قبل الشباب">Project must be owned and managed by youth</p>
+                    </div>
+                    <div class="req-item">
+                        <span class="req-icon">✦</span>
+                        <p data-en="Project linked to agricultural production or food processing" data-ar="ارتباط المشروع بالإنتاج الزراعي أو التصنيع الغذائي التحويلي">Project linked to agricultural production or food processing</p>
+                    </div>
+                    <div class="req-item">
+                        <span class="req-icon">✦</span>
+                        <p data-en="Compliance with local regulations" data-ar="الالتزام باللوائح المحلية">Compliance with local regulations</p>
+                    </div>
+                    <div class="req-item">
+                        <span class="req-icon">✦</span>
+                        <p data-en="Achieving qualifying points in technical evaluation" data-ar="الحصول على نقاط التأهل في التقييم الفني">Achieving qualifying points in technical evaluation</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Levels -->
+            <div class="subsection">
+                <h3 data-en="Category Levels" data-ar="مستويات الفئات">Category Levels</h3>
+                <div class="levels-grid">
+                    <div class="level-card level-a">
+                        <div class="level-badge">A</div>
+                        <h4 data-en="Beginner" data-ar="مبتدئ">Beginner</h4>
+                        <ul>
+                            <li data-en="Experience: 0-2 years" data-ar="خبرة من صفر إلى سنتين">Experience: 0-2 years</li>
+                            <li data-en="Clear operational plan for sustainable production" data-ar="توفر خطة تشغيل واضحة لضمان استمرارية الإنتاج المستدام">Clear operational plan for sustainable production</li>
+                            <li data-en="Eligibility for support and guidance for licensing" data-ar="إمكانية الاستفادة من الدعم والإرشاد للحصول على التراخيص">Eligibility for support and guidance for licensing</li>
+                            <li data-en="Foundation to advance to Category B after project development" data-ar="أساس للتقدم لاحقًا إلى الفئة B بعد تحقيق تطور المشروع">Foundation to advance to Category B after project development</li>
                         </ul>
                     </div>
-
-                    <!-- Tiers -->
-                    <div class="content-block">
-                        <h2 data-en="Certification Tiers" data-ar="مستويات الاعتماد">Certification Tiers</h2>
-                        <div class="tiers-grid">
-                            <div class="tier-card tier-a">
-                                <div class="tier-badge" data-en="Category A" data-ar="الفئة أ">Category A</div>
-                                <h3 data-en="Beginner" data-ar="مبتدئ">Beginner</h3>
-                                <ul>
-                                    <li data-en="0-2 years experience" data-ar="0-2 سنوات خبرة">0-2 years experience</li>
-                                    <li data-en="Clear operational plan" data-ar="خطة تشغيلية واضحة">Clear operational plan</li>
-                                    <li data-en="Eligibility for licensing support" data-ar="أهلية للحصول على دعم الترخيص">Eligibility for licensing support</li>
-                                    <li data-en="Foundation to advance to Category B" data-ar="أساس للتقدم إلى الفئة ب">Foundation to advance to Category B</li>
-                                </ul>
-                            </div>
-                            <div class="tier-card tier-b">
-                                <div class="tier-badge" data-en="Category B" data-ar="الفئة ب">Category B</div>
-                                <h3 data-en="Growth" data-ar="نمو">Growth</h3>
-                                <ul>
-                                    <li data-en="3-4 years experience" data-ar="3-4 سنوات خبرة">3-4 years experience</li>
-                                    <li data-en="Commitment to utilizing seal benefits" data-ar="الالتزام بالاستفادة من مزايا الختم">Commitment to utilizing seal benefits</li>
-                                    <li data-en="Possibility to upgrade to Category C" data-ar="إمكانية الترقية إلى الفئة ج">Possibility to upgrade to Category C</li>
-                                </ul>
-                            </div>
-                            <div class="tier-card tier-c">
-                                <div class="tier-badge" data-en="Category C" data-ar="الفئة ج">Category C</div>
-                                <h3 data-en="Advanced" data-ar="متقدم">Advanced</h3>
-                                <ul>
-                                    <li data-en="5+ years experience" data-ar="5+ سنوات خبرة">5+ years experience</li>
-                                    <li data-en="Proving innovation" data-ar="إثبات الابتكار">Proving innovation</li>
-                                    <li data-en="Effective marketing plan" data-ar="خطة تسويقية فعّالة">Effective marketing plan</li>
-                                    <li data-en="Maintaining excellence" data-ar="الحفاظ على التميز">Maintaining excellence</li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="level-card level-b">
+                        <div class="level-badge">B</div>
+                        <h4 data-en="Growth" data-ar="نمو">Growth</h4>
+                        <ul>
+                            <li data-en="Experience: 3-4 years" data-ar="خبرة عملية 3–4 سنوات">Experience: 3-4 years</li>
+                            <li data-en="Commitment to utilizing seal benefits in growth phase" data-ar="الالتزام بالاستفادة من مزايا الختم في مرحلة النمو">Commitment to utilizing seal benefits in growth phase</li>
+                            <li data-en="Possibility to upgrade to Category C after meeting all requirements" data-ar="إمكانية الترقية إلى الفئة C بعد استيفاء جميع متطلبات التقييم">Possibility to upgrade to Category C after meeting all requirements</li>
+                        </ul>
                     </div>
-
-                    <!-- Benefits -->
-                    <div class="content-block">
-                        <h2 data-en="Benefits" data-ar="المزايا">Benefits</h2>
-                        <div class="benefits-list">
-                            <div class="benefit-row">
-                                <span class="benefit-check">✓</span>
-                                <span data-en="Official recognition as a certified young farmer" data-ar="اعتراف رسمي كمزارع شاب معتمد">Official recognition as a certified young farmer</span>
-                            </div>
-                            <div class="benefit-row">
-                                <span class="benefit-check">✓</span>
-                                <span data-en="Increased trust and credibility in the market" data-ar="زيادة الثقة والمصداقية في السوق">Increased trust and credibility in the market</span>
-                            </div>
-                            <div class="benefit-row">
-                                <span class="benefit-check">✓</span>
-                                <span data-en="Enhanced visibility and exposure" data-ar="تعزيز الظهور والانتشار">Enhanced visibility and exposure</span>
-                            </div>
-                            <div class="benefit-row">
-                                <span class="benefit-check">✓</span>
-                                <span data-en="Partnership opportunities with leading organizations" data-ar="فرص شراكة مع المنظمات الرائدة">Partnership opportunities with leading organizations</span>
-                            </div>
-                            <div class="benefit-row">
-                                <span class="benefit-check">✓</span>
-                                <span data-en="Marketing and promotional support" data-ar="دعم تسويقي وترويجي">Marketing and promotional support</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CTA -->
-                    <div class="page-cta">
-                        <a href="https://forms.gle/5oyCZDzkuqCZ2YEZ8" target="_blank" class="btn btn-primary btn-large" data-en="Apply Now" data-ar="قدّم الآن">Apply Now</a>
+                    <div class="level-card level-c">
+                        <div class="level-badge">C</div>
+                        <h4 data-en="Advanced" data-ar="متقدم">Advanced</h4>
+                        <ul>
+                            <li data-en="Experience: 5+ years" data-ar="خبرة 5 سنوات فأكثر">Experience: 5+ years</li>
+                            <li data-en="Proving innovation in agricultural practices or technologies" data-ar="إثبات عنصر الابتكار والتجديد في الممارسات الزراعية">Proving innovation in agricultural practices or technologies</li>
+                            <li data-en="Effective marketing and distribution plan" data-ar="توفر خطة تسويق وتوزيع فعّالة وناجحة">Effective marketing and distribution plan</li>
+                            <li data-en="Maintaining excellence and innovation" data-ar="الحفاظ على استمرارية التميز والابتكار">Maintaining excellence and innovation</li>
+                        </ul>
                     </div>
                 </div>
-            </section>
+            </div>
+
+            <!-- Benefits -->
+            <div class="subsection">
+                <h3 data-en="Benefits" data-ar="المزايا">Benefits</h3>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🏅</span>
+                        <span data-en="Official certification and recognition" data-ar="شهادة واعتراف رسمي">Official certification and recognition</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">📋</span>
+                        <span data-en="Support with licensing procedures" data-ar="دعم في إجراءات الترخيص">Support with licensing procedures</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🎓</span>
+                        <span data-en="Training and capacity building" data-ar="التدريب وبناء القدرات">Training and capacity building</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🤝</span>
+                        <span data-en="Networking with industry partners" data-ar="التواصل مع شركاء القطاع">Networking with industry partners</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-center">
+                <a href="https://forms.gle/5oyCZDzkuqCZ2YEZ8" target="_blank" class="btn-primary btn-large" data-en="Apply Now" data-ar="قدّم الآن">Apply Now</a>
+            </div>
         </div>
+    </section>
 
-        <!-- AGRICULTURE AMBASSADORS PAGE -->
-        <div class="page" id="page-ambassadors">
-            <section class="page-hero">
-                <div class="container">
-                    <h1 data-en="Agriculture Ambassadors" data-ar="سفراء الزراعة">Agriculture Ambassadors</h1>
-                    <p class="page-hero-sub" data-en="Empowering Emirati youth in the agricultural sector, strengthening their role in national food security, and preparing young leaders for innovation and sustainable agriculture." data-ar="تمكين الشباب الإماراتي في القطاع الزراعي، وتعزيز دورهم في الأمن الغذائي الوطني، وإعداد قادة شباب للابتكار والزراعة المستدامة.">Empowering Emirati youth in the agricultural sector, strengthening their role in national food security, and preparing young leaders for innovation and sustainable agriculture.</p>
+    <!-- Agriculture Ambassadors Page -->
+    <section id="ambassadors" class="page-section section">
+        <div class="zigzag-divider"></div>
+        <div class="container">
+            <div class="page-header">
+                <h2 data-en="Agriculture Ambassadors" data-ar="سفراء الزراعة الشباب">Agriculture Ambassadors</h2>
+                <p class="page-subtitle" data-en="Empowering Emirati youth to lead sustainable agriculture and support national food security" data-ar="تمكين الشباب الإماراتي لقيادة الزراعة المستدامة ودعم الأمن الغذائي الوطني">Empowering Emirati youth to lead sustainable agriculture and support national food security</p>
+            </div>
+
+            <!-- About -->
+            <div class="subsection">
+                <div class="ambassador-intro">
+                    <p data-en="The Youth Agriculture Ambassadors initiative aims to empower Emirati youth in the agricultural sector and strengthen their role in supporting national food security, by preparing a generation of young leaders capable of innovation and contributing to sustainable agriculture development. The initiative also addresses existing challenges, notably youth reluctance toward agriculture and the gap between scientific research and field application." data-ar="تهدف مبادرة سفراء الزراعة الشباب إلى تمكين الشباب الإماراتي في القطاع الزراعي وتعزيز دورهم في دعم الأمن الغذائي الوطني، من خلال إعداد جيل من القادة الشباب القادرين على الابتكار والمساهمة في تطوير الزراعة المستدامة. كما تأتي المبادرة لمعالجة تحديات قائمة، أبرزها عزوف الشباب عن القطاع الزراعي ووجود فجوة بين البحث العلمي والتطبيق الميداني.">The Youth Agriculture Ambassadors initiative aims to empower Emirati youth in the agricultural sector and strengthen their role in supporting national food security, by preparing a generation of young leaders capable of innovation and contributing to sustainable agriculture development. The initiative also addresses existing challenges, notably youth reluctance toward agriculture and the gap between scientific research and field application.</p>
                 </div>
-            </section>
+            </div>
 
-            <section class="section">
-                <div class="container page-content">
-                    <!-- About -->
-                    <div class="content-block">
-                        <h2 data-en="About the Program" data-ar="عن البرنامج">About the Program</h2>
-                        <p class="content-text" data-en="The Agriculture Ambassadors program aims to empower Emirati youth in the agricultural sector, strengthen their role in national food security, and prepare young leaders for innovation and sustainable agriculture. The program addresses youth reluctance toward agriculture and bridges the gap between research and field application." data-ar="يهدف برنامج سفراء الزراعة إلى تمكين الشباب الإماراتي في القطاع الزراعي، وتعزيز دورهم في الأمن الغذائي الوطني، وإعداد قادة شباب للابتكار والزراعة المستدامة. يعالج البرنامج عزوف الشباب عن الزراعة ويسد الفجوة بين البحث العلمي والتطبيق الميداني.">The Agriculture Ambassadors program aims to empower Emirati youth in the agricultural sector, strengthen their role in national food security, and prepare young leaders for innovation and sustainable agriculture. The program addresses youth reluctance toward agriculture and bridges the gap between research and field application.</p>
+            <!-- Strategic Objectives -->
+            <div class="subsection">
+                <h3 data-en="Strategic Objectives" data-ar="الأهداف الاستراتيجية">Strategic Objectives</h3>
+                <div class="objectives-grid">
+                    <div class="objective-item">
+                        <span class="obj-number">01</span>
+                        <p data-en="Qualifying national cadres specialized in modern agriculture and food security" data-ar="تأهيل كوادر وطنية متخصصة في الزراعة الحديثة والأمن الغذائي">Qualifying national cadres specialized in modern agriculture and food security</p>
                     </div>
-
-                    <!-- Strategic Objectives -->
-                    <div class="content-block">
-                        <h2 data-en="4 Strategic Objectives" data-ar="4 أهداف استراتيجية">4 Strategic Objectives</h2>
-                        <div class="objectives-grid">
-                            <div class="objective-card">
-                                <div class="objective-num">1</div>
-                                <p data-en="Qualifying national cadres in modern agriculture and food security" data-ar="تأهيل كوادر وطنية في الزراعة الحديثة والأمن الغذائي">Qualifying national cadres in modern agriculture and food security</p>
-                            </div>
-                            <div class="objective-card">
-                                <div class="objective-num">2</div>
-                                <p data-en="Launching innovative startups that enhance local production" data-ar="إطلاق مشاريع ناشئة مبتكرة تعزز الإنتاج المحلي">Launching innovative startups that enhance local production</p>
-                            </div>
-                            <div class="objective-card">
-                                <div class="objective-num">3</div>
-                                <p data-en="Building partnership networks with government, private sector, and international organizations" data-ar="بناء شبكات شراكة مع الحكومة والقطاع الخاص والمنظمات الدولية">Building partnership networks with government, private sector, and international organizations</p>
-                            </div>
-                            <div class="objective-card">
-                                <div class="objective-num">4</div>
-                                <p data-en="Spreading awareness of sustainable agriculture and motivating youth" data-ar="نشر الوعي بالزراعة المستدامة وتحفيز الشباب">Spreading awareness of sustainable agriculture and motivating youth</p>
-                            </div>
-                        </div>
+                    <div class="objective-item">
+                        <span class="obj-number">02</span>
+                        <p data-en="Launching innovative startups that enhance local production" data-ar="إطلاق مشاريع ناشئة مبتكرة تعزز الإنتاج المحلي">Launching innovative startups that enhance local production</p>
                     </div>
-
-                    <!-- 5 Program Pillars -->
-                    <div class="content-block">
-                        <h2 data-en="5 Program Pillars" data-ar="5 ركائز البرنامج">5 Program Pillars</h2>
-                        <div class="pillars-list">
-                            <div class="pillar-card">
-                                <div class="pillar-header">
-                                    <span class="pillar-num">01</span>
-                                    <h3 data-en="Monthly Councils" data-ar="المجالس الشهرية">Monthly Councils</h3>
-                                </div>
-                                <p data-en="10-12 monthly councils featuring experts in food security, smart agriculture, water management, and climate change. A platform for knowledge exchange and strategic discussions." data-ar="10-12 مجلس شهري يضم خبراء في الأمن الغذائي والزراعة الذكية وإدارة المياه والتغير المناخي. منصة لتبادل المعرفة والنقاشات الاستراتيجية.">10-12 monthly councils featuring experts in food security, smart agriculture, water management, and climate change. A platform for knowledge exchange and strategic discussions.</p>
-                            </div>
-                            <div class="pillar-card">
-                                <div class="pillar-header">
-                                    <span class="pillar-num">02</span>
-                                    <h3 data-en="Training Workshops" data-ar="الورش التدريبية">Training Workshops</h3>
-                                </div>
-                                <p data-en="6-8 workshops focused on technical and practical skills in modern agriculture. Hands-on training in cutting-edge farming technologies and sustainable practices." data-ar="6-8 ورش عمل تركز على المهارات التقنية والعملية في الزراعة الحديثة. تدريب عملي على أحدث تقنيات الزراعة والممارسات المستدامة.">6-8 workshops focused on technical and practical skills in modern agriculture. Hands-on training in cutting-edge farming technologies and sustainable practices.</p>
-                            </div>
-                            <div class="pillar-card">
-                                <div class="pillar-header">
-                                    <span class="pillar-num">03</span>
-                                    <h3 data-en="Field Visits" data-ar="الزيارات الميدانية">Field Visits</h3>
-                                </div>
-                                <p data-en="4 visits to leading agricultural facilities: National Agricultural Center, Pure Harvest, Emirates Bio Farm, and Elite Agro. Real-world exposure to successful farming operations." data-ar="4 زيارات لمنشآت زراعية رائدة: المركز الوطني للزراعة، بيور هارفست، مزرعة الإمارات العضوية، وإيليت أجرو. تعرض حقيقي لعمليات زراعية ناجحة.">4 visits to leading agricultural facilities: National Agricultural Center, Pure Harvest, Emirates Bio Farm, and Elite Agro. Real-world exposure to successful farming operations.</p>
-                            </div>
-                            <div class="pillar-card">
-                                <div class="pillar-header">
-                                    <span class="pillar-num">04</span>
-                                    <h3 data-en="International Missions" data-ar="البعثات الدولية">International Missions</h3>
-                                </div>
-                                <p data-en="International exposure through missions to leading agricultural nations. The Netherlands and China have shown interest, with funding being secured for these transformative experiences." data-ar="تعرض دولي من خلال بعثات إلى الدول الزراعية الرائدة. أبدت هولندا والصين اهتمامهما، ويجري تأمين التمويل لهذه التجارب التحويلية.">International exposure through missions to leading agricultural nations. The Netherlands and China have shown interest, with funding being secured for these transformative experiences.</p>
-                            </div>
-                            <div class="pillar-card">
-                                <div class="pillar-header">
-                                    <span class="pillar-num">05</span>
-                                    <h3 data-en="Agripreneur Innovation Camp" data-ar="المخيم الابتكاري">Agripreneur Innovation Camp</h3>
-                                </div>
-                                <p data-en="3-5 intensive days of idea generation, business model development, and investor pitches. Transform agricultural ideas into viable business ventures with expert mentorship." data-ar="3-5 أيام مكثفة من توليد الأفكار وتطوير نماذج الأعمال وعروض المستثمرين. تحويل الأفكار الزراعية إلى مشاريع تجارية قابلة للتطبيق مع إرشاد الخبراء.">3-5 intensive days of idea generation, business model development, and investor pitches. Transform agricultural ideas into viable business ventures with expert mentorship.</p>
-                            </div>
-                        </div>
+                    <div class="objective-item">
+                        <span class="obj-number">03</span>
+                        <p data-en="Building partnership networks with government, private sector, and international organizations" data-ar="بناء شبكة شراكات مع القطاعين الحكومي والخاص والمنظمات الدولية">Building partnership networks with government, private sector, and international organizations</p>
                     </div>
-
-                    <!-- CTA -->
-                    <div class="page-cta">
-                        <a href="https://forms.gle/5oyCZDzkuqCZ2YEZ8" target="_blank" class="btn btn-primary btn-large" data-en="Apply Now" data-ar="قدّم الآن">Apply Now</a>
+                    <div class="objective-item">
+                        <span class="obj-number">04</span>
+                        <p data-en="Spreading awareness of sustainable agriculture and motivating youth engagement" data-ar="نشر الوعي بأهمية الزراعة المستدامة وتحفيز الشباب للانخراط في القطاع">Spreading awareness of sustainable agriculture and motivating youth engagement</p>
                     </div>
                 </div>
-            </section>
+            </div>
+
+            <!-- Program Pillars -->
+            <div class="subsection">
+                <h3 data-en="5 Program Pillars" data-ar="5 ركائز البرنامج">5 Program Pillars</h3>
+                <div class="pillars-grid">
+                    <div class="pillar-card">
+                        <div class="pillar-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="#626843" stroke-width="2"><rect x="6" y="6" width="36" height="36" rx="4"/><path d="M6 18h36M18 18v24"/></svg>
+                        </div>
+                        <h4 data-en="Monthly Councils" data-ar="المجالس الشهرية">Monthly Councils</h4>
+                        <p data-en="10-12 monthly councils with experts in food security, smart agriculture, water management, and climate change" data-ar="10-12 مجلساً شهرياً مع خبراء متخصصين في الأمن الغذائي والزراعة الذكية وإدارة المياه وتغير المناخ">10-12 monthly councils with experts in food security, smart agriculture, water management, and climate change</p>
+                    </div>
+                    <div class="pillar-card">
+                        <div class="pillar-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="#626843" stroke-width="2"><path d="M12 36V20l12-8 12 8v16"/><path d="M20 36v-8h8v8"/></svg>
+                        </div>
+                        <h4 data-en="Training Workshops" data-ar="الورش التدريبية">Training Workshops</h4>
+                        <p data-en="6-8 training workshops in technical and practical skills in modern agriculture" data-ar="6-8 ورش تدريبية في مهارات تقنية وعملية في الزراعة الحديثة">6-8 training workshops in technical and practical skills in modern agriculture</p>
+                    </div>
+                    <div class="pillar-card">
+                        <div class="pillar-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="#626843" stroke-width="2"><path d="M8 40h32M12 40V24h8v16M20 40V16h8v24M28 40V20h8v20"/></svg>
+                        </div>
+                        <h4 data-en="Field Visits" data-ar="الزيارات الميدانية">Field Visits</h4>
+                        <p data-en="4 visits to advanced farms: Pure Harvest, Emirates Bio Farm, Elite Agro, National Agricultural Center" data-ar="4 زيارات لمزارع متقدمة: Pure Harvest، Emirates Bio Farm، Elite Agro، المركز الزراعي الوطني">4 visits to advanced farms: Pure Harvest, Emirates Bio Farm, Elite Agro, National Agricultural Center</p>
+                    </div>
+                    <div class="pillar-card">
+                        <div class="pillar-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="#626843" stroke-width="2"><circle cx="24" cy="24" r="18"/><path d="M24 6v36M6 24h36M12 12l24 24M36 12L12 36"/></svg>
+                        </div>
+                        <h4 data-en="International Missions" data-ar="البعثات الدولية">International Missions</h4>
+                        <p data-en="Under preparation — Netherlands and China have shown interest, funding is being secured" data-ar="قيد التحضير — هولندا والصين أبدتا اهتمامهما، يجري العمل على تأمين التمويل">Under preparation — Netherlands and China have shown interest, funding is being secured</p>
+                    </div>
+                    <div class="pillar-card">
+                        <div class="pillar-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="#626843" stroke-width="2"><path d="M24 4l6 12h12l-10 8 4 12-12-8-12 8 4-12L6 16h12z"/></svg>
+                        </div>
+                        <h4 data-en="Agripreneur Innovation Camp" data-ar="المخيم الابتكاري Agripreneur">Agripreneur Innovation Camp</h4>
+                        <p data-en="3-5 intensive days for agricultural entrepreneurship — idea generation, business model development, and investor pitches" data-ar="3-5 أيام مكثفة لريادة الأعمال الزراعية — توليد أفكار + تطوير نموذج الأعمال + عروض المستثمرين">3-5 intensive days for agricultural entrepreneurship — idea generation, business model development, and investor pitches</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-center">
+                <a href="https://forms.gle/5oyCZDzkuqCZ2YEZ8" target="_blank" class="btn-primary btn-large" data-en="Apply Now" data-ar="قدّم الآن">Apply Now</a>
+            </div>
         </div>
+    </section>
 
-        <!-- YOUTH COMMUNITY PAGE -->
-        <div class="page" id="page-community">
-            <section class="page-hero">
-                <div class="container">
-                    <h1 data-en="UAE Youth Agriculture Community" data-ar="مجتمع شباب الإمارات للزراعة">UAE Youth Agriculture Community</h1>
-                    <p class="page-hero-sub" data-en="An interactive digital platform connecting young farmers, innovators, and entrepreneurs in UAE agriculture." data-ar="منصة رقمية تفاعلية تربط المزارعين الشباب والمبتكرين ورواد الأعمال في الزراعة الإماراتية.">An interactive digital platform connecting young farmers, innovators, and entrepreneurs in UAE agriculture.</p>
+    <!-- Youth Agriculture Community Page -->
+    <section id="community" class="page-section section">
+        <div class="zigzag-divider"></div>
+        <div class="container">
+            <div class="page-header">
+                <h2 data-en="Youth Agriculture Community" data-ar="مجتمع شباب الإمارات للزراعة">Youth Agriculture Community</h2>
+                <p class="page-subtitle" data-en="An interactive digital platform connecting young farmers and agricultural innovators" data-ar="منصة رقمية تفاعلية تربط المزارعين الشباب والمبتكرين الزراعيين">An interactive digital platform connecting young farmers and agricultural innovators</p>
+            </div>
+
+            <div class="subsection">
+                <div class="community-intro-text">
+                    <p data-en="An interactive digital platform on social media (Instagram) under the name UAE Youth Agriculture Community @Agriyouth.ae — aims to attract and empower young farmers, those interested in agriculture, innovators, and entrepreneurs in the agricultural field within the UAE." data-ar="منصة رقمية تفاعلية على مواقع التواصل الاجتماعي (إنستجرام) تحت مسمى مجتمع شباب الإمارات للزراعة @Agriyouth.ae — تهدف إلى استقطاب وتمكين الشباب المزارعين، والمهتمين بالقطاع الزراعي، إضافةً إلى المبتكرين وروّاد الأعمال في المجال الزراعي داخل دولة الإمارات.">An interactive digital platform on social media (Instagram) under the name UAE Youth Agriculture Community @Agriyouth.ae — aims to attract and empower young farmers, those interested in agriculture, innovators, and entrepreneurs in the agricultural field within the UAE.</p>
+                    <p class="community-managed" data-en="Managed by the Emirates Youth Council for Agriculture, under the umbrella of: The Federal Youth Authority." data-ar="تُدار المنصة من قبل مجلس شباب الإمارات للزراعة، تحت مظلة: المؤسسة الاتحادية للشباب.">Managed by the Emirates Youth Council for Agriculture, under the umbrella of: The Federal Youth Authority.</p>
                 </div>
-            </section>
+            </div>
 
-            <section class="section">
-                <div class="container page-content">
-                    <!-- About -->
-                    <div class="content-block">
-                        <h2 data-en="About the Community" data-ar="عن المجتمع">About the Community</h2>
-                        <p class="content-text" data-en="The UAE Youth Agriculture Community is an interactive digital platform on Instagram @Agriyouth.ae. It aims to attract and empower young farmers, innovators, and entrepreneurs in agriculture within the UAE. The platform works on enhancing communication, exchanging knowledge, highlighting opportunities, and supporting innovation and sustainability." data-ar="مجتمع شباب الإمارات للزراعة هو منصة رقمية تفاعلية على إنستغرام @Agriyouth.ae. يهدف إلى جذب وتمكين المزارعين الشباب والمبتكرين ورواد الأعمال في الزراعة داخل الإمارات. تعمل المنصة على تعزيز التواصل وتبادل المعرفة وإبراز الفرص ودعم الابتكار والاستدامة.">The UAE Youth Agriculture Community is an interactive digital platform on Instagram @Agriyouth.ae. It aims to attract and empower young farmers, innovators, and entrepreneurs in agriculture within the UAE. The platform works on enhancing communication, exchanging knowledge, highlighting opportunities, and supporting innovation and sustainability.</p>
-                    </div>
-
-                    <!-- Management -->
-                    <div class="content-block">
-                        <h2 data-en="Management" data-ar="الإدارة">Management</h2>
-                        <p class="content-text" data-en="Managed by the Emirates Youth Council for Agriculture, operating under the Federal Youth Authority. The community serves as the digital arm of the council's mission to engage and empower UAE youth in the agricultural sector." data-ar="يُدار من قبل مجلس الإمارات للشباب الزراعي، ويعمل تحت مظلة الهيئة الاتحادية للشباب. يعمل المجتمع كذراع رقمي لمهمة المجلس في إشراك وتمكين شباب الإمارات في القطاع الزراعي.">Managed by the Emirates Youth Council for Agriculture, operating under the Federal Youth Authority. The community serves as the digital arm of the council's mission to engage and empower UAE youth in the agricultural sector.</p>
-                    </div>
-
-                    <!-- Platform Functions -->
-                    <div class="content-block">
-                        <h2 data-en="What We Do" data-ar="ما نقوم به">What We Do</h2>
-                        <div class="functions-grid">
-                            <div class="function-card">
-                                <div class="function-icon">💬</div>
-                                <h4 data-en="Enhancing Communication" data-ar="تعزيز التواصل">Enhancing Communication</h4>
-                                <p data-en="Building bridges between young agricultural professionals across the UAE." data-ar="بناء جسور بين المهنيين الزراعيين الشباب في جميع أنحاء الإمارات.">Building bridges between young agricultural professionals across the UAE.</p>
-                            </div>
-                            <div class="function-card">
-                                <div class="function-icon">📚</div>
-                                <h4 data-en="Exchanging Knowledge" data-ar="تبادل المعرفة">Exchanging Knowledge</h4>
-                                <p data-en="Sharing expertise, research findings, and practical farming knowledge." data-ar="مشاركة الخبرات ونتائج البحوث والمعرفة الزراعية العملية.">Sharing expertise, research findings, and practical farming knowledge.</p>
-                            </div>
-                            <div class="function-card">
-                                <div class="function-icon">🎯</div>
-                                <h4 data-en="Highlighting Opportunities" data-ar="إبراز الفرص">Highlighting Opportunities</h4>
-                                <p data-en="Showcasing grants, partnerships, events, and career opportunities in agriculture." data-ar="عرض المنح والشراكات والفعاليات والفرص المهنية في الزراعة.">Showcasing grants, partnerships, events, and career opportunities in agriculture.</p>
-                            </div>
-                            <div class="function-card">
-                                <div class="function-icon">🚀</div>
-                                <h4 data-en="Supporting Innovation" data-ar="دعم الابتكار">Supporting Innovation</h4>
-                                <p data-en="Fostering creative solutions and sustainable practices in UAE agriculture." data-ar="تعزيز الحلول الإبداعية والممارسات المستدامة في الزراعة الإماراتية.">Fostering creative solutions and sustainable practices in UAE agriculture.</p>
-                            </div>
+            <!-- Platform Goals -->
+            <div class="subsection">
+                <h3 data-en="Platform Goals" data-ar="أهداف المنصة">Platform Goals</h3>
+                <div class="goals-grid">
+                    <div class="goal-item">
+                        <div class="goal-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="#626843" stroke-width="2"><circle cx="24" cy="16" r="8"/><circle cx="12" cy="32" r="6"/><circle cx="36" cy="32" r="6"/><path d="M18 20l-4 8M30 20l4 8"/></svg>
                         </div>
+                        <h4 data-en="Enhancing Communication" data-ar="تعزيز التواصل">Enhancing Communication</h4>
+                        <p data-en="Strengthening connections among the agricultural community members" data-ar="تعزيز التواصل بين أفراد المجتمع الزراعي">Strengthening connections among the agricultural community members</p>
                     </div>
-
-                    <!-- Logo Meaning -->
-                    <div class="content-block">
-                        <h2 data-en="Our Logo" data-ar="شعارنا">Our Logo</h2>
-                        <div class="logo-meaning">
-                            <img src="assets/logo-clean.png" alt="AgriYouth Logo" class="logo-display">
-                            <div class="logo-desc">
-                                <p class="content-text" data-en="The green palm tree shape represents Emirati identity, while the star symbolizes youth leadership. The four fronds represent our core values:" data-ar="شكل النخلة الخضراء يمثل الهوية الإماراتية، بينما يرمز النجم إلى قيادة الشباب. تمثل السعفات الأربع قيمنا الأساسية:">The green palm tree shape represents Emirati identity, while the star symbolizes youth leadership. The four fronds represent our core values:</p>
-                                <div class="logo-values">
-                                    <span class="value-tag" data-en="Sustainability" data-ar="الاستدامة">Sustainability</span>
-                                    <span class="value-tag" data-en="Innovation" data-ar="الابتكار">Innovation</span>
-                                    <span class="value-tag" data-en="Collaboration" data-ar="التعاون">Collaboration</span>
-                                    <span class="value-tag" data-en="Empowerment" data-ar="التمكين">Empowerment</span>
-                                </div>
-                            </div>
+                    <div class="goal-item">
+                        <div class="goal-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="#626843" stroke-width="2"><path d="M8 8h32v32H8z"/><path d="M16 24h16M24 16v16"/></svg>
                         </div>
+                        <h4 data-en="Knowledge Exchange" data-ar="تبادل المعرفة">Knowledge Exchange</h4>
+                        <p data-en="Sharing knowledge and experiences among community members" data-ar="تبادل المعرفة والخبرات بين أفراد المجتمع">Sharing knowledge and experiences among community members</p>
                     </div>
-
-                    <!-- CTA -->
-                    <div class="page-cta">
-                        <a href="https://chat.whatsapp.com/Ha4RtfGRuv5LpeACxkQxYr" target="_blank" class="btn btn-primary btn-large" data-en="Join Community" data-ar="انضم للمجتمع">Join Community</a>
-                        <a href="https://www.instagram.com/agriyouth.ae" target="_blank" class="btn btn-secondary btn-large" data-en="Follow on Instagram" data-ar="تابعنا على إنستغرام">Follow on Instagram</a>
+                    <div class="goal-item">
+                        <div class="goal-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="#626843" stroke-width="2"><path d="M24 4l4 8h8l-6 6 2 8-8-4-8 4 2-8-6-6h8z"/></svg>
+                        </div>
+                        <h4 data-en="Highlighting Opportunities" data-ar="إبراز الفرص">Highlighting Opportunities</h4>
+                        <p data-en="Showcasing opportunities and initiatives in the agricultural sector" data-ar="إبراز الفرص والمبادرات في القطاع الزراعي">Showcasing opportunities and initiatives in the agricultural sector</p>
+                    </div>
+                    <div class="goal-item">
+                        <div class="goal-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="#626843" stroke-width="2"><circle cx="24" cy="24" r="18"/><path d="M16 24l6 6 10-10"/></svg>
+                        </div>
+                        <h4 data-en="Supporting Innovation" data-ar="دعم الابتكار">Supporting Innovation</h4>
+                        <p data-en="Fostering innovation and sustainability in agriculture" data-ar="دعم الابتكار والاستدامة في الزراعة">Fostering innovation and sustainability in agriculture</p>
                     </div>
                 </div>
-            </section>
+            </div>
+
+            <!-- Instagram & WhatsApp -->
+            <div class="subsection">
+                <div class="social-links-section">
+                    <a href="https://www.instagram.com/agriyouth.ae" target="_blank" class="social-card instagram-card">
+                        <div class="social-icon">
+                            <svg viewBox="0 0 24 24" fill="#626843"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </div>
+                        <div class="social-info">
+                            <h4>@Agriyouth.ae</h4>
+                            <p data-en="Follow us on Instagram" data-ar="تابعنا على إنستجرام">Follow us on Instagram</p>
+                        </div>
+                    </a>
+                    <a href="https://chat.whatsapp.com/Ha4RtfGRuv5LpeACxkQxYr" target="_blank" class="social-card whatsapp-card">
+                        <div class="social-icon">
+                            <svg viewBox="0 0 24 24" fill="#626843"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        </div>
+                        <div class="social-info">
+                            <h4 data-en="Join WhatsApp Group" data-ar="انضم لمجموعة الواتساب">Join WhatsApp Group</h4>
+                            <p data-en="Connect with the community" data-ar="تواصل مع المجتمع">Connect with the community</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cta-center">
+                <a href="https://chat.whatsapp.com/Ha4RtfGRuv5LpeACxkQxYr" target="_blank" class="btn-primary btn-large" data-en="Join the Community" data-ar="انضم للمجتمع">Join the Community</a>
+            </div>
         </div>
+    </section>
 
-        <!-- CONTACT PAGE -->
-        <div class="page" id="page-contact">
-            <section class="page-hero">
-                <div class="container">
-                    <h1 data-en="Contact Us" data-ar="تواصل معنا">Contact Us</h1>
-                    <p class="page-hero-sub" data-en="Get in touch with the UAE Youth Agriculture Community" data-ar="تواصل مع مجتمع شباب الإمارات للزراعة">Get in touch with the UAE Youth Agriculture Community</p>
-                </div>
-            </section>
+    <!-- Contact Section -->
+    <section id="contact" class="page-section section">
+        <div class="zigzag-divider"></div>
+        <div class="container">
+            <div class="page-header">
+                <h2 data-en="Contact Us" data-ar="تواصل معنا">Contact Us</h2>
+                <p class="page-subtitle" data-en="Get in touch with the AgriYouth team" data-ar="تواصل مع فريق مجتمع شباب الزراعة">Get in touch with the AgriYouth team</p>
+            </div>
 
-            <section class="section">
-                <div class="container page-content">
-                    <div class="contact-grid">
-                        <div class="contact-card">
-                            <div class="contact-icon">📧</div>
-                            <h3 data-en="Email" data-ar="البريد الإلكتروني">Email</h3>
-                            <a href="mailto:Info@agriyouth.ae">Info@agriyouth.ae</a>
-                        </div>
-                        <div class="contact-card">
-                            <div class="contact-icon">📱</div>
-                            <h3 data-en="WhatsApp Community" data-ar="مجتمع واتساب">WhatsApp Community</h3>
-                            <a href="https://chat.whatsapp.com/Ha4RtfGRuv5LpeACxkQxYr" target="_blank" data-en="Join WhatsApp Group" data-ar="انضم لمجموعة واتساب">Join WhatsApp Group</a>
-                        </div>
-                        <div class="contact-card">
-                            <div class="contact-icon">📸</div>
-                            <h3 data-en="Instagram" data-ar="إنستغرام">Instagram</h3>
-                            <a href="https://www.instagram.com/agriyouth.ae" target="_blank">@agriyouth.ae</a>
-                        </div>
-                        <div class="contact-card">
-                            <div class="contact-icon">📝</div>
-                            <h3 data-en="Apply / Register" data-ar="التقديم / التسجيل">Apply / Register</h3>
-                            <a href="https://forms.gle/5oyCZDzkuqCZ2YEZ8" target="_blank" data-en="Registration Form" data-ar="نموذج التسجيل">Registration Form</a>
-                        </div>
+            <div class="contact-grid">
+                <a href="https://chat.whatsapp.com/Ha4RtfGRuv5LpeACxkQxYr" target="_blank" class="contact-card">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24" fill="#626843"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                     </div>
-
-                    <div class="join-cta">
-                        <h2 data-en="Ready to Join?" data-ar="مستعد للانضمام؟">Ready to Join?</h2>
-                        <p data-en="Be part of the movement shaping the future of agriculture in the UAE. Whether you're a farmer, innovator, entrepreneur, or simply passionate about agriculture — there's a place for you here." data-ar="كن جزءاً من الحركة التي تصنع مستقبل الزراعة في الإمارات. سواء كنت مزارعاً أو مبتكراً أو رائد أعمال أو مهتماً بالزراعة — هناك مكان لك هنا.">Be part of the movement shaping the future of agriculture in the UAE. Whether you're a farmer, innovator, entrepreneur, or simply passionate about agriculture — there's a place for you here.</p>
-                        <div class="cta-buttons">
-                            <a href="https://forms.gle/5oyCZDzkuqCZ2YEZ8" target="_blank" class="btn btn-primary" data-en="Apply Now" data-ar="قدّم الآن">Apply Now</a>
-                            <a href="https://chat.whatsapp.com/Ha4RtfGRuv5LpeACxkQxYr" target="_blank" class="btn btn-secondary" data-en="Join WhatsApp" data-ar="انضم لواتساب">Join WhatsApp</a>
-                        </div>
+                    <h4 data-en="WhatsApp" data-ar="واتساب">WhatsApp</h4>
+                    <p data-en="Join our community group" data-ar="انضم لمجموعتنا">Join our community group</p>
+                </a>
+                <a href="https://www.instagram.com/agriyouth.ae" target="_blank" class="contact-card">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24" fill="#626843"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                     </div>
-                </div>
-            </section>
+                    <h4>Instagram</h4>
+                    <p>@agriyouth.ae</p>
+                </a>
+                <a href="mailto:Info@agriyouth.ae" class="contact-card">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#626843" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 4l10 8 10-8"/></svg>
+                    </div>
+                    <h4 data-en="Email" data-ar="البريد الإلكتروني">Email</h4>
+                    <p>Info@agriyouth.ae</p>
+                </a>
+                <a href="https://forms.gle/5oyCZDzkuqCZ2YEZ8" target="_blank" class="contact-card">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#626843" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    </div>
+                    <h4 data-en="Application Form" data-ar="نموذج التقديم">Application Form</h4>
+                    <p data-en="Submit your application" data-ar="قدّم طلبك">Submit your application</p>
+                </a>
+            </div>
         </div>
-    </main>
+    </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="site-footer">
         <div class="container">
-            <div class="footer-grid">
+            <div class="footer-content">
                 <div class="footer-brand">
                     <img src="assets/logo-clean.png" alt="AgriYouth Logo" class="footer-logo">
-                    <p data-en="UAE Youth Agriculture Community — Empowering the next generation of farmers." data-ar="مجتمع شباب الإمارات للزراعة — تمكين الجيل القادم من المزارعين.">UAE Youth Agriculture Community — Empowering the next generation of farmers.</p>
+                    <p data-en="UAE Youth Agriculture Community" data-ar="مجتمع شباب الإمارات للزراعة">UAE Youth Agriculture Community</p>
+                    <p class="footer-authority" data-en="Under the Federal Youth Authority" data-ar="تحت مظلة المؤسسة الاتحادية للشباب">Under the Federal Youth Authority</p>
                 </div>
                 <div class="footer-links">
-                    <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
-                    <a href="#" onclick="navigateTo('home')" data-en="Home" data-ar="الرئيسية">Home</a>
-                    <a href="#" onclick="navigateTo('young-farmer-seal')" data-en="Young Farmer Seal" data-ar="ختم المزارع الشاب">Young Farmer Seal</a>
-                    <a href="#" onclick="navigateTo('ambassadors')" data-en="Agriculture Ambassadors" data-ar="سفراء الزراعة">Agriculture Ambassadors</a>
-                    <a href="#" onclick="navigateTo('community')" data-en="Youth Community" data-ar="مجتمع الشباب">Youth Community</a>
+                    <a href="#home" data-en="Home" data-ar="الرئيسية">Home</a>
+                    <a href="#young-farmer" data-en="Young Farmer Seal" data-ar="ختم المزارع الشاب">Young Farmer Seal</a>
+                    <a href="#ambassadors" data-en="Ambassadors" data-ar="سفراء الزراعة">Ambassadors</a>
+                    <a href="#community" data-en="Community" data-ar="المجتمع">Community</a>
+                    <a href="#contact" data-en="Contact" data-ar="تواصل">Contact</a>
                 </div>
-                <div class="footer-contact">
-                    <h4 data-en="Connect" data-ar="تواصل">Connect</h4>
-                    <a href="mailto:Info@agriyouth.ae">Info@agriyouth.ae</a>
-                    <a href="https://www.instagram.com/agriyouth.ae" target="_blank">Instagram</a>
-                    <a href="https://chat.whatsapp.com/Ha4RtfGRuv5LpeACxkQxYr" target="_blank">WhatsApp</a>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/agriyouth.ae" target="_blank" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <a href="https://chat.whatsapp.com/Ha4RtfGRuv5LpeACxkQxYr" target="_blank" aria-label="WhatsApp">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    </a>
+                    <a href="mailto:Info@agriyouth.ae" aria-label="Email">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 4l10 8 10-8"/></svg>
+                    </a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p data-en="© 2024 UAE Youth Agriculture Community. All rights reserved." data-ar="© 2024 مجتمع شباب الإمارات للزراعة. جميع الحقوق محفوظة.">© 2024 UAE Youth Agriculture Community. All rights reserved.</p>
+                <p>&copy; 2024 AgriYouth UAE - <span data-en="All Rights Reserved" data-ar="جميع الحقوق محفوظة">All Rights Reserved</span></p>
             </div>
         </div>
     </footer>
