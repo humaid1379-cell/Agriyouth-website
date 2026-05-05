@@ -33,7 +33,7 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px;
+    scroll-padding-top: 90px;
 }
 
 body {
@@ -195,11 +195,13 @@ a {
 .zigzag-divider::after {
     content: '✦';
     position: absolute;
-    bottom: -20px;
+    bottom: -18px;
     left: 50%;
     transform: translateX(-50%);
     color: var(--accent-purple);
-    font-size: 24px;
+    font-size: 20px;
+    line-height: 1;
+    z-index: 2;
 }
 
 .zigzag-divider-small {
@@ -217,7 +219,7 @@ a {
 
 /* ===== HERO SECTION ===== */
 .hero-section {
-    margin-top: 70px;
+    margin-top: 68px;
     padding: 0 0 80px;
     text-align: center;
     position: relative;
@@ -306,16 +308,17 @@ a {
 .btn-secondary {
     display: inline-block;
     padding: 10px 24px;
-    background: var(--primary);
-    color: var(--white);
-    font-weight: 600;
+    background: var(--accent-lime);
+    color: var(--dark);
+    font-weight: 700;
     font-size: 0.9rem;
     border-radius: var(--radius-sm);
     transition: var(--transition);
 }
 
 .btn-secondary:hover {
-    background: var(--accent-purple);
+    background: var(--primary);
+    color: var(--white);
     transform: translateY(-2px);
 }
 
@@ -337,11 +340,16 @@ a {
 
 .page-section {
     padding: 0 0 80px;
+    position: relative;
+}
+
+.page-section > .container {
+    padding-top: 20px;
 }
 
 .page-header {
     text-align: center;
-    padding: 48px 0 40px;
+    padding: 56px 0 40px;
 }
 
 .page-header h2 {
@@ -500,7 +508,8 @@ html[dir="rtl"] .brand-vision {
 .video-wrapper video {
     width: 100%;
     display: block;
-    background: var(--dark);
+    background: var(--primary-dark);
+    min-height: 200px;
 }
 
 /* ===== STATS SECTION ===== */
@@ -589,7 +598,7 @@ html[dir="rtl"] .brand-vision {
 .category-card {
     background: var(--white);
     border-radius: var(--radius);
-    padding: 28px 20px;
+    padding: 24px 16px;
     text-align: center;
     transition: var(--transition);
     border: 2px solid transparent;
@@ -602,8 +611,8 @@ html[dir="rtl"] .brand-vision {
 }
 
 .cat-icon {
-    font-size: 2.5rem;
-    margin-bottom: 12px;
+    font-size: 2rem;
+    margin-bottom: 10px;
 }
 
 .category-card h4 {
@@ -793,9 +802,16 @@ html[dir="rtl"] .level-card li::before {
 }
 
 .pillars-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 24px;
+    justify-content: center;
+}
+
+.pillars-grid .pillar-card {
+    flex: 1 1 calc(33.333% - 24px);
+    min-width: 260px;
+    max-width: calc(33.333% - 16px);
 }
 
 .pillar-card {
@@ -1143,6 +1159,11 @@ html[dir="rtl"] .level-card li::before {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .pillars-grid .pillar-card {
+        flex: 1 1 calc(50% - 12px);
+        max-width: calc(50% - 12px);
+    }
+
     .objectives-grid {
         grid-template-columns: 1fr;
     }
@@ -1173,7 +1194,11 @@ html[dir="rtl"] .level-card li::before {
     }
 
     .section {
-        padding: 60px 0;
+        padding: 48px 0;
+    }
+
+    .page-header {
+        padding: 48px 0 32px;
     }
 
     .page-header h2 {
@@ -1184,8 +1209,9 @@ html[dir="rtl"] .level-card li::before {
         font-size: 1.6rem;
     }
 
-    .pillars-grid {
-        grid-template-columns: 1fr;
+    .pillars-grid .pillar-card {
+        flex: 1 1 100%;
+        max-width: 100%;
     }
 
     .values-grid {
@@ -1203,11 +1229,11 @@ html[dir="rtl"] .level-card li::before {
     }
 
     .categories-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .stats-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
     }
 
     .header-container {
@@ -1216,6 +1242,120 @@ html[dir="rtl"] .level-card li::before {
 
     .container {
         padding: 0 16px;
+    }
+
+    .logo-text {
+        display: none;
+    }
+
+    .header-logo {
+        height: 38px;
+    }
+
+    .lang-switcher {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .hero-content {
+        padding: 40px 16px 0;
+    }
+
+    .hero-logo {
+        width: 80px;
+    }
+
+    .page-header {
+        padding: 40px 0 24px;
+    }
+
+    .zigzag-divider {
+        height: 48px;
+    }
+}
+
+/* ===== ADDITIONAL POLISH ===== */
+
+/* Ensure zigzag divider container has proper overflow for the star */
+.hero-section .zigzag-divider,
+.page-section .zigzag-divider {
+    overflow: visible;
+}
+
+/* Better spacing after zigzag in page sections */
+.page-section > .zigzag-divider + .container,
+.page-section > .zigzag-divider {
+    position: relative;
+}
+
+/* Ensure the star doesn't get clipped */
+.page-section {
+    overflow: visible;
+}
+
+/* Improve hero zigzag star spacing */
+.hero-section .zigzag-divider::after {
+    bottom: -16px;
+}
+
+/* Stats section text contrast */
+.stat-item {
+    padding: 16px;
+}
+
+/* Improve initiative card button alignment */
+.initiative-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.initiative-card p {
+    flex: 1;
+}
+
+/* Ensure contact grid is centered */
+.contact-grid {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Improve mobile nav z-index */
+@media (max-width: 768px) {
+    .main-nav {
+        z-index: 1001;
+    }
+    
+    /* Ensure header is above mobile nav */
+    .site-header {
+        z-index: 1002;
+    }
+    
+    /* Fix hero section top margin for mobile */
+    .hero-section {
+        margin-top: 64px;
+    }
+    
+    /* Improve stats on mobile */
+    .stat-number {
+        font-size: 2.5rem;
+    }
+    
+    /* Better social links on mobile */
+    .social-links-section {
+        max-width: 100%;
+    }
+    
+    /* Improve contact grid on mobile */
+    .contact-grid {
+        max-width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Improve benefits grid on mobile */
+    .benefits-grid {
+        max-width: 100%;
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
