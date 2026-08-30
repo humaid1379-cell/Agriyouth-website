@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NABD AI — Governance Architecture Specification &amp; 12-Week Delivery Roadmap</title>
+<meta name="description" content="Institutional governance, validation and decision-control layer for regulated environments. Architecture specification, hierarchical coarse-to-fine decision synthesis, 576-hour delivery roadmap and target deployment specification.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#doc">Skip to content</a>
+
+<button class="toc-toggle" id="tocToggle" aria-label="Toggle contents" aria-expanded="false" aria-controls="toc">
+    <span></span><span></span><span></span>
+</button>
+<div class="toc-scrim" id="tocScrim" hidden></div>
+
+<!-- ============================= SIDEBAR ============================= -->
+<aside class="toc" id="toc">
+    <div class="toc-brand">
+        <div class="toc-brand-mark">N</div>
+        <div class="toc-brand-text">
+            <strong>NABD AI</strong>
+            <span>Architecture &amp; Roadmap</span>
+        </div>
+    </div>
+
+    <nav class="toc-nav" aria-label="Document contents">
+        <p class="toc-part">Part I &middot; Specification</p>
+        <ul>
+            <li><a href="#s1">1. Executive Summary &amp; Core Objectives</a></li>
+            <li><a href="#s2">2. System Topology &amp; Architectural Division</a>
+                <ul>
+                    <li><a href="#s2-1">2.1 Layer A — AI &amp; Governance Backend</a></li>
+                    <li><a href="#s2-2">2.2 Layer B — User &amp; Approval Workflow</a></li>
+                </ul>
+            </li>
+            <li><a href="#s3">3. Methodologies &amp; Pipeline Architecture</a>
+                <ul>
+                    <li><a href="#s3-1">3.1 Multi-Stage Refinement Protocol</a></li>
+                    <li><a href="#s3-2">3.2 Decision Readiness Packet</a></li>
+                </ul>
+            </li>
+            <li><a href="#s4">4. Four-Tier Output Classification (CRS)</a></li>
+            <li><a href="#s5">5. Use Case Domain Matrix</a></li>
+            <li><a href="#s6">6. Decision Gates &amp; V1 Exclusions</a></li>
+            <li><a href="#s7">7. Industry Precedents &amp; Alignment</a></li>
+            <li><a href="#s8">8. Coarse-to-Fine Decision Synthesis</a>
+                <ul>
+                    <li><a href="#s8-2">8.2 The Decision Token, Split</a></li>
+                    <li><a href="#s8-3">8.3 Locked Coarse Decision</a></li>
+                    <li><a href="#s8-4">8.4 Risk Band Monotonicity</a></li>
+                    <li><a href="#s8-5">8.5 Exposure-Bias-Aligned TEVV</a></li>
+                    <li><a href="#s8-6">8.6 Cost &amp; Latency</a></li>
+                    <li><a href="#s8-7">8.7 Roadmap Mapping</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <p class="toc-part">Part II &middot; Delivery Roadmap</p>
+        <ul>
+            <li><a href="#gantt">12-Week Gantt Overview</a></li>
+            <li><a href="#layer-1">1. AI &amp; Knowledge Components</a>
+                <ul>
+                    <li><a href="#c-1-1">1.1 Model-Agnostic Gateway</a></li>
+                    <li><a href="#c-1-2">1.2 Controlled RAG Engine</a></li>
+                    <li><a href="#c-1-3">1.3 Multi-Stage Refinement Pipeline</a></li>
+                </ul>
+            </li>
+            <li><a href="#layer-2">2. Governance &amp; Guardrails Components</a>
+                <ul>
+                    <li><a href="#c-2-1">2.1 Deterministic Rule Engine</a></li>
+                    <li><a href="#c-2-2">2.2 Risk &amp; Uncertainty Scorer</a></li>
+                    <li><a href="#c-2-3">2.3 Stop &amp; Escalation Conditions</a></li>
+                </ul>
+            </li>
+            <li><a href="#layer-3">3. User &amp; Decision Components</a>
+                <ul>
+                    <li><a href="#c-3-1">3.1 Internal Copilot UI</a></li>
+                    <li><a href="#c-3-2">3.2 Decision Readiness Packet Generator</a></li>
+                    <li><a href="#c-3-3">3.3 Human-In-The-Loop (HITL) Gate</a></li>
+                </ul>
+            </li>
+            <li><a href="#layer-4">4. Audit &amp; Observability Components</a>
+                <ul>
+                    <li><a href="#c-4-1">4.1 Tamper-Evident Audit Trail</a></li>
+                    <li><a href="#c-4-2">4.2 Claim Ledger &amp; Lineage Tracker</a></li>
+                </ul>
+            </li>
+            <li><a href="#layer-5">5. Integration &amp; TEVV</a>
+                <ul>
+                    <li><a href="#c-5-1">5.1 Red Teaming &amp; Security Testing</a></li>
+                    <li><a href="#c-5-2">5.2 End-to-End Integration &amp; Demo</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <p class="toc-part">Part III &middot; Deployment</p>
+        <ul>
+            <li><a href="#deploy">Target Deployment Spec &amp; Hardware</a></li>
+        </ul>
+    </nav>
+</aside>
+
+<!-- ============================== DOCUMENT ============================== -->
+<main class="doc" id="doc">
+
+<header class="doc-head">
+    <p class="doc-eyebrow">Institutional AI Governance Platform &middot; Version 1 Scope</p>
+    <h1>NABD AI</h1>
+    <p class="doc-lede">
+        A governance, validation and decision-control layer that decouples application logic from raw
+        foundation models — engineered for DoH-licensed healthcare entities, government departments and
+        corporate administrations where autonomous execution is not an acceptable risk.
+    </p>
+    <div class="doc-chips">
+        <span class="chip"><em>Envelope</em><b id="chipHours">576 Hours</b></span>
+        <span class="chip"><em>Schedule</em><b>12 Weeks @ 48h</b></span>
+        <span class="chip"><em>Runtime</em><b id="chipComponents">11 Components</b></span>
+        <span class="chip"><em>Autonomy</em><b>Draft-Only / HITL</b></span>
+    </div>
+</header>
+
+<noscript>
+    <p class="noscript-note">The delivery roadmap in Part II is rendered from structured data so that every total stays derived rather than authored. Enable JavaScript to view it.</p>
+</noscript>
+
+<p class="part-rule"><span>Part I</span> Architecture Specification</p>
+
+<!-- ============================== SECTION 1 ============================== -->
+<section id="s1" class="sheet">
+    <h2><span class="sec-num">1</span> Executive Summary &amp; Core Objectives</h2>
+
+    <p>
+        NABD AI is engineered as an institutional governance, validation and decision-control layer that
+        decouples application logic from raw foundation models. Designed specifically for highly regulated
+        environments, it enforces rigorous safeguards against autonomous execution risk, algorithmic
+        hallucination and unchecked decision-making. The system produces evidence, not verdicts; the
+        authority to act remains, at every point, with a named human being.
+    </p>
+
+    <div class="grid-4">
+        <article class="obj-card">
+            <h3>Controlled Decision-Support</h3>
+            <p>Facilitates policy analysis, regulatory compliance extraction, procurement review and operational planning through structured advisory outputs.</p>
+        </article>
+        <article class="obj-card">
+            <h3>Absolute Segregation of Authority</h3>
+            <p>Operates strictly under draft-only, read-only or advisory parameters. No production writes, transactional approvals or external communications without authorized human execution.</p>
+        </article>
+        <article class="obj-card">
+            <h3>Model-Agnostic Infrastructure</h3>
+            <p>Complete independence from foundation model providers. Queries route through interchangeable models (Jais or approved enterprise LLMs) while ownership of the evaluation and governance pipeline is retained.</p>
+        </article>
+        <article class="obj-card">
+            <h3>Deterministic Governance Enforcement</h3>
+            <p>Programmed rule boundaries classify incoming and outgoing data, manage uncertainty, and immediately isolate unverified or high-risk outcomes.</p>
+        </article>
+    </div>
+</section>
+
+<!-- ============================== SECTION 2 ============================== -->
+<section id="s2" class="sheet">
+    <h2><span class="sec-num">2</span> System Topology &amp; Architectural Division</h2>
+    <p>
+        The system is architecturally split into two interdependent layers. Layer A never speaks directly to a
+        client application; Layer B never speaks directly to a foundation model.
+    </p>
+
+    <div class="grid-2">
+        <article class="layer-card layer-card--a" id="s2-1">
+            <header>
+                <span class="layer-tag">Primary Layer A</span>
+                <h3>AI &amp; Governance Backend Core</h3>
+            </header>
+            <dl>
+                <dt>Model Routing &amp; Orchestration Gateway</dt>
+                <dd>Abstracted middleware dispatching reasoning tasks across available foundation models. Manages load balancing, latency fallbacks and multi-stage model chaining without exposing raw APIs to client applications.</dd>
+
+                <dt>Controlled Retrieval-Augmented Generation Engine</dt>
+                <dd>Isolated vector and lexical search pipeline restricted entirely to approved institutional repositories. Indexes corporate policies, regulatory circulars and SOPs, preventing ingestion of untrusted external web data.</dd>
+
+                <dt>Deterministic Risk &amp; Policy Evaluation Engine</dt>
+                <dd>Rule-based gatekeeper parsing both user inputs and model outputs against fixed organizational rules. Scores uncertainty, flags missing compliance fields, checks delegation-of-authority matrices and blocks prohibited operations.</dd>
+            </dl>
+        </article>
+
+        <article class="layer-card layer-card--b" id="s2-2">
+            <header>
+                <span class="layer-tag">Primary Layer B</span>
+                <h3>User &amp; Approval Workflow Layer</h3>
+            </header>
+            <dl>
+                <dt>Internal Operational Copilot</dt>
+                <dd>Secure workspace interface providing non-clinical personnel with document summarization, policy extraction, query analysis and drafting tools.</dd>
+
+                <dt>Decision Readiness Packet Generator</dt>
+                <dd>Transforms multi-model analytical streams into a structured, readable dossier highlighting findings, citations, risk scores and uncertainty thresholds.</dd>
+
+                <dt>Human-In-The-Loop Approval &amp; Immutable Audit System</dt>
+                <dd>State machine enforcing designated reviewer sign-offs. Every transaction generates an immutable cryptographic log documenting the input prompt, retrieval context, generated packet, named human reviewer and final executed action.</dd>
+            </dl>
+        </article>
+    </div>
+</section>
+
+<!-- ============================== SECTION 3 ============================== -->
+<section id="s3" class="sheet">
+    <h2><span class="sec-num">3</span> Advanced Methodologies &amp; Pipeline Architecture</h2>
+
+    <h3 id="s3-1" class="sub">3.1 Multi-Stage Refinement &amp; Model Chaining Protocol</h3>
+    <p>
+        To eliminate single-model hallucinations and inaccurate probabilistic predictions, complex queries are
+        routed through a sequential multi-model pipeline. The pipeline is bounded: there is exactly one
+        refinement pass, and no stage may loop back on itself.
+    </p>
+
+    <ol class="stage-flow">
+        <li>
+            <span class="stage-badge">Stage 1</span>
+            <h4>Initial Extraction &amp; Drafting <em>— Generator Model</em></h4>
+            <p>Ingests the query alongside authorized context chunks retrieved via Controlled RAG. Produces an initial draft or structured data extraction.</p>
+        </li>
+        <li>
+            <span class="stage-badge">Stage 2</span>
+            <h4>Policy &amp; Fact Verification <em>— Critic / Verifier Model</em></h4>
+            <p>Performs an adversarial review of Stage 1 output. Cross-references every claim, date, monetary figure and reference against the raw source text to identify discrepancies, missing mandates or overconfident extrapolations.</p>
+        </li>
+        <li>
+            <span class="stage-badge">Stage 3</span>
+            <h4>Synthesis &amp; Governance Formatting <em>— Refiner Model</em></h4>
+            <p>Incorporates Stage 2 feedback, rectifies errors, calculates remaining ambiguity and compiles the standardized Decision Readiness Packet.</p>
+        </li>
+    </ol>
+
+    <p class="callout callout--link">
+        <strong>Section 8 amends this protocol.</strong> Stage 3 is restructured so that it can add detail but
+        cannot revise the decision itself. See <a href="#s8-3">8.3 Locked Coarse Decision</a>.
+    </p>
+
+    <h3 id="s3-2" class="sub">3.2 Decision Readiness Packet Specification</h3>
+    <p>
+        The system does not return raw conversational prose for material operations. It generates a structured
+        review dossier containing the following metadata:
+    </p>
+    <ul class="tick-list">
+        <li><strong>Problem Context &amp; Intended Outcome</strong> — summary of the operational request and affected stakeholders.</li>
+        <li><strong>Source Lineage &amp; Evidence</strong> — direct references, document IDs and exact excerpts from approved policies.</li>
+        <li><strong>Uncertainty &amp; Risk Assessment</strong> — numerical and categorical indicators of model certainty, edge cases and potential policy conflicts.</li>
+        <li><strong>Recommended Route</strong> — assigned to one of three strictly governed pathways.</li>
+    </ul>
+
+    <div class="grid-3 routes">
+        <article class="route route--ready">
+            <span class="route-dot"></span>
+            <h4>Ready within defined controls</h4>
+            <p>Full policy compliance verified, low residual risk, ready for human sign-off.</p>
+        </article>
+        <article class="route route--review">
+            <span class="route-dot"></span>
+            <h4>Human review required</h4>
+            <p>Edge case identified, high uncertainty, or policy ambiguity detected.</p>
+        </article>
+        <article class="route route--blocked">
+            <span class="route-dot"></span>
+            <h4>Cannot proceed under current conditions</h4>
+            <p>Missing critical documentation, violated baseline policy, or out-of-scope request.</p>
+        </article>
+    </div>
+</section>
+
+<!-- ============================== SECTION 4 ============================== -->
+<section id="s4" class="sheet">
+    <h2><span class="sec-num">4</span> Four-Tier Functional Output Classification <span class="h2-note">CRS Framework</span></h2>
+    <p>
+        Every operational use case is categorized into one of four functional archetypes, which dictates its
+        verification and oversight requirements.
+    </p>
+
+    <div class="table-scroll">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th scope="col" style="width:16%">Classification</th>
+                    <th scope="col" style="width:28%">Definition &amp; Determinism</th>
+                    <th scope="col" style="width:22%">System Autonomy</th>
+                    <th scope="col">Example Enterprise Workflows</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row"><span class="class-pill class-pill--det">Deterministic / Rule-Based</span></th>
+                    <td>Fixed logic and statutory compliance rules; identical inputs always produce identical outputs.</td>
+                    <td>Automated verification; flags missing components.</td>
+                    <td>Checking document completeness, verifying license expiration dates, role-based permission matrix matching.</td>
+                </tr>
+                <tr>
+                    <th scope="row"><span class="class-pill class-pill--pred">Predictive / Probabilistic</span></th>
+                    <td>Statistical estimations and pattern detection resulting in non-absolute risk scores or forecasts.</td>
+                    <td>Advisory flag; strictly no direct execution.</td>
+                    <td>Volume demand forecasting, vendor delay probability, employee churn risk, anomaly detection in spending.</td>
+                </tr>
+                <tr>
+                    <th scope="row"><span class="class-pill class-pill--hyb">Hybrid</span></th>
+                    <td>Combines probabilistic risk modeling with deterministic policy thresholds.</td>
+                    <td>Structured recommendation routed to human approver.</td>
+                    <td>Procurement bid scoring, fraud anomaly triage, shift optimization with regulatory rest constraints.</td>
+                </tr>
+                <tr>
+                    <th scope="row"><span class="class-pill class-pill--gen">Generative / Assistive</span></th>
+                    <td>Information extraction, contextual search, document summarization and drafting.</td>
+                    <td>Draft-only; human-in-the-loop sign-off mandatory.</td>
+                    <td>Internal policy lookup assistant, executive brief summarization, contract clause extraction.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- ============================== SECTION 5 ============================== -->
+<section id="s5" class="sheet">
+    <h2><span class="sec-num">5</span> Comprehensive Use Case Domain Matrix</h2>
+    <p>The baseline functional scope covers 11 operational domains across government and enterprise environments.</p>
+
+    <div class="table-scroll">
+        <table class="data-table domain-table">
+            <thead>
+                <tr>
+                    <th scope="col" style="width:17%">Domain</th>
+                    <th scope="col" style="width:31%">Target AI Use Cases</th>
+                    <th scope="col" style="width:19%">Output Class</th>
+                    <th scope="col">Governing Constraints &amp; Oversight</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row"><span class="dom-idx">1</span> Knowledge &amp; Customer Service</th>
+                    <td>Policy search, internal staff copilot, customer query parsing, appointment reminders, meeting task extraction.</td>
+                    <td><span class="cls cls--gen">Assistive</span><span class="cls cls--det">Deterministic</span><span class="cls cls--hyb">Hybrid</span></td>
+                    <td>Read-only knowledge access; no autonomous customer commitment or legal interpretation granted.</td>
+                </tr>
+                <tr>
+                    <th scope="row"><span class="dom-idx">2</span> Applications &amp; Approvals</th>
+                    <td>Completeness checks, missing document discovery, eligibility verification, routing level identification.</td>
+                    <td><span class="cls cls--det">Deterministic</span><span class="cls cls--gen">Assistive</span><span class="cls cls--hyb">Hybrid</span></td>
+                    <td>Fixed compliance checks; exceptional cases escalated to designated department head.</td>
+                </tr>
+                <tr>
+                    <th scope="row"><span class="dom-idx">3</span> Capacity &amp; Demand Forecasting</th>
+                    <td>Transaction volume prediction, service center load forecasting, shift distribution modeling.</td>
+                    <td><span class="cls cls--pred">Predictive</span><span class="cls cls--hyb">Hybrid</span></td>
+                    <td>Statistical inputs for human workforce managers; no automated roster finalization without approval.</td>
+                </tr>
+                <tr>
+                    <th scope="row"><span class="dom-idx">4</span> Finance, Invoicing &amp; Credit</th>
+                    <td>3-way invoice matching, budget limit alerts, anomaly detection, payment delay risk modeling.</td>
+                    <td><span class="cls cls--det">Deterministic</span><span class="cls cls--pred">Predictive</span><span class="cls cls--hyb">Hybrid</span></td>
+                    <td>Hard stops on budget limit breaches; fraud and credit evaluation requires dual human authorization.</td>
+                </tr>
+                <tr>
+                    <th scope="row"><span class="dom-idx">5</span> Procurement &amp; Contracts</th>
+                    <td>Vendor qualification checks, contract clause extraction, vendor risk assessment, tender file preparation.</td>
+                    <td><span class="cls cls--det">Deterministic</span><span class="cls cls--gen">Assistive</span><span class="cls cls--hyb">Hybrid</span></td>
+                    <td>No autonomous contract awarding; high-risk clauses flagged for legal counsel review.</td>
+                </tr>
+                <tr>
+                    <th scope="row"><span class="dom-idx">6</span> Operations &amp; Asset Management</th>
+                    <td>Scheduled maintenance tracking, asset failure prediction, safety compliance monitoring, route optimization.</td>
+                    <td><span class="cls cls--det">Deterministic</span><span class="cls cls--pred">Predictive</span><span class="cls cls--hyb">Hybrid</span></td>
+                    <td>Visual inspection alerts and failure projections act as maintenance tickets requiring manual dispatch.</td>
+                </tr>
+                <tr>
+                    <th scope="row"><span class="dom-idx">7</span> Audit, Risk &amp; Compliance</th>
+                    <td>Segregation of duties verification, high-risk sample identification, non-compliance probability scoring.</td>
+                    <td><span class="cls cls--det">Deterministic</span><span class="cls cls--pred">Predictive</span><span class="cls cls--hyb">Hybrid</span></td>
+                    <td>Maintains immutable proof logs; audit flags prioritized by risk for physical inspector review.</td>
+                </tr>
+                <tr>
+                    <th scope="row"><span class="dom-idx">8</span> Human Resources</th>
+                    <td>Resume mandatory criteria filtering, skill extraction, candidate ranking, leave entitlement validation.</td>
+                    <td><span class="cls cls--det">Deterministic</span><span class="cls cls--gen">Assistive</span><span class="cls cls--hyb">Hybrid</span></td>
+                    <td>Strict human sign-off on hiring, promotions and performance evaluation; no automated rejection on protected criteria.</td>
+                </tr>
+                <tr>
+                    <th scope="row"><span class="dom-idx">9</span> IT &amp; Cybersecurity</th>
+                    <td>Permission role matching, anomaly login detection, incident classification, service outage forecasting.</td>
+                    <td><span class="cls cls--det">Deterministic</span><span class="cls cls--pred">Predictive</span><span class="cls cls--hyb">Hybrid</span></td>
+                    <td>Deterministic rules for standard provisioning; account isolation and threat escalation require SecOps authorization.</td>
+                </tr>
+                <tr>
+                    <th scope="row"><span class="dom-idx">10</span> Commercial &amp; Sales</th>
+                    <td>Lead quality scoring, churn prediction, marketing copy drafting, dynamic pricing recommendations.</td>
+                    <td><span class="cls cls--pred">Predictive</span><span class="cls cls--gen">Assistive</span><span class="cls cls--hyb">Hybrid</span></td>
+                    <td>Commercial content requires brand review; pricing remains within human-defined corridor constraints.</td>
+                </tr>
+                <tr>
+                    <th scope="row"><span class="dom-idx">11</span> Executive Leadership</th>
+                    <td>Unified operations dashboard, KPI anomaly tracking, scenario simulation, daily executive briefing.</td>
+                    <td><span class="cls cls--gen">Assistive</span><span class="cls cls--pred">Predictive</span><span class="cls cls--hyb">Hybrid</span></td>
+                    <td>Decision-support and scenario evaluation only; strategic policy decisions remain with the executive board.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- ============================== SECTION 6 ============================== -->
+<section id="s6" class="sheet">
+    <h2><span class="sec-num">6</span> High-Impact Domains &amp; Mandatory Exclusions <span class="h2-note">V1 Scope Boundary</span></h2>
+
+    <h3 class="sub">6.1 Mandatory Human Decision Gates</h3>
+    <p>The following workflows legally prohibit autonomous execution and require explicit, recorded human approval:</p>
+    <ul class="gate-list">
+        <li>Employment actions — hiring, termination, promotion, performance rating.</li>
+        <li>Credit, financing, exemption or subsidy approvals.</li>
+        <li>Allocation of public benefits, housing or specialized service tiers.</li>
+        <li>Enforcement, fines, sanctioning and fraud allegations.</li>
+        <li>Critical IT system shutdown or account deactivation impacting operational continuity.</li>
+        <li>Vendor tender awarding and binding legal or contractual commitments.</li>
+    </ul>
+
+    <h3 class="sub">6.2 Strict Scope Exclusions</h3>
+    <p>To preserve clinical safety and regulatory alignment, NABD AI V1 strictly excludes the following capabilities:</p>
+    <ul class="excl-list">
+        <li>Clinical diagnosis, prognosis, treatment planning or triage recommendations.</li>
+        <li>Medication calculation, dosing suggestions or prescription generation.</li>
+        <li>Real-time patient monitoring and physiological alert management.</li>
+        <li>Medical imaging, radiology, pathology or DICOM data analysis.</li>
+        <li>Medical device software integration (SaMD) or surgical robotics interfaces.</li>
+        <li>Autonomous agent swarms with self-delegating execution loops.</li>
+        <li>Direct write access to electronic health records or primary production databases.</li>
+        <li>Biometric surveillance, real-time facial recognition or emotional tracking.</li>
+        <li>Any workflow evaluated with a High or Very High residual risk profile.</li>
+    </ul>
+</section>
+
+<!-- ============================== SECTION 7 ============================== -->
+<section id="s7" class="sheet">
+    <h2><span class="sec-num">7</span> Industry Precedents &amp; Technical Alignment</h2>
+    <p>The design pattern implemented by NABD AI integrates proven enterprise AI governance and reliability concepts.</p>
+
+    <div class="grid-3">
+        <article class="prec-card">
+            <h3>NVIDIA NeMo Guardrails &amp; Credo AI</h3>
+            <p>Foundation for programmable guardrails, deterministic input/output interception and comprehensive compliance auditing.</p>
+        </article>
+        <article class="prec-card">
+            <h3>LangChain / LangGraph Multi-Agent Workflows</h3>
+            <p>Structural routing of the Multi-Stage Refinement pipeline, using distinct agent roles for generation, verification and formatting.</p>
+        </article>
+        <article class="prec-card">
+            <h3>Harvey AI &amp; BloombergGPT</h3>
+            <p>Domain-specific governed copilots. Parallels the human-in-the-loop advisory model of legal and financial practice, where AI generates structured evidence dossiers while certified professionals retain complete decision accountability.</p>
+        </article>
+    </div>
+
+    <h3 class="sub">7.1 Agent Security &amp; Design Literature</h3>
+    <p>
+        Two further sources inform the defensive posture of the architecture. <strong>AgentDojo</strong> is a
+        benchmarking framework built to test how well agents resist prompt injection while performing
+        multi-step tasks across diverse environments; its central finding is that even advanced models
+        struggle to hold both security and utility once untrusted data flows through external tools.
+        <strong>Anthropic's guidance on building effective agents</strong> distinguishes rigid programmatic
+        workflows from flexible autonomous agents and argues for simplicity and transparency, favouring
+        modular designs such as prompt chaining and parallelization to improve reliability.
+    </p>
+    <p>
+        Read together, they set the two constraints NABD AI is built around: untrusted content must never
+        reach a stage that holds authority, and the pipeline must stay a legible, bounded workflow rather
+        than an open-ended agent. Both are load-bearing in Section 8.
+    </p>
+</section>
+
+<!-- ============================== SECTION 8 ============================== -->
+<section id="s8" class="sheet sheet--accent">
+    <h2><span class="sec-num sec-num--new">8</span> Hierarchical Coarse-to-Fine Decision Synthesis <span class="h2-note h2-note--new">Amends §3.1</span></h2>
+
+    <p class="lede-p">
+        A hierarchical prediction technique from sequence modelling maps unusually cleanly onto the
+        Multi-Stage Refinement Pipeline. Adopting it converts three of NABD AI's governance properties from
+        instructions a model is asked to follow into structural constraints a model cannot violate, and it
+        does so inside the existing 576-hour envelope.
+    </p>
+
+    <h3 class="sub">8.1 The Source Pattern</h3>
+    <div class="grid-3">
+        <article class="idea-card">
+            <span class="idea-num">i</span>
+            <h4>Hierarchical tokenization</h4>
+            <p>Continuous data is compressed by an encoder-quantizer-decoder into a discrete code that is split into a <em>coarse</em> subtoken capturing dominant structure and a <em>fine</em> subtoken capturing only residual detail. The split is trained jointly, with a loss that forces the hierarchy rather than merely suggesting it.</p>
+        </article>
+        <article class="idea-card">
+            <span class="idea-num">ii</span>
+            <h4>Two-step autoregression</h4>
+            <p>The coarse subtoken is predicted first from history. The fine subtoken is predicted second, conditioned on both the history and the coarse prediction via cross-attention. One hard prediction becomes two easier, sequential ones.</p>
+        </article>
+        <article class="idea-card">
+            <span class="idea-num">iii</span>
+            <h4>Exposure-bias correction</h4>
+            <p>During training the fine stage conditions on the model's <em>own predicted</em> coarse output rather than ground truth. This closes the train/inference gap, because ground truth is never available at real inference time.</p>
+        </article>
+    </div>
+
+    <p class="callout callout--warn">
+        <strong>What is not being imported.</strong> NABD AI trains no quantizer and learns no codebook. What
+        transfers is the discipline: a hard split between structure and detail, a fixed conditioning order,
+        and an evaluation regime that feeds each stage the previous stage's real output. The mechanism is
+        applied to an existing three-stage LLM pipeline, not to a learned tokenizer.
+    </p>
+
+    <h3 class="sub" id="s8-2">8.2 The Decision Token, Split</h3>
+    <p>
+        A Decision Readiness Packet is treated as one decision token with two parts. Everything that carries
+        governance authority is coarse; everything else is fine.
+    </p>
+
+    <div class="grid-2 split-grid">
+        <article class="split-card split-card--coarse">
+            <header><span class="split-tag">Coarse subtoken</span><h4>Governance-material structure</h4></header>
+            <ul>
+                <li><strong>Recommended Route</strong> — one of the three pathways in §3.2.</li>
+                <li><strong>Risk band</strong> — Low, Moderate, High, Critical, Unknown.</li>
+                <li><strong>Output class</strong> — the CRS archetype of §4.</li>
+                <li><strong>Reviewer requirement</strong> — seniority and review depth.</li>
+                <li><strong>Blocking-gate flags</strong> — any §6.1 gate or §6.2 exclusion hit.</li>
+            </ul>
+            <p class="split-note">Small, closed, enumerable. Cheap to constrain at decode time, cheap to verify, cheap to diff between stages.</p>
+        </article>
+        <article class="split-card split-card--fine">
+            <header><span class="split-tag">Fine subtoken</span><h4>Residual detail</h4></header>
+            <ul>
+                <li><strong>Citation spans</strong> — document IDs, page and line offsets.</li>
+                <li><strong>Risk sub-scores</strong> — per-factor values inside the fixed band.</li>
+                <li><strong>Rationale prose</strong> — wording of findings and caveats.</li>
+                <li><strong>Edge-case notes</strong> — ambiguities and conflicts observed.</li>
+                <li><strong>Presentation</strong> — packet formatting and ordering.</li>
+            </ul>
+            <p class="split-note">Open-ended text, which is where hallucination lives. It is never permitted to be load-bearing for authority.</p>
+        </article>
+    </div>
+
+    <h3 class="sub" id="s8-3">8.3 Locked Coarse Decision — Generator / Refiner Restructuring</h3>
+    <p>
+        Under §3.1 as originally written, the Refiner receives verifier feedback and recompiles the whole
+        packet. Nothing structural stops it from quietly upgrading <em>Human review required</em> to
+        <em>Ready within defined controls</em> while polishing prose. The restructured sequence removes that
+        degree of freedom.
+    </p>
+
+    <ol class="seq-list">
+        <li><span class="seq-n">0</span><div><strong>Deterministic pre-pass.</strong> The Dominant Factor Scoring Algorithm (2.2.3) computes the risk band in code from the factor matrix and evidence completeness. No model has run yet.</div></li>
+        <li><span class="seq-n">1</span><div><strong>Generator emits the coarse block first.</strong> Under constrained decoding restricted to the permitted enumerations, before it writes a single sentence of draft prose.</div></li>
+        <li><span class="seq-n">2</span><div><strong>Verifier checks claims</strong> word-for-word against the frozen evidence manifest, as before.</div></li>
+        <li><span class="seq-n">3</span><div><strong>Refiner receives the coarse block as read-only context</strong> and may emit fine detail only, conditioned on it. It cross-attends to the locked decision; it cannot rewrite it.</div></li>
+    </ol>
+
+    <p class="callout callout--rule">
+        <strong>Invariant.</strong> <code>sha256(coarse_block)</code> must be byte-identical before and after
+        Stage 3. A mismatch is not treated as a correction. It is a contradiction, and it trips the
+        Contradiction Stop Trigger (2.3.2), routing the case to <code>MORE_EVIDENCE</code> or
+        <code>BLOCKED</code>. Hallucination-by-rewrite stops being a behaviour to discourage and becomes a
+        packet that will not serialize.
+    </p>
+
+    <h3 class="sub" id="s8-4">8.4 Risk Band Monotonicity — Scorer Hardening</h3>
+    <p>
+        The same factorization applies to risk. The coarse band is computed deterministically first; the model
+        may only work inside it.
+    </p>
+    <div class="table-scroll">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th scope="col" style="width:26%">Operation on the risk band</th>
+                    <th scope="col" style="width:20%">Permitted?</th>
+                    <th scope="col">Handling</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Refine within band</th>
+                    <td><span class="verdict verdict--ok">Permitted</span></td>
+                    <td>The fine layer may sharpen a value inside its band — <code>High</code> becomes <code>High&nbsp;(3.7&nbsp;/&nbsp;5)</code>. The band label is unchanged.</td>
+                </tr>
+                <tr>
+                    <th scope="row">Cross a band downward</th>
+                    <td><span class="verdict verdict--no">Prohibited</span></td>
+                    <td>Structurally rejected at serialization. The model has no path by which it can lower assessed risk.</td>
+                </tr>
+                <tr>
+                    <th scope="row">Cross a band upward</th>
+                    <td><span class="verdict verdict--esc">Escalated</span></td>
+                    <td>Not applied by the model. Emitted as an escalation signal to the deterministic engine, which re-runs the dominant-factor rule against the new evidence and may itself raise the band.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>
+        The result is monotonic in the fail-closed direction: risk can only ever be confirmed or raised, and
+        raising it still requires deterministic agreement. The dominant-factor rule stops being a guideline
+        the scorer is expected to respect and becomes the only writer of the band.
+    </p>
+
+    <h3 class="sub" id="s8-5">8.5 Exposure-Bias-Aligned TEVV</h3>
+    <p>
+        The exposure-bias lesson is a testing instruction. A verifier and refiner validated against
+        hand-written, clean drafts are measured on a distribution that never occurs in production, because in
+        production they only ever see the Generator's real, imperfect output.
+    </p>
+    <p>
+        Stage 2 and Stage 3 are therefore evaluated against a versioned corpus of captured Stage 1 outputs
+        with their failure modes preserved:
+    </p>
+    <ul class="tick-list">
+        <li>Fabricated or subtly mis-attributed citation spans.</li>
+        <li>Mis-parsed dates, monetary figures and effective-date ranges.</li>
+        <li>Overconfident extrapolation beyond what the retrieved bylaw states.</li>
+        <li>Silently dropped mandates and missing compliance fields.</li>
+        <li>Injected instructions that survived retrieval and reached the draft.</li>
+    </ul>
+    <p>
+        The corpus is a controlled artifact: it is versioned alongside the pipeline and grows with every
+        red-team finding, so a regression in Stage 2 or Stage 3 against a previously observed Stage 1 failure
+        is a build failure. This is the direct operational answer to AgentDojo's finding that agents degrade
+        sharply once untrusted tool output enters the loop — that degradation is measured here rather than
+        assumed absent.
+    </p>
+
+    <h3 class="sub" id="s8-6">8.6 Cost &amp; Latency Consequences</h3>
+    <p>
+        Two small constrained calls are cheaper and more controllable than one large unconstrained
+        generation, which makes this restructuring a direct contributor to the existing optimization task
+        rather than a tax on it.
+    </p>
+    <div class="table-scroll">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th scope="col" style="width:22%">Dimension</th>
+                    <th scope="col" style="width:39%">Single unconstrained generation</th>
+                    <th scope="col">Coarse call, then fine call</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Tokens on the authority-bearing output</th>
+                    <td>Hundreds of prose tokens, any of which may carry the decision.</td>
+                    <td class="cmp-good">A handful of enum tokens under constrained decode.</td>
+                </tr>
+                <tr>
+                    <th scope="row">Model tier required</th>
+                    <td>Frontier-tier for the entire packet.</td>
+                    <td class="cmp-good">A small, cheap model can serve the coarse stage; spend is concentrated on fine detail.</td>
+                </tr>
+                <tr>
+                    <th scope="row">Cost of verifying the route</th>
+                    <td>Parse prose to discover what was decided.</td>
+                    <td class="cmp-good">Read one field and compare one hash.</td>
+                </tr>
+                <tr>
+                    <th scope="row">Caching and replay</th>
+                    <td>The packet is one indivisible artifact.</td>
+                    <td class="cmp-good">The coarse block is independently cacheable and replayable, supporting 4.2.4.</td>
+                </tr>
+                <tr>
+                    <th scope="row">Blast radius of a bad generation</th>
+                    <td>One poor generation corrupts the decision.</td>
+                    <td class="cmp-good">A poor fine pass degrades wording; the decision is untouched.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3 class="sub" id="s8-7">8.7 Roadmap Mapping</h3>
+    <p>
+        Section 8 adds no hours to the plan. It tightens the acceptance criteria of work already scheduled.
+        The affected sub-tasks are listed below and carry a <span class="s8-flag">§8</span> marker in Part II.
+    </p>
+    <div class="table-scroll">
+        <table class="data-table s8-table" id="s8MapTable">
+            <thead>
+                <tr>
+                    <th scope="col" style="width:9%">Task</th>
+                    <th scope="col" style="width:25%">Sub-task</th>
+                    <th scope="col">Additional acceptance criterion imposed by Section 8</th>
+                </tr>
+            </thead>
+            <tbody><!-- rendered from roadmap-data.js --></tbody>
+        </table>
+    </div>
+    <p class="callout callout--rule">
+        <strong>Budget impact:</strong> <span id="s8Budget">0 additional hours</span>. The 576-hour envelope,
+        the 12-week schedule and every layer total in Part II are unchanged.
+    </p>
+</section>
+
+<p class="part-rule"><span>Part II</span> Delivery Roadmap</p>
+
+<!-- ============================== GANTT ============================== -->
+<section id="gantt" class="sheet sheet--wide">
+    <header class="gantt-head">
+        <h2 id="ganttTitle">12-Week Strategic Visual Gantt Roadmap</h2>
+        <p class="gantt-sched">Weekly Schedule: <strong>48 Hours per Week</strong></p>
+    </header>
+    <div class="gantt-scroll">
+        <div class="gantt" id="ganttChart"><!-- rendered from roadmap-data.js --></div>
+    </div>
+    <ul class="gantt-legend">
+        <li><span class="lg lg--base"></span> Base estimate</li>
+        <li><span class="lg lg--buf"></span> Contingency buffer</li>
+    </ul>
+</section>
+
+<div id="layers"><!-- layer sections rendered from roadmap-data.js --></div>
+
+<p class="part-rule"><span>Part III</span> Deployment</p>
+
+<!-- ============================== DEPLOYMENT ============================== -->
+<section id="deploy" class="sheet sheet--wide">
+    <h2>Target Deployment Spec &amp; Running Hardware Requirements</h2>
+
+    <p class="callout callout--info">
+        The hardware required to run NABD AI in a live production environment depends on whether foundation
+        models are accessed via <strong>managed APIs / hosted endpoints</strong> or self-hosted locally on
+        <strong>bare-metal / on-premise servers</strong>.
+    </p>
+
+    <div class="grid-2 scenarios">
+        <article class="scenario scenario--a">
+            <header>
+                <h3>Scenario A: API-First / Hybrid Hosting</h3>
+                <span class="scenario-badge">Recommended</span>
+            </header>
+            <p class="scenario-note">
+                The LLMs (Jais, Gemini, Llama endpoints) are called via the Model Gateway (LiteLLM/FastAPI),
+                while the application, RAG index (Elasticsearch/ChromaDB), databases and UI run on your
+                infrastructure.
+            </p>
+            <div class="table-scroll">
+                <table class="data-table spec-table">
+                    <thead>
+                        <tr><th scope="col">Component</th><th scope="col">Minimum spec</th><th scope="col">Recommended spec</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><th scope="row">CPU</th><td>8 vCPU cores</td><td>16 vCPU cores</td></tr>
+                        <tr><th scope="row">RAM</th><td>32 GB <small>(16 GB for Elasticsearch JVM)</small></td><td>64 GB <small>(32 GB for JVM heap)</small></td></tr>
+                        <tr><th scope="row">GPU</th><td><em>None required</em></td><td><em>None required</em> <small>(CPU handles embeddings/retrieval)</small></td></tr>
+                        <tr><th scope="row">Storage</th><td>250 GB NVMe SSD <small>(min 3k IOPS)</small></td><td>500 GB–1 TB NVMe SSD <small>(RAID-1 / redundant)</small></td></tr>
+                        <tr><th scope="row">Network</th><td>1 Gbps port / outbound link</td><td>10 Gbps port / VPC gateway</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </article>
+
+        <article class="scenario scenario--b">
+            <header>
+                <h3>Scenario B: Fully Air-Gapped / Local Hosting</h3>
+                <span class="scenario-badge">Local Self-Hosted LLM</span>
+            </header>
+            <p class="scenario-note">
+                For strict regulatory or data residency mandates that prohibit external API routing and
+                require hosting the LLMs locally on your own physical bare-metal servers.
+            </p>
+            <div class="table-scroll">
+                <table class="data-table spec-table">
+                    <thead>
+                        <tr><th scope="col">Component</th><th scope="col">Min (e.g. 8B model)</th><th scope="col">Enterprise (e.g. 70B model)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><th scope="row">GPU</th><td>1&times; NVIDIA RTX 4090 (24 GB) or 1&times; A10/L4</td><td>2&times; to 4&times; NVIDIA A100 / H100 <small>(80 GB VRAM each)</small></td></tr>
+                        <tr><th scope="row">CPU</th><td>16 physical cores <small>(AMD EPYC / Intel Xeon)</small></td><td>32–64 physical cores <small>(AMD EPYC / Intel Xeon)</small></td></tr>
+                        <tr><th scope="row">RAM</th><td>64 GB DDR5 ECC</td><td>128 GB–256 GB DDR5 ECC</td></tr>
+                        <tr><th scope="row">Storage</th><td>1 TB NVMe Gen4 SSD</td><td>2 TB–4 TB NVMe Gen4 U.2 SSD array</td></tr>
+                        <tr><th scope="row">Power</th><td>Standard 850W+ PSU / rack</td><td>Dual redundant 1600W+ PSUs / DC rack</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </article>
+    </div>
+
+    <h3 class="sub">Containerized Workload Resource Sizing</h3>
+    <div class="grid-4 workloads">
+        <article class="workload">
+            <h4>FastAPI App &amp; Gateway</h4>
+            <p class="workload-res"><span>2–4 vCPU</span><span>4–8 GB RAM</span></p>
+            <p>Handles user dashboard, routing logic, rate limiting and PDF readiness packet generation.</p>
+        </article>
+        <article class="workload">
+            <h4>Elasticsearch / ChromaDB</h4>
+            <p class="workload-res"><span>4–8 vCPU</span><span>16–32 GB RAM</span></p>
+            <p>Vector and lexical index hosting bylaws and context. Demands high-IOPS NVMe drive allocation.</p>
+        </article>
+        <article class="workload">
+            <h4>PostgreSQL Database</h4>
+            <p class="workload-res"><span>2–4 vCPU</span><span>8–16 GB RAM</span></p>
+            <p>Stores tamper-evident audit logs, claim ledger records and relational lineage schemas.</p>
+        </article>
+        <article class="workload">
+            <h4>Redis Cache &amp; State</h4>
+            <p class="workload-res"><span>1–2 vCPU</span><span>2–4 GB RAM</span></p>
+            <p>In-memory store for gateway caching, human rationales and runtime kill switch toggles.</p>
+        </article>
+    </div>
+</section>
+
+<footer class="doc-foot">
+    <p><strong>NABD AI</strong> — Institutional governance, validation and decision-control layer.</p>
+    <p>Version 1 scope boundary. Draft-only autonomy; all material dispositions require named human sign-off.</p>
+</footer>
+
+</main>
+
+<script src="roadmap-data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
