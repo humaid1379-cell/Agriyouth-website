@@ -580,6 +580,15 @@ def sod_001(context: RuleContext) -> RuleOutcomeSpec:
             effect=RuleEffect.DENY_WITHOUT_DISCLOSURE,
             detail="No reviewer identity was reverified.",
         )
+    # Self-review is checked first. It holds regardless of the role an identity carries,
+    # so reporting the weaker "wrong role" denial for a requester reviewing its own case
+    # would name the less specific of two true violations.
+    if context.requester_identity_id and reviewer == context.requester_identity_id:
+        return RuleOutcomeSpec.failed(
+            ReasonCode.SEPARATION_OF_DUTIES_VIOLATION,
+            effect=RuleEffect.DENY_WITHOUT_DISCLOSURE,
+            detail="An identity cannot review the case it requested.",
+        )
     if context.reviewer_status != IdentityStatus.ACTIVE.value:
         return RuleOutcomeSpec.failed(
             ReasonCode.REVIEWER_AUTHORITY_INVALID,
@@ -597,12 +606,6 @@ def sod_001(context: RuleContext) -> RuleOutcomeSpec:
             ReasonCode.ACCESS_DENIED,
             effect=RuleEffect.DENY_WITHOUT_DISCLOSURE,
             detail="Reviewer business scope does not match the case scope.",
-        )
-    if context.requester_identity_id and reviewer == context.requester_identity_id:
-        return RuleOutcomeSpec.failed(
-            ReasonCode.SEPARATION_OF_DUTIES_VIOLATION,
-            effect=RuleEffect.DENY_WITHOUT_DISCLOSURE,
-            detail="An identity cannot review the case it requested.",
         )
     if context.state is CaseState.DISPOSITION_BINDING:
         rationale = (context.disposition_rationale or "").strip()

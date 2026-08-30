@@ -1,0 +1,95 @@
+# =============================================================================
+# NABD AI Decision Review - DEFECT REGISTER (blank template)
+# -----------------------------------------------------------------------------
+# template_id             : TPL-DEFECT-REGISTER-V1
+# template_version        : 1.0.0
+# template_kind           : CONTROL_ARTIFACT
+# environment             : ISOLATED_PROTOTYPE_V1
+# data_boundary           : SYNTHETIC_ONLY
+# business_scope          : BUSINESS_UNIT_V1
+# assurance_gates_covered : G-A, G-B, G-C, G-D, G-E (defects raised at any gate)
+# specification           : docs/NABD_AI_CURSOR_FULL_PROTOTYPE_BUILD_SPEC.md, Sections 7.1, 16.2, 17, 17.1, 17.2
+#
+# CONTROL ARTIFACT NOTICE
+#   This template is a control artifact. It does not itself constitute evidence.
+#   An empty register does not indicate that the prototype is free of defects;
+#   it indicates only that no defect has been recorded. Absence of a recorded
+#   defect is not a result and must never be presented as one.
+#
+# INDEPENDENCE DECLARATION (Section 17, three-function separation)
+#   The technical owner prepares code and developer evidence.
+#   The independent evaluator or reviewer reviews code, security, TEVV and
+#     deployment results.
+#   The human owner or delegate accepts or rejects a narrow evidence or status
+#     claim.
+#   One identity must not perform all three functions for the same component,
+#   version, status dimension and evidence set. Invariant INV-16 prohibits
+#   self-acceptance.
+#   For a defect row this means: the remediation_owner must not be the sole
+#   party who records retest_result, and neither may act as the human owner or
+#   delegate accepting the affected evidence. A correction verified only by its
+#   own author is not verified.
+#
+# STATUS DIMENSIONS (recorded separately; never merged - INV-14)
+#   This register does not set a status dimension. The four dimensions are
+#   independent, are always reported separately, and remain at their defaults
+#   until a completed human_owner_acceptance_record.md records a decision. Never
+#   combine them into a single overall or generic readiness state.
+#     Built          default NOT_EVIDENCED
+#                    permitted NOT_EVIDENCED | PARTIALLY_EVIDENCED | EVIDENCED
+#     Integration    default NOT_EVIDENCED
+#                    permitted NOT_EVIDENCED | PARTIALLY_EVIDENCED | EVIDENCED
+#     Operational    default NOT_EVIDENCED
+#                    permitted NOT_EVIDENCED | HISTORICAL_CONFIRMED | EVIDENCED
+#     Authorization  default NOT_GRANTED
+#                    permitted NOT_GRANTED | GRANTED_WITH_CONDITIONS | GRANTED
+#   An open defect never raises a dimension. A closed defect never raises a
+#   dimension either; only a recorded human-owner decision can do so.
+#
+# PERMITTED VALUES (Section 7.1 and Section 17.2)
+#   severity        : S0_CRITICAL | S1_HIGH | S2_MODERATE | S3_LOW
+#   source_gate     : G-A | G-B | G-C | G-D | G-E | G-F
+#   reporter_function
+#                   : TECHNICAL_OWNER | INDEPENDENT_REVIEWER
+#                     | INDEPENDENT_SECURITY_TESTER | INDEPENDENT_EVALUATOR
+#                     | DEPLOYMENT_VALIDATOR | HUMAN_OWNER_OR_DELEGATE
+#   retest_result   : PASS | FAIL | BLOCKED | NOT_RUN
+#   status          : OPEN | IN_ANALYSIS | CONTAINED | CORRECTION_IN_PROGRESS
+#                     | AWAITING_RETEST | RETEST_FAILED | CLOSED_CORRECTED
+#                     | CLOSED_NOT_A_DEFECT | DEFERRED_FUTURE_GATED
+#   blocks_acceptance
+#                   : TRUE | FALSE
+#
+# SEVERITY ASSIGNMENT
+#   S0_CRITICAL is mandatory for any of the following, each of which blocks any
+#   acceptance of the affected release: a successful prohibited external action
+#   or connection; a cross-scope disclosure; an unauthorized or separation-of-
+#   duties-invalid disposition being accepted; a material unsupported claim
+#   presented as definitive; a deterministic-control bypass; a critical-audit
+#   bypass.
+#   Any unresolved S0_CRITICAL or S1_HIGH defect blocks acceptance of the
+#   affected release and blocks movement to the next assurance gate. Set
+#   blocks_acceptance to TRUE for every such row until it is closed and
+#   independently retested.
+#
+# COMPLETION RULES
+#   1. No cell may be left blank. An empty cell is read as <PENDING>.
+#   2. Default status for a newly raised defect is OPEN.
+#   3. Default retest_result is NOT_RUN. A correction is never assumed
+#      effective; it must be retested and the retest recorded.
+#   4. reproduction_steps must be sufficient for an independent party to
+#      reproduce the defect from a clean environment.
+#   5. Retain failed rows and superseded retest rounds visibly. Never overwrite
+#      or delete a prior row; append a new row and cross-reference it.
+#   6. A defect deferred as a future-gated option must also be recorded in
+#      artifacts/templates/known_limitations.md.
+#   7. Remove the EXAMPLE-000 row before use. It is illustrative only and
+#      records no defect.
+#
+# CSV NOTES
+#   Lines beginning with "#" are template metadata and are not data rows.
+#   Parse with a reader configured to skip comment lines, or strip this block
+#   before ingestion. The first non-comment line is the header row.
+# =============================================================================
+defect_id,severity,detected_date_utc,reporter_identity,reporter_function,source_gate,affected_component,affected_versions,environment_id,summary,reproduction_steps,reproduction_trace_ids,containment_action,containment_date_utc,remediation_owner,correction_description,correction_commit,verification_test_link,retest_link,retest_result,status,closed_date_utc,blocks_acceptance
+EXAMPLE-000,"<PENDING: S0_CRITICAL | S1_HIGH | S2_MODERATE | S3_LOW>","<PENDING: ISO-8601 UTC date the defect was detected>","<TO BE COMPLETED BY THE DETECTING PARTY>","<PENDING: reporter function>","<PENDING: G-A | G-B | G-C | G-D | G-E | G-F>","<PENDING: component identifier>","<PENDING: every pinned component version in which the defect is present>",ISOLATED_PROTOTYPE_V1,"ILLUSTRATIVE EXAMPLE ROW ONLY - REMOVE BEFORE USE. This row records no defect and asserts no result. A real summary states the observed behaviour, the expected behaviour and the control or invariant affected.","ILLUSTRATIVE EXAMPLE ROW ONLY - REMOVE BEFORE USE. A real entry gives ordered steps from a clean environment, including fixture identifiers, exact commands and the observed reason code.","<PENDING: trace identifiers linking to the run that exposed the defect>","<PENDING: immediate containment applied, or NONE_APPLIED with justification>","<PENDING: ISO-8601 UTC date containment was applied>","<TO BE COMPLETED BY TECHNICAL OWNER>","<PENDING: description of the correction made>","<PENDING: commit SHA or range implementing the correction>","<PENDING: link to the test that would have detected this defect>","<PENDING: link to the independent retest record>",NOT_RUN,OPEN,<PENDING>,<PENDING>

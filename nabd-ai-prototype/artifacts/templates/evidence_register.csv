@@ -1,0 +1,81 @@
+# =============================================================================
+# NABD AI Decision Review - EVIDENCE REGISTER (blank template)
+# -----------------------------------------------------------------------------
+# template_id             : TPL-EVIDENCE-REGISTER-V1
+# template_version        : 1.0.0
+# template_kind           : CONTROL_ARTIFACT
+# environment             : ISOLATED_PROTOTYPE_V1
+# data_boundary           : SYNTHETIC_ONLY
+# business_scope          : BUSINESS_UNIT_V1
+# assurance_gates_covered : G-A, G-B, G-C, G-D, G-E, G-F (one row per retained artifact)
+# specification           : docs/NABD_AI_CURSOR_FULL_PROTOTYPE_BUILD_SPEC.md, Sections 7.1, 16.2, 17, 17.1, 17.2
+#
+# CONTROL ARTIFACT NOTICE
+#   This template is a control artifact. It does not itself constitute evidence.
+#   Its presence in the repository does not indicate that any evidence exists,
+#   that any artifact has been produced, or that any status dimension has
+#   changed. Evidence exists only when a named preparer has produced a hashed
+#   artifact, a named independent evaluator has reviewed it, and a named human
+#   owner or delegate has recorded a decision against a narrow claim.
+#
+# INDEPENDENCE DECLARATION (Section 17, three-function separation)
+#   The technical owner prepares code and developer evidence.
+#   The independent evaluator or reviewer reviews code, security, TEVV and
+#     deployment results.
+#   The human owner or delegate accepts or rejects a narrow evidence or status
+#     claim.
+#   One identity must not perform all three functions for the same component,
+#   version, status dimension and evidence set. Invariant INV-16 prohibits
+#   self-acceptance: a developer, model, evaluator, administrator or evidence
+#   record cannot accept its own status claim.
+#   A row in which preparer_identity, independent_evaluator_identity and
+#   human_owner_acceptor_identity are not three distinct identities is invalid
+#   and must be reassigned before the row is treated as evidence.
+#
+# STATUS DIMENSIONS (recorded separately; never merged - INV-14)
+#   The four dimensions are independent. One row records exactly one dimension.
+#   Do not combine dimensions in a single row and do not derive an overall or
+#   generic readiness state from this register.
+#     Built          default NOT_EVIDENCED
+#     Integration    default NOT_EVIDENCED
+#     Operational    default NOT_EVIDENCED
+#     Authorization  default NOT_GRANTED
+#
+# PERMITTED VALUES (Section 7.1)
+#   status_dimension        : built | integration | operational | authorization
+#   status_value_claimed
+#     when status_dimension is built or integration
+#                           : NOT_EVIDENCED | PARTIALLY_EVIDENCED | EVIDENCED
+#     when status_dimension is operational
+#                           : NOT_EVIDENCED | HISTORICAL_CONFIRMED | EVIDENCED
+#     when status_dimension is authorization
+#                           : NOT_GRANTED | GRANTED_WITH_CONDITIONS | GRANTED
+#   assurance_gate          : G-A | G-B | G-C | G-D | G-E | G-F
+#   acceptance_decision     : ACCEPT_BUILT_EVIDENCE | ACCEPT_INTEGRATION_EVIDENCE
+#                             | ACCEPT_WITH_CONDITIONS | REJECT_EVIDENCE
+#                             | REQUEST_RETEST | STOP_AND_REVISE | <PENDING>
+#   revocation_status       : NOT_REVOKED | REVOKED | SUPERSEDED
+#
+# COMPLETION RULES
+#   1. No cell may be left blank. An empty cell is read as <PENDING> and never
+#      as an accepted or evidenced state.
+#   2. artifact_sha256 must be a 64-character lowercase hexadecimal digest of
+#      the exact retained artifact. A row without a verified digest is not
+#      evidence.
+#   3. narrow_claim must state one specific, bounded claim about one component
+#      version in one environment over one period. A broad claim is invalid.
+#   4. limitations must state what the artifact does not demonstrate.
+#   5. A row may only carry an acceptance_decision that appears in a completed
+#      human_owner_acceptance_record.md, referenced by artifact_path.
+#   6. Superseded rows are retained. Mark revocation_status as SUPERSEDED and
+#      add a new row. Never overwrite or delete a prior row.
+#   7. Remove the EXAMPLE-000 row before use. It is illustrative only and
+#      records no evidence.
+#
+# CSV NOTES
+#   Lines beginning with "#" are template metadata and are not data rows.
+#   Parse with a reader configured to skip comment lines, or strip this block
+#   before ingestion. The first non-comment line is the header row.
+# =============================================================================
+evidence_id,component_id,component_version,status_dimension,status_value_claimed,evidence_type,assurance_gate,artifact_path,artifact_sha256,environment_id,data_boundary_id,period_start_utc,period_end_utc,narrow_claim,limitations,preparer_identity,independent_evaluator_identity,human_owner_acceptor_identity,acceptance_decision,acceptance_datetime_utc,review_due_date,expiry_date,revocation_status,revocation_reason
+EXAMPLE-000,"<EXAMPLE ROW - REMOVE BEFORE USE: component identifier>","<EXAMPLE ROW - REMOVE BEFORE USE: exact pinned component version>","<PENDING: built | integration | operational | authorization>",NOT_EVIDENCED,"<PENDING: evidence type, for example independent code review record, security scan output, TEVV run report, deployment validation transcript>","<PENDING: G-A | G-B | G-C | G-D | G-E | G-F>","<PENDING: repository-relative path to the retained immutable artifact>","<PENDING: 64-character lowercase hexadecimal SHA-256 of the retained artifact>",ISOLATED_PROTOTYPE_V1,SYNTHETIC_ONLY,"<PENDING: ISO-8601 UTC start of the period the evidence covers>","<PENDING: ISO-8601 UTC end of the period the evidence covers>","ILLUSTRATIVE EXAMPLE ROW ONLY - REMOVE BEFORE USE. This row asserts nothing. A real narrow_claim names one component version, one environment, one status dimension and one period, and claims no more than the attached artifact shows.","ILLUSTRATIVE EXAMPLE ROW ONLY - REMOVE BEFORE USE. A real limitations entry states what the artifact does not demonstrate, including scenarios not run, coverage marked incomplete, and the fact that results are bounded to synthetic data in an isolated prototype environment.","<TO BE COMPLETED BY TECHNICAL OWNER>","<TO BE COMPLETED BY INDEPENDENT EVALUATOR>","<TO BE COMPLETED BY HUMAN OWNER OR DELEGATE>",<PENDING>,"<PENDING: ISO-8601 UTC timestamp of the recorded decision>","<PENDING: date by which this evidence must be re-examined>","<PENDING: date after which this evidence is no longer current>",NOT_REVOKED,<NONE_RECORDED>

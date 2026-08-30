@@ -359,6 +359,9 @@ class DecisionPacketRow(Base):
     packet_version: Mapped[int] = mapped_column(Integer, nullable=False)
     route: Mapped[str] = mapped_column(String(32), nullable=False)
     packet_sha256: Mapped[str] = mapped_column(String(64), nullable=False)
+    # The hash as sealed at pre-issuance. It is what the confirmed audit event binds and
+    # what a reviewer disposes of; it never changes once issued.
+    issued_sha256: Mapped[str | None] = mapped_column(String(64))
     canonical_json: Mapped[str] = mapped_column(Text, nullable=False)
     payload: Mapped[dict[str, Any]] = mapped_column(JsonPayload, nullable=False)
     pre_issuance_event_id: Mapped[str | None] = mapped_column(String(96))

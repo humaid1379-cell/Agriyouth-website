@@ -94,6 +94,8 @@ class PacketInputs:
     draft_configuration_id: str
     verifier_configuration_id: str
     created_at: datetime
+    pre_issuance_event_id: str | None = None
+    audit_chain_head_hash: str | None = None
 
 
 def build_packet(inputs: PacketInputs) -> DecisionReadinessPacket:
@@ -167,7 +169,10 @@ def build_packet(inputs: PacketInputs) -> DecisionReadinessPacket:
             verifier_model_configuration_id=inputs.verifier_configuration_id,
         ),
         integrity=PacketIntegrity(calculated_at=inputs.created_at),
-        audit_binding=PacketAuditBinding(),
+        audit_binding=PacketAuditBinding(
+            pre_issuance_event_id=inputs.pre_issuance_event_id,
+            audit_chain_head_hash=inputs.audit_chain_head_hash,
+        ),
         notices=tuple(PacketNotice(**notice) for notice in notices_payload()),
         prototype_status=PacketStatusBlock(),
     )
@@ -224,6 +229,9 @@ class SemanticContext:
     authorization: AuthorizationDecision
     eligible_source_keys: frozenset[str]
     admitted_excerpt_ids: frozenset[str]
+    #: The hash sealed at pre-issuance. Display and disposition bind to this value, not to
+    #: the packet's current hash, which changes when the disposition is attached.
+    issued_packet_sha256: str | None = None
     confirmed_pre_issuance_event_id: str | None = None
     confirmed_pre_issuance_at: datetime | None = None
     confirmed_closure_event_id: str | None = None
@@ -360,7 +368,8 @@ def validate_packet_semantics(
             failures.append("SEM-10_DISPOSITION_PACKET_MISMATCH")
         if disposition.packet_version != packet.identity.packet_version:
             failures.append("SEM-10_DISPOSITION_VERSION_MISMATCH")
-        if disposition.packet_sha256 != packet.integrity.packet_sha256:
+        expected_hash = context.issued_packet_sha256 or packet.integrity.packet_sha256
+        if disposition.packet_sha256 != expected_hash:
             failures.append("SEM-10_DISPOSITION_HASH_MISMATCH")
         if disposition.reviewer_identity_id == packet.request_context.requester_identity_id:
             failures.append("SEM-10_SELF_REVIEW")

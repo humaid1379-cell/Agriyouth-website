@@ -39,7 +39,7 @@ from app.domain.enums import (
 )
 from app.domain.errors import ControlError, IllegalTransitionError, StopError
 from app.domain.fsm import assert_transition, next_state
-from app.domain.ids import derived_id
+from app.domain.ids import derived_id, new_id
 from app.domain.limits import CONCURRENT_CASES_MAX, SOURCE_PLAN_MAX
 from app.domain.reason_codes import ReasonCode, message_for
 from app.domain.versions import COMPONENT_VERSIONS
@@ -84,7 +84,6 @@ from app.services.packet import (
     build_packet,
     build_risk_profile,
     validate_packet_semantics,
-    with_audit_binding,
 )
 from app.services.prompts import build_draft_input, build_verification_input
 from app.services.retrieval import retrieve
@@ -616,7 +615,13 @@ class CaseProcessor:
             return self._stop(ReasonCode(stop.reason_code))
 
         # Stage 12 - PACKET_ASSEMBLY
+        #
+        # The pre-issuance event id is generated before the packet is sealed so that the
+        # packet can carry its own audit reference inside the sealed preimage. The event is
+        # written at stage 14 under exactly this id, binding the resulting hash, which is
+        # why the two never disagree.
         self._transition_to(next_state(self.state))
+        self.pre_issuance_event_id = new_id("event")
         packet = self._assemble_packet(route)
         self.packet = packet
         audit.record(
@@ -643,7 +648,8 @@ class CaseProcessor:
             authorization=self.authorization,
             eligible_source_keys=frozenset(item.source_key for item in self.eligible),
             admitted_excerpt_ids=frozenset(e.excerpt_id for e in self.excerpts),
-            confirmed_pre_issuance_event_id="pending",
+            issued_packet_sha256=packet.integrity.packet_sha256,
+            confirmed_pre_issuance_event_id=self.pre_issuance_event_id,
         )
         failures = validate_packet_semantics(packet, semantic_context)
         context = self._context()
@@ -664,6 +670,7 @@ class CaseProcessor:
 
         # Stage 14 - PACKET_PRE_ISSUANCE_AUDIT
         self._transition_to(next_state(self.state))
+        confirmed_event_id: str | None = None
         if not self.options.skip_pre_issuance_audit:
             confirmed = audit.record_and_confirm(
                 self.session,
@@ -671,6 +678,7 @@ class CaseProcessor:
                 actor_id=ORCHESTRATOR_SERVICE_ID,
                 outcome=AuditOutcome.PASS,
                 case_id=self.case.case_id,
+                event_id=self.pre_issuance_event_id,
                 binding=ObjectBinding(
                     object_kind="decision_packet",
                     object_id=packet.identity.packet_id,
@@ -678,19 +686,15 @@ class CaseProcessor:
                     object_sha256=packet.integrity.packet_sha256,
                 ),
             )
-            self.pre_issuance_event_id = confirmed.event_id
+            confirmed_event_id = confirmed.event_id
+        else:
+            self.pre_issuance_event_id = None
         context = self._context()
-        context.confirmed_pre_issuance_event_id = self.pre_issuance_event_id
+        context.confirmed_pre_issuance_event_id = confirmed_event_id
         stop = self._evaluate(context)
         if stop:
             return self._stop(ReasonCode(stop.reason_code))
 
-        packet = with_audit_binding(
-            packet,
-            pre_issuance_event_id=self.pre_issuance_event_id,
-            pre_issuance_confirmed_at=utc_now(),
-            chain_head_hash=audit.verify_chain(self.session, self.case.case_id).head_hash,
-        )
         self.packet = packet
         self._persist_packet(packet, displayable=True)
 
@@ -1026,6 +1030,8 @@ class CaseProcessor:
             risk=risk,
             route=route,
             route_reason_code="HUMAN_REVIEW_REQUIRED_BY_DESIGN",
+            pre_issuance_event_id=self.pre_issuance_event_id,
+            audit_chain_head_hash=audit.verify_chain(self.session, self.case.case_id).head_hash,
             draft_configuration_id=(
                 self.gateway.draft_configuration.model_configuration_id if self.gateway else ""
             ),
@@ -1043,6 +1049,7 @@ class CaseProcessor:
         existing = self.session.get(DecisionPacketRow, packet.identity.packet_id)
         if existing is not None:
             existing.packet_sha256 = packet.integrity.packet_sha256
+            existing.issued_sha256 = existing.issued_sha256 or packet.integrity.packet_sha256
             existing.canonical_json = canonical_dumps(payload)
             existing.payload = payload
             existing.displayable = displayable
@@ -1055,6 +1062,7 @@ class CaseProcessor:
                     packet_version=packet.identity.packet_version,
                     route=packet.route.value,
                     packet_sha256=packet.integrity.packet_sha256,
+                    issued_sha256=packet.integrity.packet_sha256,
                     canonical_json=canonical_dumps(payload),
                     payload=payload,
                     pre_issuance_event_id=self.pre_issuance_event_id,

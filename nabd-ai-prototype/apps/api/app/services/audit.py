@@ -64,12 +64,20 @@ def build_event(
     severity: Severity | None = None,
     payload_reference: str = "",
     application_time: datetime | None = None,
+    event_id: str | None = None,
 ) -> AuditEvent:
+    """Build a chained event.
+
+    ``event_id`` may be supplied when a governed object must reference the event before the
+    event exists. The packet does exactly that: it carries its pre-issuance event id inside
+    the sealed preimage, so the id is generated first and the event is written afterwards
+    binding the resulting hash. Without this the two would chase each other.
+    """
     key = chain_key_for(case_id)
     sequence = _next_sequence(session, key)
     event = AuditEvent(
         produced_by=AUDIT_SERVICE_ID,
-        event_id=new_id("event"),
+        event_id=event_id or new_id("event"),
         event_type=event_type,
         case_id=case_id,
         sequence=sequence,
