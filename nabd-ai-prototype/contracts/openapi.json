@@ -1,0 +1,2013 @@
+{
+  "components": {
+    "schemas": {
+      "AuditResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "case_id": {
+            "title": "Case Id"
+          },
+          "events": {
+            "title": "Events"
+          },
+          "verification": {
+            "title": "Verification"
+          }
+        },
+        "required": [
+          "case_id",
+          "events",
+          "verification"
+        ],
+        "title": "AuditResponse",
+        "type": "object"
+      },
+      "AuditVerifyRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "case_id": {
+            "anyOf": [
+              {
+                "maxLength": 128,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9._:@/+\\-]+$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Case Id"
+          }
+        },
+        "title": "AuditVerifyRequest",
+        "type": "object"
+      },
+      "CaseListResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "cases": {
+            "title": "Cases"
+          }
+        },
+        "required": [
+          "cases"
+        ],
+        "title": "CaseListResponse",
+        "type": "object"
+      },
+      "CaseProgressResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "case": {},
+          "limits": {
+            "title": "Limits"
+          },
+          "rule_results": {
+            "title": "Rule Results"
+          },
+          "stop_record": {
+            "title": "Stop Record"
+          },
+          "transitions": {
+            "title": "Transitions"
+          }
+        },
+        "required": [
+          "case",
+          "transitions",
+          "rule_results",
+          "limits",
+          "stop_record"
+        ],
+        "title": "CaseProgressResponse",
+        "type": "object"
+      },
+      "CaseSummary": {
+        "additionalProperties": false,
+        "properties": {
+          "case_id": {
+            "title": "Case Id"
+          },
+          "current_state": {
+            "title": "Current State"
+          },
+          "normalised_question": {
+            "title": "Normalised Question"
+          },
+          "packet_available": {
+            "title": "Packet Available"
+          },
+          "permissible_next_actions": {
+            "title": "Permissible Next Actions"
+          },
+          "reason_code": {
+            "title": "Reason Code"
+          },
+          "reason_message": {
+            "title": "Reason Message"
+          },
+          "requester_identity_id": {
+            "title": "Requester Identity Id"
+          },
+          "route": {
+            "title": "Route"
+          },
+          "stage": {
+            "title": "Stage"
+          },
+          "submitted_at": {
+            "title": "Submitted At"
+          },
+          "updated_at": {
+            "title": "Updated At"
+          }
+        },
+        "required": [
+          "case_id",
+          "requester_identity_id",
+          "normalised_question",
+          "current_state",
+          "stage",
+          "route",
+          "reason_code",
+          "reason_message",
+          "submitted_at",
+          "updated_at",
+          "packet_available",
+          "permissible_next_actions"
+        ],
+        "title": "CaseSummary",
+        "type": "object"
+      },
+      "ConfigurationResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "component_versions": {
+            "title": "Component Versions"
+          },
+          "corpus_manifest_sha256": {
+            "title": "Corpus Manifest Sha256"
+          },
+          "environment_id": {
+            "title": "Environment Id"
+          },
+          "kill_switch": {},
+          "limits": {
+            "title": "Limits"
+          },
+          "model_configurations": {
+            "title": "Model Configurations"
+          },
+          "prohibited_integrations": {
+            "title": "Prohibited Integrations"
+          },
+          "rule_catalog": {
+            "title": "Rule Catalog"
+          },
+          "settings": {
+            "title": "Settings"
+          },
+          "state_machine": {
+            "title": "State Machine"
+          },
+          "status": {
+            "title": "Status"
+          }
+        },
+        "required": [
+          "environment_id",
+          "component_versions",
+          "corpus_manifest_sha256",
+          "rule_catalog",
+          "limits",
+          "state_machine",
+          "model_configurations",
+          "settings",
+          "prohibited_integrations",
+          "kill_switch",
+          "status"
+        ],
+        "title": "ConfigurationResponse",
+        "type": "object"
+      },
+      "CreateCaseRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "question": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Question",
+            "type": "string"
+          }
+        },
+        "required": [
+          "question"
+        ],
+        "title": "CreateCaseRequest",
+        "type": "object"
+      },
+      "DemoIdentityOption": {
+        "additionalProperties": false,
+        "properties": {
+          "capabilities": {
+            "title": "Capabilities"
+          },
+          "display_name_ar": {
+            "title": "Display Name Ar"
+          },
+          "display_name_en": {
+            "title": "Display Name En"
+          },
+          "identity_id": {
+            "title": "Identity Id"
+          },
+          "prohibitions": {
+            "title": "Prohibitions"
+          },
+          "role": {}
+        },
+        "required": [
+          "identity_id",
+          "display_name_en",
+          "display_name_ar",
+          "role",
+          "capabilities",
+          "prohibitions"
+        ],
+        "title": "DemoIdentityOption",
+        "type": "object"
+      },
+      "DemoRole": {
+        "enum": [
+          "REQUESTER",
+          "REVIEWER",
+          "ADMINISTRATOR"
+        ],
+        "title": "DemoRole",
+        "type": "string"
+      },
+      "DemoSessionRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "identity_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9._:@/+\\-]+$",
+            "title": "Identity Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "identity_id"
+        ],
+        "title": "DemoSessionRequest",
+        "type": "object"
+      },
+      "DemoSessionResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "expires_at": {
+            "title": "Expires At"
+          },
+          "identity_id": {
+            "title": "Identity Id"
+          },
+          "notices": {
+            "title": "Notices"
+          },
+          "role": {},
+          "token": {
+            "title": "Token"
+          }
+        },
+        "required": [
+          "token",
+          "identity_id",
+          "role",
+          "expires_at",
+          "notices"
+        ],
+        "title": "DemoSessionResponse",
+        "type": "object"
+      },
+      "DispositionRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "disposition_value": {
+            "$ref": "#/components/schemas/DispositionValue"
+          },
+          "human_rationale": {
+            "maxLength": 4000,
+            "minLength": 20,
+            "title": "Human Rationale",
+            "type": "string"
+          },
+          "packet_sha256": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Packet Sha256"
+          }
+        },
+        "required": [
+          "disposition_value",
+          "human_rationale"
+        ],
+        "title": "DispositionRequest",
+        "type": "object"
+      },
+      "DispositionResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "case_id": {
+            "title": "Case Id"
+          },
+          "closure_event_id": {
+            "title": "Closure Event Id"
+          },
+          "disposition_id": {
+            "title": "Disposition Id"
+          },
+          "disposition_value": {},
+          "is_final": {
+            "title": "Is Final"
+          },
+          "non_execution_notice": {
+            "title": "Non Execution Notice"
+          },
+          "packet_sha256": {
+            "title": "Packet Sha256"
+          },
+          "terminal_state": {
+            "title": "Terminal State"
+          }
+        },
+        "required": [
+          "case_id",
+          "disposition_id",
+          "disposition_value",
+          "is_final",
+          "terminal_state",
+          "closure_event_id",
+          "packet_sha256",
+          "non_execution_notice"
+        ],
+        "title": "DispositionResponse",
+        "type": "object"
+      },
+      "DispositionValue": {
+        "description": "Test-only reviewer dispositions. None of these authorise an institutional action.",
+        "enum": [
+          "RETURN_FOR_CLARIFICATION",
+          "ACCEPT_AS_TEST_EVIDENCE",
+          "REJECT_AS_TEST_EVIDENCE"
+        ],
+        "title": "DispositionValue",
+        "type": "string"
+      },
+      "ExcerptResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "authority_class": {
+            "title": "Authority Class"
+          },
+          "case_id": {
+            "title": "Case Id"
+          },
+          "char_end": {
+            "title": "Char End"
+          },
+          "char_start": {
+            "title": "Char Start"
+          },
+          "citation_label": {
+            "title": "Citation Label"
+          },
+          "excerpt_id": {
+            "title": "Excerpt Id"
+          },
+          "lifecycle": {
+            "title": "Lifecycle"
+          },
+          "page_number": {
+            "title": "Page Number"
+          },
+          "revocation_warning": {
+            "title": "Revocation Warning"
+          },
+          "section_heading": {
+            "title": "Section Heading"
+          },
+          "source_id": {
+            "title": "Source Id"
+          },
+          "source_sha256": {
+            "title": "Source Sha256"
+          },
+          "source_title": {
+            "title": "Source Title"
+          },
+          "source_version": {
+            "title": "Source Version"
+          },
+          "text": {
+            "title": "Text"
+          },
+          "text_sha256": {
+            "title": "Text Sha256"
+          },
+          "trust_label": {
+            "title": "Trust Label"
+          }
+        },
+        "required": [
+          "excerpt_id",
+          "case_id",
+          "source_id",
+          "source_version",
+          "source_title",
+          "authority_class",
+          "lifecycle",
+          "page_number",
+          "section_heading",
+          "char_start",
+          "char_end",
+          "text",
+          "text_sha256",
+          "source_sha256",
+          "trust_label",
+          "citation_label",
+          "revocation_warning"
+        ],
+        "title": "ExcerptResponse",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "HealthResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "checks": {
+            "title": "Checks"
+          },
+          "environment_id": {
+            "title": "Environment Id"
+          },
+          "status": {
+            "title": "Status"
+          }
+        },
+        "required": [
+          "status",
+          "environment_id"
+        ],
+        "title": "HealthResponse",
+        "type": "object"
+      },
+      "KillSwitchRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "active": {
+            "title": "Active",
+            "type": "boolean"
+          },
+          "reason": {
+            "maxLength": 500,
+            "minLength": 10,
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "active",
+          "reason"
+        ],
+        "title": "KillSwitchRequest",
+        "type": "object"
+      },
+      "KillSwitchResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "active": {
+            "title": "Active"
+          },
+          "changed_at": {
+            "title": "Changed At"
+          },
+          "changed_by": {
+            "title": "Changed By"
+          },
+          "reason": {
+            "title": "Reason"
+          }
+        },
+        "required": [
+          "active",
+          "changed_at",
+          "changed_by",
+          "reason"
+        ],
+        "title": "KillSwitchResponse",
+        "type": "object"
+      },
+      "LineageResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "case_id": {
+            "title": "Case Id"
+          },
+          "edges": {
+            "title": "Edges"
+          },
+          "nodes": {
+            "title": "Nodes"
+          }
+        },
+        "required": [
+          "case_id",
+          "nodes",
+          "edges"
+        ],
+        "title": "LineageResponse",
+        "type": "object"
+      },
+      "MeResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "brand_statement_ar": {
+            "title": "Brand Statement Ar"
+          },
+          "brand_statement_en": {
+            "title": "Brand Statement En"
+          },
+          "business_scope_id": {
+            "title": "Business Scope Id"
+          },
+          "capabilities": {
+            "title": "Capabilities"
+          },
+          "data_boundary_id": {
+            "title": "Data Boundary Id"
+          },
+          "display_name_ar": {
+            "title": "Display Name Ar"
+          },
+          "display_name_en": {
+            "title": "Display Name En"
+          },
+          "environment_id": {
+            "title": "Environment Id"
+          },
+          "identity_id": {
+            "title": "Identity Id"
+          },
+          "notices": {
+            "title": "Notices"
+          },
+          "prohibitions": {
+            "title": "Prohibitions"
+          },
+          "role": {},
+          "role_id": {
+            "title": "Role Id"
+          },
+          "session_expires_at": {
+            "title": "Session Expires At"
+          }
+        },
+        "required": [
+          "identity_id",
+          "display_name_en",
+          "display_name_ar",
+          "role",
+          "role_id",
+          "business_scope_id",
+          "environment_id",
+          "data_boundary_id",
+          "session_expires_at",
+          "capabilities",
+          "prohibitions",
+          "notices",
+          "brand_statement_en",
+          "brand_statement_ar"
+        ],
+        "title": "MeResponse",
+        "type": "object"
+      },
+      "PacketResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "canonical_sha256": {
+            "title": "Canonical Sha256"
+          },
+          "packet": {
+            "title": "Packet"
+          },
+          "seal_verified": {
+            "title": "Seal Verified"
+          }
+        },
+        "required": [
+          "packet",
+          "canonical_sha256",
+          "seal_verified"
+        ],
+        "title": "PacketResponse",
+        "type": "object"
+      },
+      "SourcePageResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "char_end": {
+            "title": "Char End"
+          },
+          "char_start": {
+            "title": "Char Start"
+          },
+          "lifecycle": {
+            "title": "Lifecycle"
+          },
+          "page_count": {
+            "title": "Page Count"
+          },
+          "page_number": {
+            "title": "Page Number"
+          },
+          "revocation_warning": {
+            "title": "Revocation Warning"
+          },
+          "section_headings": {
+            "title": "Section Headings"
+          },
+          "source_id": {
+            "title": "Source Id"
+          },
+          "source_version": {
+            "title": "Source Version"
+          },
+          "text": {
+            "title": "Text"
+          },
+          "title": {
+            "title": "Title"
+          },
+          "trust_label": {
+            "title": "Trust Label"
+          }
+        },
+        "required": [
+          "source_id",
+          "source_version",
+          "title",
+          "lifecycle",
+          "page_number",
+          "page_count",
+          "section_headings",
+          "char_start",
+          "char_end",
+          "text",
+          "trust_label",
+          "revocation_warning"
+        ],
+        "title": "SourcePageResponse",
+        "type": "object"
+      },
+      "TevvRunRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "scenario_ids": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Scenario Ids",
+            "type": "array"
+          }
+        },
+        "title": "TevvRunRequest",
+        "type": "object"
+      },
+      "TevvRunResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "completed_at": {
+            "title": "Completed At"
+          },
+          "component_versions": {
+            "title": "Component Versions"
+          },
+          "executor": {
+            "title": "Executor"
+          },
+          "plan_version": {
+            "title": "Plan Version"
+          },
+          "results": {
+            "title": "Results"
+          },
+          "started_at": {
+            "title": "Started At"
+          },
+          "summary": {
+            "title": "Summary"
+          },
+          "tevv_run_id": {
+            "title": "Tevv Run Id"
+          }
+        },
+        "required": [
+          "tevv_run_id",
+          "plan_version",
+          "executor",
+          "started_at",
+          "completed_at",
+          "component_versions",
+          "summary",
+          "results"
+        ],
+        "title": "TevvRunResponse",
+        "type": "object"
+      },
+      "UseCaseResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "business_scope_id": {
+            "title": "Business Scope Id"
+          },
+          "data_boundary_id": {
+            "title": "Data Boundary Id"
+          },
+          "description_ar": {
+            "title": "Description Ar"
+          },
+          "description_en": {
+            "title": "Description En"
+          },
+          "excluded_outcomes": {
+            "title": "Excluded Outcomes"
+          },
+          "excluded_scope_terms": {
+            "title": "Excluded Scope Terms"
+          },
+          "max_question_chars": {
+            "title": "Max Question Chars"
+          },
+          "min_question_chars": {
+            "title": "Min Question Chars"
+          },
+          "permitted_purpose": {
+            "title": "Permitted Purpose"
+          },
+          "permitted_question_kinds": {
+            "title": "Permitted Question Kinds"
+          },
+          "title_ar": {
+            "title": "Title Ar"
+          },
+          "title_en": {
+            "title": "Title En"
+          },
+          "use_case_contract_id": {
+            "title": "Use Case Contract Id"
+          }
+        },
+        "required": [
+          "use_case_contract_id",
+          "title_en",
+          "title_ar",
+          "description_en",
+          "description_ar",
+          "permitted_purpose",
+          "permitted_question_kinds",
+          "excluded_scope_terms",
+          "excluded_outcomes",
+          "max_question_chars",
+          "min_question_chars",
+          "business_scope_id",
+          "data_boundary_id"
+        ],
+        "title": "UseCaseResponse",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "summary": "Isolated synthetic prototype. Decision-support only: it does not approve, execute, transmit or activate any institutional action.",
+    "title": "NABD AI Decision Review API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/v1/admin/audit/verify": {
+      "post": {
+        "operationId": "verify_audit_api_v1_admin_audit_verify_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuditVerifyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Verify Audit Api V1 Admin Audit Verify Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Verify Audit",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/configuration": {
+      "get": {
+        "operationId": "read_configuration_api_v1_admin_configuration_get",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfigurationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Read Configuration",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/kill-switch": {
+      "post": {
+        "operationId": "toggle_kill_switch_api_v1_admin_kill_switch_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KillSwitchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KillSwitchResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Toggle Kill Switch",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/tevv/run": {
+      "post": {
+        "operationId": "run_tevv_api_v1_admin_tevv_run_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TevvRunRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TevvRunResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Run Tevv",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/tevv/runs/{tevv_run_id}": {
+      "get": {
+        "operationId": "read_tevv_run_api_v1_admin_tevv_runs__tevv_run_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tevv_run_id",
+            "required": true,
+            "schema": {
+              "title": "Tevv Run Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TevvRunResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Read Tevv Run",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/cases": {
+      "get": {
+        "operationId": "list_cases_api_v1_cases_get",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaseListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Cases",
+        "tags": [
+          "cases"
+        ]
+      },
+      "post": {
+        "operationId": "create_case_api_v1_cases_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCaseRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaseSummary"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Case",
+        "tags": [
+          "cases"
+        ]
+      }
+    },
+    "/api/v1/cases/{case_id}": {
+      "get": {
+        "operationId": "read_case_api_v1_cases__case_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaseSummary"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Read Case",
+        "tags": [
+          "cases"
+        ]
+      }
+    },
+    "/api/v1/cases/{case_id}/audit": {
+      "get": {
+        "operationId": "read_audit_api_v1_cases__case_id__audit_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuditResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Read Audit",
+        "tags": [
+          "cases"
+        ]
+      }
+    },
+    "/api/v1/cases/{case_id}/dispositions": {
+      "post": {
+        "operationId": "create_disposition_api_v1_cases__case_id__dispositions_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DispositionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DispositionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Disposition",
+        "tags": [
+          "review"
+        ]
+      }
+    },
+    "/api/v1/cases/{case_id}/lineage": {
+      "get": {
+        "operationId": "read_lineage_api_v1_cases__case_id__lineage_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LineageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Read Lineage",
+        "tags": [
+          "cases"
+        ]
+      }
+    },
+    "/api/v1/cases/{case_id}/packet": {
+      "get": {
+        "operationId": "read_packet_api_v1_cases__case_id__packet_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PacketResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Read Packet",
+        "tags": [
+          "cases"
+        ]
+      }
+    },
+    "/api/v1/cases/{case_id}/process": {
+      "post": {
+        "operationId": "process_api_v1_cases__case_id__process_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaseSummary"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Process",
+        "tags": [
+          "cases"
+        ]
+      }
+    },
+    "/api/v1/cases/{case_id}/progress": {
+      "get": {
+        "operationId": "read_progress_api_v1_cases__case_id__progress_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaseProgressResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Read Progress",
+        "tags": [
+          "cases"
+        ]
+      }
+    },
+    "/api/v1/demo/identities": {
+      "get": {
+        "description": "Selectable synthetic profiles.\n\nDenial fixtures (expired, revoked, unknown, cross-scope) are deliberately absent: they\nexist for tests, not for the browser.",
+        "operationId": "list_demo_identities_api_v1_demo_identities_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/DemoIdentityOption"
+                  },
+                  "title": "Response List Demo Identities Api V1 Demo Identities Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Demo Identities",
+        "tags": [
+          "session"
+        ]
+      }
+    },
+    "/api/v1/demo/session": {
+      "post": {
+        "operationId": "create_demo_session_api_v1_demo_session_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DemoSessionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemoSessionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Demo Session",
+        "tags": [
+          "session"
+        ]
+      }
+    },
+    "/api/v1/evidence/{excerpt_id}": {
+      "get": {
+        "operationId": "read_excerpt_api_v1_evidence__excerpt_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "excerpt_id",
+            "required": true,
+            "schema": {
+              "title": "Excerpt Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExcerptResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Read Excerpt",
+        "tags": [
+          "cases"
+        ]
+      }
+    },
+    "/api/v1/me": {
+      "get": {
+        "operationId": "read_me_api_v1_me_get",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Read Me",
+        "tags": [
+          "session"
+        ]
+      }
+    },
+    "/api/v1/review/queue": {
+      "get": {
+        "operationId": "read_review_queue_api_v1_review_queue_get",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaseListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Read Review Queue",
+        "tags": [
+          "review"
+        ]
+      }
+    },
+    "/api/v1/sources/{source_id}/pages/{page}": {
+      "get": {
+        "operationId": "read_source_page_api_v1_sources__source_id__pages__page__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "source_id",
+            "required": true,
+            "schema": {
+              "title": "Source Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "page",
+            "required": true,
+            "schema": {
+              "title": "Page",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SourcePageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Read Source Page",
+        "tags": [
+          "cases"
+        ]
+      }
+    },
+    "/api/v1/use-case": {
+      "get": {
+        "operationId": "read_use_case_api_v1_use_case_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UseCaseResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Read Use Case",
+        "tags": [
+          "session"
+        ]
+      }
+    },
+    "/health/live": {
+      "get": {
+        "operationId": "health_live_health_live_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health Live",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "operationId": "health_ready_health_ready_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health Ready",
+        "tags": [
+          "health"
+        ]
+      }
+    }
+  }
+}
