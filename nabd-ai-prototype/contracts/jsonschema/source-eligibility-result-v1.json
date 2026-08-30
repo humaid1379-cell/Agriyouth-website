@@ -1,0 +1,33 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/source-eligibility-result-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "checked_at": {
+      "title": "Checked At"
+    },
+    "eligible": {
+      "title": "Eligible"
+    },
+    "lifecycle": {},
+    "reason_code": {
+      "title": "Reason Code"
+    },
+    "source_id": {
+      "title": "Source Id"
+    },
+    "source_version": {
+      "title": "Source Version"
+    }
+  },
+  "required": [
+    "source_id",
+    "source_version",
+    "eligible",
+    "reason_code",
+    "lifecycle",
+    "checked_at"
+  ],
+  "title": "SourceEligibilityResult",
+  "type": "object"
+}

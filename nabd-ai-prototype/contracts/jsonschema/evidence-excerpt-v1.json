@@ -1,0 +1,87 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/evidence-excerpt-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Immutable retrieved passage with exact location. Content is untrusted data.",
+  "properties": {
+    "block_index": {
+      "title": "Block Index"
+    },
+    "case_id": {
+      "title": "Case Id"
+    },
+    "char_end": {
+      "title": "Char End"
+    },
+    "char_start": {
+      "title": "Char Start"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_classification": {
+      "title": "Data Classification"
+    },
+    "excerpt_id": {
+      "title": "Excerpt Id"
+    },
+    "instruction_like_flags": {
+      "title": "Instruction Like Flags"
+    },
+    "page_number": {
+      "title": "Page Number"
+    },
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "rank": {
+      "title": "Rank"
+    },
+    "retrieval_score": {
+      "title": "Retrieval Score"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    },
+    "section_heading": {
+      "title": "Section Heading"
+    },
+    "source_id": {
+      "title": "Source Id"
+    },
+    "source_sha256": {
+      "title": "Source Sha256"
+    },
+    "source_version": {
+      "title": "Source Version"
+    },
+    "text": {
+      "title": "Text"
+    },
+    "text_sha256": {
+      "title": "Text Sha256"
+    },
+    "trust_label": {
+      "title": "Trust Label"
+    }
+  },
+  "required": [
+    "produced_by",
+    "excerpt_id",
+    "case_id",
+    "source_id",
+    "source_version",
+    "page_number",
+    "section_heading",
+    "block_index",
+    "char_start",
+    "char_end",
+    "text",
+    "text_sha256",
+    "source_sha256",
+    "rank"
+  ],
+  "title": "EvidenceExcerpt",
+  "type": "object"
+}

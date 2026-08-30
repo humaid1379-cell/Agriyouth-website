@@ -1,0 +1,43 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/audit-chain-verification-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {
+      "title": "Case Id"
+    },
+    "chain_version": {
+      "title": "Chain Version"
+    },
+    "checked_at": {
+      "title": "Checked At"
+    },
+    "event_count": {
+      "title": "Event Count"
+    },
+    "first_divergence_event_id": {
+      "title": "First Divergence Event Id"
+    },
+    "first_divergence_kind": {
+      "title": "First Divergence Kind"
+    },
+    "first_divergence_sequence": {
+      "title": "First Divergence Sequence"
+    },
+    "head_hash": {
+      "title": "Head Hash"
+    },
+    "verified": {
+      "title": "Verified"
+    }
+  },
+  "required": [
+    "case_id",
+    "chain_version",
+    "event_count",
+    "verified",
+    "checked_at"
+  ],
+  "title": "AuditChainVerification",
+  "type": "object"
+}

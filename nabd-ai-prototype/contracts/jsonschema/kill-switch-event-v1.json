@@ -1,0 +1,43 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/kill-switch-event-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "active": {
+      "title": "Active"
+    },
+    "actor_id": {
+      "title": "Actor Id"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_classification": {},
+    "kill_switch_event_id": {
+      "title": "Kill Switch Event Id"
+    },
+    "occurred_at": {
+      "title": "Occurred At"
+    },
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "reason": {
+      "title": "Reason"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    }
+  },
+  "required": [
+    "produced_by",
+    "kill_switch_event_id",
+    "active",
+    "actor_id",
+    "reason",
+    "occurred_at"
+  ],
+  "title": "KillSwitchEvent",
+  "type": "object"
+}

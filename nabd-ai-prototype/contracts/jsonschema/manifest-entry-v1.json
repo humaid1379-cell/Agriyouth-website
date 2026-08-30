@@ -1,0 +1,33 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/manifest-entry-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "active": {
+      "title": "Active"
+    },
+    "lifecycle": {},
+    "source_id": {
+      "title": "Source Id"
+    },
+    "source_path": {
+      "title": "Source Path"
+    },
+    "source_sha256": {
+      "title": "Source Sha256"
+    },
+    "source_version": {
+      "title": "Source Version"
+    }
+  },
+  "required": [
+    "source_id",
+    "source_version",
+    "source_path",
+    "source_sha256",
+    "lifecycle",
+    "active"
+  ],
+  "title": "ManifestEntry",
+  "type": "object"
+}

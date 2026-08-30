@@ -1,0 +1,69 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/audit-event-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "actor_id": {
+      "title": "Actor Id"
+    },
+    "actor_kind": {
+      "title": "Actor Kind"
+    },
+    "application_time": {
+      "title": "Application Time"
+    },
+    "binding": {},
+    "case_id": {
+      "title": "Case Id"
+    },
+    "confirmed": {
+      "title": "Confirmed"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_classification": {},
+    "event_hash": {
+      "title": "Event Hash"
+    },
+    "event_id": {
+      "title": "Event Id"
+    },
+    "event_type": {},
+    "from_state": {},
+    "outcome": {},
+    "payload_reference": {
+      "description": "Minimum necessary reference. Never full case content or model prompts.",
+      "title": "Payload Reference"
+    },
+    "previous_event_hash": {
+      "title": "Previous Event Hash"
+    },
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "reason_code": {
+      "title": "Reason Code"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    },
+    "sequence": {
+      "title": "Sequence"
+    },
+    "severity": {},
+    "to_state": {}
+  },
+  "required": [
+    "produced_by",
+    "event_id",
+    "event_type",
+    "sequence",
+    "application_time",
+    "actor_id",
+    "outcome"
+  ],
+  "title": "AuditEvent",
+  "type": "object"
+}

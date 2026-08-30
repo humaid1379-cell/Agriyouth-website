@@ -1,0 +1,18 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/verification-response-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "verified_claims": {
+      "title": "Verified Claims"
+    },
+    "verifier_notes": {
+      "title": "Verifier Notes"
+    }
+  },
+  "required": [
+    "verified_claims"
+  ],
+  "title": "VerificationResponse",
+  "type": "object"
+}

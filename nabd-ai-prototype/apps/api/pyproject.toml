@@ -62,6 +62,7 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+asyncio_default_fixture_loop_scope = "function"
 addopts = "-q --strict-markers"
 markers = [
     "unit: isolated unit test (SQLite permitted)",

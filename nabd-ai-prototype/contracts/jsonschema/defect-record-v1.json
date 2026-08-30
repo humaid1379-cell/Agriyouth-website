@@ -1,0 +1,67 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/defect-record-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "affected_versions": {
+      "title": "Affected Versions"
+    },
+    "containment": {
+      "title": "Containment"
+    },
+    "correction": {
+      "title": "Correction"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_classification": {},
+    "defect_id": {
+      "title": "Defect Id"
+    },
+    "owner": {
+      "title": "Owner"
+    },
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "reported_at": {
+      "title": "Reported At"
+    },
+    "reporter": {
+      "title": "Reporter"
+    },
+    "reproduction": {
+      "title": "Reproduction"
+    },
+    "retest_refs": {
+      "title": "Retest Refs"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    },
+    "severity": {},
+    "status": {
+      "title": "Status"
+    },
+    "summary": {
+      "title": "Summary"
+    },
+    "test_refs": {
+      "title": "Test Refs"
+    }
+  },
+  "required": [
+    "produced_by",
+    "defect_id",
+    "severity",
+    "reported_at",
+    "reporter",
+    "affected_versions",
+    "summary",
+    "reproduction"
+  ],
+  "title": "DefectRecord",
+  "type": "object"
+}

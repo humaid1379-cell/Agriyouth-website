@@ -1,0 +1,56 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/identity-assertion-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Server-derived identity for one request. The browser never supplies these fields.",
+  "properties": {
+    "assertion_id": {
+      "title": "Assertion Id"
+    },
+    "business_scope_id": {
+      "title": "Business Scope Id"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_classification": {},
+    "expires_at": {
+      "title": "Expires At"
+    },
+    "identity_id": {
+      "title": "Identity Id"
+    },
+    "issued_at": {
+      "title": "Issued At"
+    },
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "role": {},
+    "role_id": {
+      "title": "Role Id"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    },
+    "session_id": {
+      "title": "Session Id"
+    },
+    "status": {}
+  },
+  "required": [
+    "produced_by",
+    "assertion_id",
+    "session_id",
+    "identity_id",
+    "role",
+    "role_id",
+    "business_scope_id",
+    "status",
+    "issued_at",
+    "expires_at"
+  ],
+  "title": "IdentityAssertion",
+  "type": "object"
+}

@@ -1,0 +1,57 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/stop-record-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "A terminal ``CANNOT_PROCEED`` record. It is not a packet and is never displayed as one.",
+  "properties": {
+    "case_id": {
+      "title": "Case Id"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_classification": {},
+    "failed_state": {
+      "title": "Failed State"
+    },
+    "message": {
+      "title": "Message"
+    },
+    "occurred_at": {
+      "title": "Occurred At"
+    },
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "reason_code": {
+      "title": "Reason Code"
+    },
+    "route": {
+      "title": "Route"
+    },
+    "rule_results": {
+      "title": "Rule Results"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    },
+    "stop_record_id": {
+      "title": "Stop Record Id"
+    },
+    "uncertainty": {
+      "title": "Uncertainty"
+    }
+  },
+  "required": [
+    "produced_by",
+    "stop_record_id",
+    "case_id",
+    "failed_state",
+    "reason_code",
+    "message",
+    "occurred_at"
+  ],
+  "title": "StopRecord",
+  "type": "object"
+}

@@ -32,6 +32,7 @@ from app.repositories.database import session_scope  # noqa: E402
 from app.repositories.tables import (  # noqa: E402
     AuthorizationDecisionRow,
     DemoIdentityRow,
+    DemoSessionRow,
     ModelConfigurationRow,
     SourceBlockRow,
     SourcePageRow,
@@ -104,9 +105,14 @@ def seed(*, reset: bool, render_pdf: bool) -> int:
 
     with session_scope() as session:
         if reset:
-            for table in (SourceBlockRow, SourcePageRow, SourceVersionRow, SourceRecordRow):
-                session.execute(delete(table))
+            # Deletion order follows the foreign keys: dependants first, so a reset never
+            # trips a constraint on a database that already holds demo sessions.
             for table in (
+                DemoSessionRow,
+                SourceBlockRow,
+                SourcePageRow,
+                SourceVersionRow,
+                SourceRecordRow,
                 DemoIdentityRow,
                 AuthorizationDecisionRow,
                 UseCaseContractRow,

@@ -1,0 +1,62 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/decision-readiness-packet-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "The canonical governed artifact.",
+  "properties": {
+    "audit_binding": {},
+    "authorization_context": {},
+    "claim_ledger": {
+      "title": "Claim Ledger"
+    },
+    "conflicts": {
+      "title": "Conflicts"
+    },
+    "disposition": {},
+    "evidence_manifest": {
+      "title": "Evidence Manifest"
+    },
+    "identity": {},
+    "integrity": {},
+    "limitations": {
+      "title": "Limitations"
+    },
+    "notices": {
+      "title": "Notices"
+    },
+    "prototype_status": {},
+    "request_context": {},
+    "risk": {},
+    "route": {},
+    "route_reason_code": {
+      "title": "Route Reason Code"
+    },
+    "rule_results": {
+      "title": "Rule Results"
+    },
+    "uncertainty": {
+      "title": "Uncertainty"
+    },
+    "version_lineage": {}
+  },
+  "required": [
+    "identity",
+    "authorization_context",
+    "request_context",
+    "evidence_manifest",
+    "claim_ledger",
+    "rule_results",
+    "uncertainty",
+    "conflicts",
+    "risk",
+    "limitations",
+    "route",
+    "route_reason_code",
+    "version_lineage",
+    "integrity",
+    "audit_binding",
+    "notices"
+  ],
+  "title": "DecisionReadinessPacket",
+  "type": "object"
+}

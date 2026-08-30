@@ -1,0 +1,33 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/risk-profile-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Dominant-factor risk. ``CRITICAL`` and ``UNKNOWN`` are never averaged down.",
+  "properties": {
+    "dominant_factor_id": {
+      "title": "Dominant Factor Id"
+    },
+    "factors": {
+      "title": "Factors"
+    },
+    "inherent_risk": {},
+    "method": {
+      "title": "Method"
+    },
+    "review_depth_required": {
+      "title": "Review Depth Required"
+    },
+    "reviewer_seniority_required": {
+      "title": "Reviewer Seniority Required"
+    }
+  },
+  "required": [
+    "factors",
+    "dominant_factor_id",
+    "inherent_risk",
+    "reviewer_seniority_required",
+    "review_depth_required"
+  ],
+  "title": "RiskProfile",
+  "type": "object"
+}

@@ -1,0 +1,27 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/draft-response-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "assumptions": {
+      "title": "Assumptions"
+    },
+    "claims": {
+      "title": "Claims"
+    },
+    "draft_summary": {
+      "title": "Draft Summary"
+    },
+    "unresolved_points": {
+      "title": "Unresolved Points"
+    }
+  },
+  "required": [
+    "claims",
+    "assumptions",
+    "unresolved_points",
+    "draft_summary"
+  ],
+  "title": "DraftResponse",
+  "type": "object"
+}

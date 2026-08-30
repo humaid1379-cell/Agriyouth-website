@@ -1,0 +1,68 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/generated-claim-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "A drafted claim after independent verification and deterministic binding.",
+  "properties": {
+    "case_id": {
+      "title": "Case Id"
+    },
+    "claim_id": {
+      "title": "Claim Id"
+    },
+    "claim_ref": {
+      "title": "Claim Ref"
+    },
+    "conflict_ids": {
+      "title": "Conflict Ids"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_classification": {},
+    "draft_model_run_id": {
+      "title": "Draft Model Run Id"
+    },
+    "evidence_links": {
+      "title": "Evidence Links"
+    },
+    "materiality": {},
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "qualification": {
+      "title": "Qualification"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    },
+    "statement": {
+      "title": "Statement"
+    },
+    "support_spans": {
+      "title": "Support Spans"
+    },
+    "support_state": {},
+    "verification_note": {
+      "title": "Verification Note"
+    },
+    "verifier_model_run_id": {
+      "title": "Verifier Model Run Id"
+    }
+  },
+  "required": [
+    "produced_by",
+    "claim_id",
+    "case_id",
+    "claim_ref",
+    "statement",
+    "materiality",
+    "support_state",
+    "evidence_links",
+    "draft_model_run_id",
+    "verifier_model_run_id"
+  ],
+  "title": "GeneratedClaim",
+  "type": "object"
+}

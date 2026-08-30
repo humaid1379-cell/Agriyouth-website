@@ -1,0 +1,35 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/verification-request-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {
+      "title": "Case Id"
+    },
+    "draft_claims": {
+      "title": "Draft Claims"
+    },
+    "excerpts": {
+      "title": "Excerpts"
+    },
+    "output_schema_id": {
+      "title": "Output Schema Id"
+    },
+    "prompt_version": {
+      "title": "Prompt Version"
+    },
+    "rendered_input": {
+      "title": "Rendered Input"
+    }
+  },
+  "required": [
+    "case_id",
+    "output_schema_id",
+    "prompt_version",
+    "draft_claims",
+    "excerpts",
+    "rendered_input"
+  ],
+  "title": "VerificationRequest",
+  "type": "object"
+}

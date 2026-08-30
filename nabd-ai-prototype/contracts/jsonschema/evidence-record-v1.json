@@ -1,0 +1,90 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/evidence-record-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "An assurance evidence artifact reference for the evidence register.",
+  "properties": {
+    "acceptor": {
+      "title": "Acceptor"
+    },
+    "artifact_path": {
+      "title": "Artifact Path"
+    },
+    "artifact_sha256": {
+      "title": "Artifact Sha256"
+    },
+    "component_id": {
+      "title": "Component Id"
+    },
+    "component_version": {
+      "title": "Component Version"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_classification": {},
+    "decision": {
+      "title": "Decision"
+    },
+    "environment_id": {
+      "title": "Environment Id"
+    },
+    "evaluator": {
+      "title": "Evaluator"
+    },
+    "evidence_record_id": {
+      "title": "Evidence Record Id"
+    },
+    "evidence_type": {
+      "title": "Evidence Type"
+    },
+    "expires_at": {
+      "title": "Expires At"
+    },
+    "limitations": {
+      "title": "Limitations"
+    },
+    "narrow_claim": {
+      "title": "Narrow Claim"
+    },
+    "period_end": {
+      "title": "Period End"
+    },
+    "period_start": {
+      "title": "Period Start"
+    },
+    "preparer": {
+      "title": "Preparer"
+    },
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "revocation_path": {
+      "title": "Revocation Path"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    },
+    "status_dimension": {
+      "title": "Status Dimension"
+    }
+  },
+  "required": [
+    "produced_by",
+    "evidence_record_id",
+    "component_id",
+    "component_version",
+    "status_dimension",
+    "evidence_type",
+    "artifact_path",
+    "artifact_sha256",
+    "environment_id",
+    "period_start",
+    "narrow_claim",
+    "limitations",
+    "preparer"
+  ],
+  "title": "EvidenceRecord",
+  "type": "object"
+}
