@@ -1,0 +1,270 @@
+"""Closed enumerations for NABD AI Decision Review (ISOLATED_PROTOTYPE_V1).
+
+Every value in this module is a control-plane constant. Model output, user text and
+source content are data-plane values and may never be widened into these types.
+"""
+
+from __future__ import annotations
+
+from enum import StrEnum
+
+
+class Route(StrEnum):
+    """The only two routes permitted in V1. There is no auto-ready or auto-approve route."""
+
+    HUMAN_REVIEW_REQUIRED = "HUMAN_REVIEW_REQUIRED"
+    CANNOT_PROCEED = "CANNOT_PROCEED"
+
+
+class SupportState(StrEnum):
+    SUPPORTED = "SUPPORTED"
+    PARTIALLY_SUPPORTED = "PARTIALLY_SUPPORTED"
+    UNSUPPORTED = "UNSUPPORTED"
+    CONFLICTED = "CONFLICTED"
+    NOT_APPLICABLE = "NOT_APPLICABLE"
+
+
+class Materiality(StrEnum):
+    MATERIAL = "MATERIAL"
+    NON_MATERIAL = "NON_MATERIAL"
+
+
+class RiskLevel(StrEnum):
+    LOW = "LOW"
+    MODERATE = "MODERATE"
+    HIGH = "HIGH"
+    CRITICAL = "CRITICAL"
+    UNKNOWN = "UNKNOWN"
+
+
+#: Dominant-factor ordering. ``CRITICAL`` and ``UNKNOWN`` can never be averaged down.
+RISK_ORDER: dict[RiskLevel, int] = {
+    RiskLevel.LOW: 0,
+    RiskLevel.MODERATE: 1,
+    RiskLevel.HIGH: 2,
+    RiskLevel.UNKNOWN: 3,
+    RiskLevel.CRITICAL: 4,
+}
+
+
+class CaseState(StrEnum):
+    """The 20 ordered workflow states plus the terminal stop state."""
+
+    AUTHORIZATION_PREFLIGHT = "AUTHORIZATION_PREFLIGHT"
+    ACTOR_AND_SESSION_VERIFICATION = "ACTOR_AND_SESSION_VERIFICATION"
+    REQUEST_NORMALIZATION = "REQUEST_NORMALIZATION"
+    USE_CASE_AND_RISK_SCOPE = "USE_CASE_AND_RISK_SCOPE"
+    EVIDENCE_PLAN = "EVIDENCE_PLAN"
+    SOURCE_ELIGIBILITY = "SOURCE_ELIGIBILITY"
+    READ_ONLY_RETRIEVAL_AND_ISOLATION = "READ_ONLY_RETRIEVAL_AND_ISOLATION"
+    EVIDENCE_SUFFICIENCY = "EVIDENCE_SUFFICIENCY"
+    BOUNDED_DRAFT = "BOUNDED_DRAFT"
+    INDEPENDENT_VERIFICATION = "INDEPENDENT_VERIFICATION"
+    DETERMINISTIC_GOVERNANCE = "DETERMINISTIC_GOVERNANCE"
+    ROUTE_DETERMINATION = "ROUTE_DETERMINATION"
+    PACKET_ASSEMBLY = "PACKET_ASSEMBLY"
+    STRUCTURAL_AND_SEMANTIC_VALIDATION = "STRUCTURAL_AND_SEMANTIC_VALIDATION"
+    PACKET_PRE_ISSUANCE_AUDIT = "PACKET_PRE_ISSUANCE_AUDIT"
+    AWAITING_AUTHORIZED_HUMAN_REVIEW = "AWAITING_AUTHORIZED_HUMAN_REVIEW"
+    REVIEWER_AUTHORITY_AND_SOD = "REVIEWER_AUTHORITY_AND_SOD"
+    DISPOSITION_BINDING = "DISPOSITION_BINDING"
+    DISPOSITION_CLOSURE_AUDIT = "DISPOSITION_CLOSURE_AUDIT"
+    CLOSED_DECISION_SUPPORT_RECORD = "CLOSED_DECISION_SUPPORT_RECORD"
+    CANNOT_PROCEED = "CANNOT_PROCEED"
+
+
+#: Stage index for each of the 20 ordered states. The terminal stop state has no stage.
+CASE_STATE_STAGE: dict[CaseState, int] = {
+    CaseState.AUTHORIZATION_PREFLIGHT: 0,
+    CaseState.ACTOR_AND_SESSION_VERIFICATION: 1,
+    CaseState.REQUEST_NORMALIZATION: 2,
+    CaseState.USE_CASE_AND_RISK_SCOPE: 3,
+    CaseState.EVIDENCE_PLAN: 4,
+    CaseState.SOURCE_ELIGIBILITY: 5,
+    CaseState.READ_ONLY_RETRIEVAL_AND_ISOLATION: 6,
+    CaseState.EVIDENCE_SUFFICIENCY: 7,
+    CaseState.BOUNDED_DRAFT: 8,
+    CaseState.INDEPENDENT_VERIFICATION: 9,
+    CaseState.DETERMINISTIC_GOVERNANCE: 10,
+    CaseState.ROUTE_DETERMINATION: 11,
+    CaseState.PACKET_ASSEMBLY: 12,
+    CaseState.STRUCTURAL_AND_SEMANTIC_VALIDATION: 13,
+    CaseState.PACKET_PRE_ISSUANCE_AUDIT: 14,
+    CaseState.AWAITING_AUTHORIZED_HUMAN_REVIEW: 15,
+    CaseState.REVIEWER_AUTHORITY_AND_SOD: 16,
+    CaseState.DISPOSITION_BINDING: 17,
+    CaseState.DISPOSITION_CLOSURE_AUDIT: 18,
+    CaseState.CLOSED_DECISION_SUPPORT_RECORD: 19,
+}
+
+#: The 20 ordered states, ascending by stage.
+ORDERED_CASE_STATES: tuple[CaseState, ...] = tuple(
+    state for state, _ in sorted(CASE_STATE_STAGE.items(), key=lambda item: item[1])
+)
+
+TERMINAL_CASE_STATES: frozenset[CaseState] = frozenset(
+    {CaseState.CANNOT_PROCEED, CaseState.CLOSED_DECISION_SUPPORT_RECORD}
+)
+
+
+class DispositionValue(StrEnum):
+    """Test-only reviewer dispositions. None of these authorise an institutional action."""
+
+    RETURN_FOR_CLARIFICATION = "RETURN_FOR_CLARIFICATION"
+    ACCEPT_AS_TEST_EVIDENCE = "ACCEPT_AS_TEST_EVIDENCE"
+    REJECT_AS_TEST_EVIDENCE = "REJECT_AS_TEST_EVIDENCE"
+
+
+#: Dispositions that close the record. ``RETURN_FOR_CLARIFICATION`` leaves it open.
+FINAL_DISPOSITIONS: frozenset[DispositionValue] = frozenset(
+    {DispositionValue.ACCEPT_AS_TEST_EVIDENCE, DispositionValue.REJECT_AS_TEST_EVIDENCE}
+)
+
+
+class StatusEvidence(StrEnum):
+    NOT_EVIDENCED = "NOT_EVIDENCED"
+    PARTIALLY_EVIDENCED = "PARTIALLY_EVIDENCED"
+    EVIDENCED = "EVIDENCED"
+
+
+class OperationalStatus(StrEnum):
+    NOT_EVIDENCED = "NOT_EVIDENCED"
+    HISTORICAL_CONFIRMED = "HISTORICAL_CONFIRMED"
+    EVIDENCED = "EVIDENCED"
+
+
+class AuthorizationStatus(StrEnum):
+    NOT_GRANTED = "NOT_GRANTED"
+    GRANTED_WITH_CONDITIONS = "GRANTED_WITH_CONDITIONS"
+    GRANTED = "GRANTED"
+
+
+class Severity(StrEnum):
+    S0_CRITICAL = "S0_CRITICAL"
+    S1_HIGH = "S1_HIGH"
+    S2_MODERATE = "S2_MODERATE"
+    S3_LOW = "S3_LOW"
+
+
+class SourceLifecycle(StrEnum):
+    ACTIVE = "ACTIVE"
+    SUPERSEDED = "SUPERSEDED"
+    REVOKED = "REVOKED"
+    QUARANTINED = "QUARANTINED"
+
+
+ELIGIBLE_LIFECYCLES: frozenset[SourceLifecycle] = frozenset({SourceLifecycle.ACTIVE})
+
+
+class AuthorityClass(StrEnum):
+    GOVERNING_POLICY = "GOVERNING_POLICY"
+    STANDARD_OPERATING_PROCEDURE = "STANDARD_OPERATING_PROCEDURE"
+    ADVISORY_NOTE = "ADVISORY_NOTE"
+
+
+class DataClassification(StrEnum):
+    """Only synthetic classifications exist in V1. There is no real-data classification."""
+
+    SYNTHETIC_PROTOTYPE = "SYNTHETIC_PROTOTYPE"
+    SYNTHETIC_UNTRUSTED_CONTENT = "SYNTHETIC_UNTRUSTED_CONTENT"
+
+
+class TrustLabel(StrEnum):
+    CONTROL_PLANE = "CONTROL_PLANE"
+    UNTRUSTED_CONTENT = "UNTRUSTED_CONTENT"
+
+
+class DemoRole(StrEnum):
+    REQUESTER = "REQUESTER"
+    REVIEWER = "REVIEWER"
+    ADMINISTRATOR = "ADMINISTRATOR"
+
+
+class IdentityStatus(StrEnum):
+    ACTIVE = "ACTIVE"
+    EXPIRED = "EXPIRED"
+    REVOKED = "REVOKED"
+    UNKNOWN = "UNKNOWN"
+
+
+class ModelTaskRole(StrEnum):
+    DRAFTER = "DRAFTER"
+    VERIFIER = "VERIFIER"
+
+
+class ModelMode(StrEnum):
+    MOCK = "mock"
+    LIVE = "live"
+
+
+class AuditEventType(StrEnum):
+    AUTHORIZATION_CHECK = "AUTHORIZATION_CHECK"
+    IDENTITY_VERIFICATION = "IDENTITY_VERIFICATION"
+    CASE_CREATED = "CASE_CREATED"
+    STATE_TRANSITION = "STATE_TRANSITION"
+    SOURCE_ELIGIBILITY = "SOURCE_ELIGIBILITY"
+    RETRIEVAL = "RETRIEVAL"
+    MODEL_EXECUTION = "MODEL_EXECUTION"
+    DETERMINISTIC_RULE_RESULT = "DETERMINISTIC_RULE_RESULT"
+    PACKET_CREATED = "PACKET_CREATED"
+    PACKET_VALIDATED = "PACKET_VALIDATED"
+    PACKET_PRE_ISSUANCE = "PACKET_PRE_ISSUANCE"
+    PACKET_VIEWED = "PACKET_VIEWED"
+    REVIEW_ATTEMPT = "REVIEW_ATTEMPT"
+    REVIEWER_AUTHORITY_AND_SOD = "REVIEWER_AUTHORITY_AND_SOD"
+    DISPOSITION_BINDING = "DISPOSITION_BINDING"
+    DISPOSITION_CLOSURE = "DISPOSITION_CLOSURE"
+    SECURITY_EVENT = "SECURITY_EVENT"
+    TEVV_RESULT = "TEVV_RESULT"
+    KILL_SWITCH = "KILL_SWITCH"
+
+
+#: Events that must exist, confirmed and distinct, before a packet may be displayed or closed.
+CRITICAL_AUDIT_EVENTS: frozenset[AuditEventType] = frozenset(
+    {AuditEventType.PACKET_PRE_ISSUANCE, AuditEventType.DISPOSITION_CLOSURE}
+)
+
+
+class AuditOutcome(StrEnum):
+    PASS = "PASS"
+    FAIL = "FAIL"
+    DENIED = "DENIED"
+    RECORDED = "RECORDED"
+
+
+class RuleEffect(StrEnum):
+    CONTINUE = "CONTINUE"
+    EXCLUDE_SOURCE = "EXCLUDE_SOURCE"
+    MANDATORY_STOP = "MANDATORY_STOP"
+    DENY_WITHOUT_DISCLOSURE = "DENY_WITHOUT_DISCLOSURE"
+
+
+class RuleOutcome(StrEnum):
+    PASS = "PASS"
+    FAIL = "FAIL"
+    NOT_APPLICABLE = "NOT_APPLICABLE"
+
+
+class TevvResultStatus(StrEnum):
+    PASS = "PASS"
+    FAIL = "FAIL"
+    BLOCKED = "BLOCKED"
+    NOT_RUN = "NOT_RUN"
+
+
+class AcceptanceOutcome(StrEnum):
+    ACCEPT_BUILT_EVIDENCE = "ACCEPT_BUILT_EVIDENCE"
+    ACCEPT_INTEGRATION_EVIDENCE = "ACCEPT_INTEGRATION_EVIDENCE"
+    ACCEPT_WITH_CONDITIONS = "ACCEPT_WITH_CONDITIONS"
+    REJECT_EVIDENCE = "REJECT_EVIDENCE"
+    REQUEST_RETEST = "REQUEST_RETEST"
+    STOP_AND_REVISE = "STOP_AND_REVISE"
+
+
+class UncertaintyKind(StrEnum):
+    EVIDENCE_GAP = "EVIDENCE_GAP"
+    AMBIGUITY = "AMBIGUITY"
+    SOURCE_CONFLICT = "SOURCE_CONFLICT"
+    SCOPE_LIMIT = "SCOPE_LIMIT"
+    MODEL_LIMIT = "MODEL_LIMIT"
+    STALENESS = "STALENESS"

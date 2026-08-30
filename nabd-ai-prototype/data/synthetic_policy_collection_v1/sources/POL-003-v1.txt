@@ -1,0 +1,16 @@
+<<<PAGE 1>>>
+## 1. Purpose and Scope
+This Corporate Records Access Standard sets the handling requirements for restricted records held by the Corporate Services Unit. It applies to any exception file that affects access to restricted records. This document is synthetic material created for the NABD AI isolated prototype.
+
+## 2. Restricted Records Definition
+A restricted record is a Corporate Services Unit record whose access label is marked restricted in the records catalogue. Restricted records include the exception register access log, the reviewer authority roster and the retention schedule master list.
+
+<<<PAGE 2>>>
+## 3. Restricted Records Exception Review Period
+Where an internal policy exception request affects access to restricted records, the assigned reviewer shall complete the review within five business days of assignment. This accelerated review period applies to restricted records exception files only, and is measured from the date the completed exception file is assigned for review.
+
+## 4. Restricted Records Reviewer Requirement
+A restricted records exception file shall be reviewed by a Corporate Services reviewer holding a manager grade or above who also holds a current restricted records access authorisation. The reviewer shall not be the analyst who submitted the request.
+
+## 5. Conflict Note
+Where this standard and another Corporate Services Unit document state different review periods for the same exception file, the difference shall be escalated in writing to the Records Governance Team lead before the review is assigned. Personnel shall not select between the two periods on their own initiative.

@@ -1,0 +1,17 @@
+<<<PAGE 1>>>
+## 1. Scope and Ownership
+This standard operating procedure describes how the Field Operations Unit prepares an internal policy exception file. It applies only to Field Operations Unit personnel and to exception requests about procedures owned by that unit. It does not apply to the Corporate Services Unit. This document is synthetic material created for the NABD AI isolated prototype.
+
+## 2. Field Operations Procedure Steps
+Step 1. The field supervisor opens an exception request in the field exception log and records the affected field procedure. Ownership: field supervisor.
+
+Step 2. The field supervisor attaches a single combined evidence statement describing the affected procedure and the operational impact. Ownership: field supervisor.
+
+<<<PAGE 2>>>
+## 3. Field Operations Review
+Step 3. The field operations duty manager reviews the exception request within four business days of the request being logged. Ownership: field operations duty manager.
+
+Step 4. The field operations duty manager records the review outcome in the field exception log and notifies the field supervisor. Ownership: field operations duty manager.
+
+## 4. Cross-Unit Note
+Field Operations Unit exception files are governed by this procedure and by Field Operations Unit standards. Corporate Services Unit personnel shall not rely on this procedure, and Field Operations Unit personnel shall not rely on Corporate Services Unit procedures, because the two units maintain separate registers, separate reviewer pools and separate retention schedules.

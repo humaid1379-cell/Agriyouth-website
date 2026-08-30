@@ -1,0 +1,73 @@
+[project]
+name = "nabd-ai-api"
+version = "0.1.0+isolated.prototype.v1"
+description = "NABD AI Decision Review - isolated synthetic prototype API (ISOLATED_PROTOTYPE_V1)"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi==0.115.6",
+    "uvicorn[standard]==0.34.0",
+    "pydantic==2.10.4",
+    "pydantic-settings==2.7.0",
+    "SQLAlchemy==2.0.36",
+    "alembic==1.14.0",
+    "psycopg[binary]==3.2.3",
+    "python-dateutil==2.9.0.post0",
+    "jsonschema==4.23.0",
+    "structlog==24.4.0",
+]
+
+[project.optional-dependencies]
+seed = ["PyMuPDF==1.25.1"]
+dev = [
+    "pytest==8.3.4",
+    "pytest-cov==6.0.0",
+    "pytest-asyncio==0.25.0",
+    "httpx==0.28.1",
+    "ruff==0.8.4",
+    "mypy==1.14.0",
+    "types-python-dateutil==2.9.0.20241206",
+    "types-jsonschema==4.23.0.20241208",
+]
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["alembic/versions"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S", "C4", "SIM", "RUF", "ASYNC"]
+ignore = ["S101", "B008", "RUF001", "RUF002", "RUF003"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S105", "S106", "S311"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = true
+disallow_untyped_defs = true
+plugins = ["pydantic.mypy"]
+exclude = ["alembic/versions/"]
+
+[[tool.mypy.overrides]]
+module = ["fitz.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+markers = [
+    "unit: isolated unit test (SQLite permitted)",
+    "integration: integration test against the configured database",
+    "security: security / prohibited-path assertion",
+    "tevv: frozen TEVV scenario",
+    "replay: deterministic replay test",
+]
+filterwarnings = ["error::DeprecationWarning:app.*"]
