@@ -374,13 +374,14 @@ class TestRuleVectors:
         ("kwargs", "reason"),
         [
             ({"reviewer_status": "REVOKED"}, ReasonCode.REVIEWER_AUTHORITY_INVALID),
-            ({"reviewer_role_id": "ROLE_SYNTHETIC_REQUESTER_V1"}, ReasonCode.REVIEWER_AUTHORITY_INVALID),
+            (
+                {"reviewer_role_id": "ROLE_SYNTHETIC_REQUESTER_V1"},
+                ReasonCode.REVIEWER_AUTHORITY_INVALID,
+            ),
             ({"reviewer_scope_id": "BUSINESS_UNIT_FIELD_OPS"}, ReasonCode.ACCESS_DENIED),
         ],
     )
-    def test_sod_001_authority_vectors(
-        self, kwargs: dict[str, object], reason: ReasonCode
-    ) -> None:
+    def test_sod_001_authority_vectors(self, kwargs: dict[str, object], reason: ReasonCode) -> None:
         base: dict[str, object] = {
             "reviewer_identity_id": "reviewer.manager@demo.nabd.local",
             "requester_identity_id": "requester.analyst@demo.nabd.local",

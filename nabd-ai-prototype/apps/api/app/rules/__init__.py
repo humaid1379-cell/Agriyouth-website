@@ -8,7 +8,7 @@ prevent. :func:`app.rules.assert_catalog_loaded` is the guard for that.
 
 from __future__ import annotations
 
-from app.rules import catalog as catalog  # noqa: F401  (import registers the rule catalog)
+from app.rules import catalog as catalog
 from app.rules.framework import (
     REGISTRY,
     RuleContext,

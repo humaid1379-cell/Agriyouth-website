@@ -69,9 +69,7 @@ def to_canonical_value(value: Any) -> Any:
     if isinstance(value, int):
         return value
     if isinstance(value, float):
-        raise CanonicalizationError(
-            "floating-point values are prohibited in the canonical profile"
-        )
+        raise CanonicalizationError("floating-point values are prohibited in the canonical profile")
     if isinstance(value, Decimal):
         if value == value.to_integral_value():
             return int(value)
@@ -123,7 +121,7 @@ def canonical_sha256(payload: Mapping[str, Any]) -> str:
 def packet_preimage(packet: Mapping[str, Any]) -> dict[str, Any]:
     """Return the packet mapping with only ``integrity.packet_sha256`` removed."""
     section, field = PACKET_HASH_OMITTED_PATH
-    preimage = {key: value for key, value in packet.items()}
+    preimage = dict(packet.items())
     integrity = preimage.get(section)
     if isinstance(integrity, Mapping):
         preimage[section] = {k: v for k, v in integrity.items() if k != field}
@@ -150,7 +148,7 @@ def text_sha256(text: str) -> str:
 
 def file_sha256(path: str) -> str:
     digest = hashlib.sha256()
-    with open(path, "rb") as handle:  # noqa: PTH123 - stdlib open is intentional here
+    with open(path, "rb") as handle:
         for chunk in iter(lambda: handle.read(65536), b""):
             digest.update(chunk)
     return digest.hexdigest()

@@ -19,7 +19,7 @@ from app.domain.enums import (
     Route,
     SupportState,
 )
-from app.domain.notices import REQUIRED_NOTICE_IDS, NOTICE_TEXT_BY_ID, notices_payload
+from app.domain.notices import NOTICE_TEXT_BY_ID, REQUIRED_NOTICE_IDS, notices_payload
 from app.domain.versions import (
     AUDIT_CHAIN_VERSION,
     CORPUS_VERSION,
@@ -45,7 +45,12 @@ from app.schemas.packet import (
     PacketStatusBlock,
     PacketVersionLineage,
 )
-from app.schemas.reasoning import DeterministicResult, GeneratedClaim, RiskProfile, UncertaintyRecord
+from app.schemas.reasoning import (
+    DeterministicResult,
+    GeneratedClaim,
+    RiskProfile,
+    UncertaintyRecord,
+)
 from app.services.fixtures import SourceManifestItem
 
 PACKET_SERVICE_ID = "service:packet-assembly"
@@ -147,7 +152,9 @@ def build_packet(inputs: PacketInputs) -> DecisionReadinessPacket:
         evidence_manifest=manifest_items,
         claim_ledger=tuple(sorted(inputs.claims, key=lambda c: c.claim_ref)),
         rule_results=tuple(
-            sorted(inputs.rule_results, key=lambda r: (r.precedence_rank, r.rule_id, r.evaluated_at))
+            sorted(
+                inputs.rule_results, key=lambda r: (r.precedence_rank, r.rule_id, r.evaluated_at)
+            )
         ),
         uncertainty=inputs.uncertainty,
         conflicts=inputs.conflicts,
@@ -208,7 +215,8 @@ def with_audit_binding(
     """
     binding = packet.audit_binding.model_copy(
         update={
-            "pre_issuance_event_id": pre_issuance_event_id or packet.audit_binding.pre_issuance_event_id,
+            "pre_issuance_event_id": pre_issuance_event_id
+            or packet.audit_binding.pre_issuance_event_id,
             "pre_issuance_confirmed_at": pre_issuance_confirmed_at
             or packet.audit_binding.pre_issuance_confirmed_at,
             "disposition_closure_event_id": closure_event_id
@@ -416,7 +424,7 @@ def _flatten_strings(value: Any) -> str:
         elif isinstance(node, dict):
             for child_key, child in node.items():
                 walk(child, child_key)
-        elif isinstance(node, (list, tuple)):
+        elif isinstance(node, list | tuple):
             for child in node:
                 walk(child, key)
 

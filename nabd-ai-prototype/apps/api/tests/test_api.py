@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import pytest
 from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session
 
 from app.domain.reason_codes import ReasonCode
 
@@ -107,9 +106,7 @@ class TestErrorEnvelope:
             "safe_to_display",
         }
 
-    def test_validation_errors_do_not_echo_submitted_content(
-        self, client: TestClient
-    ) -> None:
+    def test_validation_errors_do_not_echo_submitted_content(self, client: TestClient) -> None:
         headers = auth(client, REQUESTER)
         secret_marker = "zzz-should-not-be-echoed-zzz"
         response = client.post(
@@ -369,9 +366,7 @@ class TestAdminApi:
             == 201
         )
 
-    def test_audit_verification_endpoint(
-        self, client: TestClient, benign_question: str
-    ) -> None:
+    def test_audit_verification_endpoint(self, client: TestClient, benign_question: str) -> None:
         case_id, _ = make_processed_case(client, benign_question)
         admin_headers = auth(client, ADMIN)
         body = client.post(

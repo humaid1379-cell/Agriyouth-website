@@ -34,9 +34,14 @@ def main() -> int:
     group.add_argument("--case-id", help="verify one case chain")
     group.add_argument("--all", action="store_true", help="verify every case chain")
     group.add_argument(
-        "--global", dest="global_chain", action="store_true", help="verify the non-case chain"
+        "--global",
+        dest="global_chain",
+        action="store_true",
+        help="verify the non-case chain",
     )
-    parser.add_argument("--json", action="store_true", help="emit machine-readable output")
+    parser.add_argument(
+        "--json", action="store_true", help="emit machine-readable output"
+    )
     args = parser.parse_args()
 
     reports: list[dict[str, object]] = []

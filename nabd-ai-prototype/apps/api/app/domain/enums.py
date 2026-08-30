@@ -226,7 +226,7 @@ CRITICAL_AUDIT_EVENTS: frozenset[AuditEventType] = frozenset(
 
 
 class AuditOutcome(StrEnum):
-    PASS = "PASS"
+    PASS = "PASS"  # noqa: S105 - an audit outcome, not a credential
     FAIL = "FAIL"
     DENIED = "DENIED"
     RECORDED = "RECORDED"
@@ -240,13 +240,13 @@ class RuleEffect(StrEnum):
 
 
 class RuleOutcome(StrEnum):
-    PASS = "PASS"
+    PASS = "PASS"  # noqa: S105 - a rule outcome, not a credential
     FAIL = "FAIL"
     NOT_APPLICABLE = "NOT_APPLICABLE"
 
 
 class TevvResultStatus(StrEnum):
-    PASS = "PASS"
+    PASS = "PASS"  # noqa: S105 - a test status, not a credential
     FAIL = "FAIL"
     BLOCKED = "BLOCKED"
     NOT_RUN = "NOT_RUN"

@@ -22,7 +22,12 @@ from app.domain.enums import AuditEventType, AuditOutcome, CaseState, Severity
 from app.domain.ids import new_id
 from app.domain.versions import AUDIT_CHAIN_VERSION
 from app.repositories.tables import AuditEventRow
-from app.schemas.audit import GENESIS_PREVIOUS_HASH, AuditChainVerification, AuditEvent, ObjectBinding
+from app.schemas.audit import (
+    GENESIS_PREVIOUS_HASH,
+    AuditChainVerification,
+    AuditEvent,
+    ObjectBinding,
+)
 
 AUDIT_SERVICE_ID = "service:audit-chain"
 GLOBAL_CHAIN_KEY = "GLOBAL"
@@ -43,8 +48,9 @@ def _previous_hash(session: Session, chain_key: str, sequence: int) -> str:
     if sequence <= 1:
         return GENESIS_PREVIOUS_HASH
     previous = session.execute(
-        select(AuditEventRow.event_hash)
-        .where(AuditEventRow.chain_key == chain_key, AuditEventRow.sequence == sequence - 1)
+        select(AuditEventRow.event_hash).where(
+            AuditEventRow.chain_key == chain_key, AuditEventRow.sequence == sequence - 1
+        )
     ).scalar()
     return str(previous) if previous else GENESIS_PREVIOUS_HASH
 
@@ -133,7 +139,11 @@ def record(
 ) -> AuditEvent:
     """Append one event to its chain."""
     event = build_event(
-        session, event_type=event_type, actor_id=actor_id, outcome=outcome, **kwargs  # type: ignore[arg-type]
+        session,
+        event_type=event_type,
+        actor_id=actor_id,
+        outcome=outcome,
+        **kwargs,  # type: ignore[arg-type]
     )
     persist_event(session, event)
     return event
@@ -227,13 +237,17 @@ def verify_chain(session: Session, case_id: str | None) -> AuditChainVerificatio
 def find_confirmed(
     session: Session, case_id: str, event_type: AuditEventType
 ) -> AuditEventRow | None:
-    return session.execute(
-        select(AuditEventRow)
-        .where(
-            AuditEventRow.case_id == case_id,
-            AuditEventRow.event_type == event_type.value,
-            AuditEventRow.confirmed.is_(True),
-            AuditEventRow.outcome == AuditOutcome.PASS.value,
+    return (
+        session.execute(
+            select(AuditEventRow)
+            .where(
+                AuditEventRow.case_id == case_id,
+                AuditEventRow.event_type == event_type.value,
+                AuditEventRow.confirmed.is_(True),
+                AuditEventRow.outcome == AuditOutcome.PASS.value,
+            )
+            .order_by(AuditEventRow.sequence.desc())
         )
-        .order_by(AuditEventRow.sequence.desc())
-    ).scalars().first()
+        .scalars()
+        .first()
+    )

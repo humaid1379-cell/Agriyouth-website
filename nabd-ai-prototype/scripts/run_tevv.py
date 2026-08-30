@@ -43,10 +43,16 @@ STATUS_ORDER = (
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--scenario", action="append", dest="scenarios", help="scenario id filter")
-    parser.add_argument("--executor", default="developer-verification:scripts/run_tevv.py")
+    parser.add_argument(
+        "--scenario", action="append", dest="scenarios", help="scenario id filter"
+    )
+    parser.add_argument(
+        "--executor", default="developer-verification:scripts/run_tevv.py"
+    )
     parser.add_argument("--output", type=Path, default=None, help="artifact directory")
-    parser.add_argument("--json", action="store_true", help="print the full report as JSON")
+    parser.add_argument(
+        "--json", action="store_true", help="print the full report as JSON"
+    )
     args = parser.parse_args()
 
     settings = get_settings()
@@ -108,7 +114,8 @@ def main() -> int:
     stamp = utc_now().strftime("%Y%m%dT%H%M%SZ")
     destination = output_dir / f"tevv_report_{stamp}.json"
     destination.write_text(
-        json.dumps(report, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8"
+        json.dumps(report, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
+        encoding="utf-8",
     )
 
     if args.json:
@@ -119,7 +126,9 @@ def main() -> int:
         print(f"plan version      : {report['plan_version']}")
         print(f"scenarios in plan : {summary['scenarios_in_plan']}")
         print(f"executed          : {summary['scenarios_executed']}")
-        print(f"pass              : {summary['numerator_pass']}/{summary['denominator']}")
+        print(
+            f"pass              : {summary['numerator_pass']}/{summary['denominator']}"
+        )
         print(f"failed            : {summary['failed']}")
         print(f"blocked           : {summary['blocked']}")
         print(f"not run           : {summary['not_run']}")
@@ -130,7 +139,9 @@ def main() -> int:
         for status in STATUS_ORDER:
             for result in by_status.get(status, []):
                 marker = "ok " if status is TevvResultStatus.PASS else "!! "
-                print(f"{marker}{result['scenario_id']:<8} {status.value:<8} {result['title']}")
+                print(
+                    f"{marker}{result['scenario_id']:<8} {status.value:<8} {result['title']}"
+                )
                 if status is not TevvResultStatus.PASS:
                     for failure in result["actual"].get("assertion_failures", []):
                         print(f"        - {failure}")

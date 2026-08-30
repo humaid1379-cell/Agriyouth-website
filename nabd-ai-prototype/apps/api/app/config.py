@@ -43,8 +43,12 @@ class Settings(BaseSettings):
         alias="DATABASE_URL",
     )
 
-    demo_session_secret: str = Field(default="synthetic-demo-session-key", alias="DEMO_SESSION_SECRET")
-    demo_session_ttl_seconds: int = Field(default=3600, ge=60, le=28800, alias="DEMO_SESSION_TTL_SECONDS")
+    demo_session_secret: str = Field(
+        default="synthetic-demo-session-key", alias="DEMO_SESSION_SECRET"
+    )
+    demo_session_ttl_seconds: int = Field(
+        default=3600, ge=60, le=28800, alias="DEMO_SESSION_TTL_SECONDS"
+    )
 
     model_mode: ModelMode = Field(default=ModelMode.MOCK, alias="MODEL_MODE")
     live_model_endpoint: str | None = Field(default=None, alias="LIVE_MODEL_ENDPOINT")
@@ -111,7 +115,7 @@ class Settings(BaseSettings):
 
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:
-    return Settings()  # type: ignore[call-arg]
+    return Settings()
 
 
 def reset_settings_cache() -> None:

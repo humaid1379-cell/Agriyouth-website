@@ -15,9 +15,9 @@ from __future__ import annotations
 import logging
 import time
 import uuid
-from collections.abc import Awaitable, Callable
+from collections.abc import AsyncIterator, Awaitable, Callable
 from contextlib import asynccontextmanager
-from typing import Any, AsyncIterator
+from typing import Any
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
@@ -138,18 +138,14 @@ def create_app() -> FastAPI:
         return JSONResponse(status_code=exc.http_status, content=exc.envelope(correlation_id))
 
     @app.exception_handler(RequestValidationError)
-    async def validation_handler(
-        request: Request, exc: RequestValidationError
-    ) -> JSONResponse:
+    async def validation_handler(request: Request, exc: RequestValidationError) -> JSONResponse:
         # Validation detail is deliberately dropped: it can echo submitted content back.
         correlation_id = getattr(request.state, "correlation_id", "unknown")
         error = ControlError(ReasonCode.REQUEST_CONTRACT_INVALID)
         return JSONResponse(status_code=422, content=error.envelope(correlation_id))
 
     @app.exception_handler(StarletteHTTPException)
-    async def http_exception_handler(
-        request: Request, exc: StarletteHTTPException
-    ) -> JSONResponse:
+    async def http_exception_handler(request: Request, exc: StarletteHTTPException) -> JSONResponse:
         correlation_id = getattr(request.state, "correlation_id", "unknown")
         code = ReasonCode.NOT_FOUND if exc.status_code == 404 else ReasonCode.ACCESS_DENIED
         error = ControlError(code)
@@ -183,7 +179,7 @@ def create_app() -> FastAPI:
             with get_engine().connect() as connection:
                 connection.execute(text("SELECT 1"))
             checks["database"] = "ok"
-        except Exception:  # noqa: BLE001 - readiness must not leak the underlying error
+        except Exception:
             checks["database"] = "unavailable"
 
         try:
@@ -191,13 +187,13 @@ def create_app() -> FastAPI:
 
             load_corpus_fixtures()
             checks["corpus_manifest"] = "ok"
-        except Exception:  # noqa: BLE001
+        except Exception:
             checks["corpus_manifest"] = "unavailable"
 
         try:
             assert_catalog_loaded()
             checks["rule_catalog"] = "ok"
-        except Exception:  # noqa: BLE001
+        except Exception:
             checks["rule_catalog"] = "unavailable"
 
         checks["model_mode"] = get_settings().model_mode.value

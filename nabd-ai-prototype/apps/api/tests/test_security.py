@@ -47,8 +47,7 @@ def _python_sources(include_inventory: bool = True) -> list[Path]:
     return sorted(
         path
         for path in API_SOURCE.rglob("*.py")
-        if "__pycache__" not in path.parts
-        and (include_inventory or path != INVENTORY_MODULE)
+        if "__pycache__" not in path.parts and (include_inventory or path != INVENTORY_MODULE)
     )
 
 
@@ -121,9 +120,7 @@ class TestProhibitedRoutes:
         for fragment in ("upload", "ingest", "import", "documents"):
             assert fragment not in paths
 
-    def test_no_generic_crud_route_exists_for_governance_objects(
-        self, client: TestClient
-    ) -> None:
+    def test_no_generic_crud_route_exists_for_governance_objects(self, client: TestClient) -> None:
         spec = client.app.openapi()  # type: ignore[attr-defined]
         for path, operations in spec["paths"].items():
             for method in operations:
@@ -243,9 +240,7 @@ class TestNoLeakage:
         for marker in ("http://", "https://", "webhook", "action_id"):
             assert marker not in payload.casefold()
 
-    def test_error_envelopes_never_leak_infrastructure_detail(
-        self, client: TestClient
-    ) -> None:
+    def test_error_envelopes_never_leak_infrastructure_detail(self, client: TestClient) -> None:
         response = client.get("/api/v1/cases/CASE-nope", headers={"Authorization": "Bearer bad"})
         body = response.text.casefold()
         for marker in ("traceback", "postgresql", "psycopg", "sqlalchemy", "password"):
@@ -315,9 +310,11 @@ class TestKillSwitchAndProhibitedPath:
             ProcessOptions(attempted_action_path="POST https://ops.example/webhook/approve"),
         )
         assert result.reason_code == ReasonCode.PROHIBITED_ACTION_PATH_DETECTED.value
-        rows = db.execute(
-            select(DecisionPacketRow).where(DecisionPacketRow.case_id == case.case_id)
-        ).scalars().all()
+        rows = (
+            db.execute(select(DecisionPacketRow).where(DecisionPacketRow.case_id == case.case_id))
+            .scalars()
+            .all()
+        )
         assert rows == []
 
     def test_configured_action_endpoint_is_blocked(

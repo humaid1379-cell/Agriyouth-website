@@ -1,0 +1,107 @@
+# NABD AI Decision Review - isolated synthetic prototype workbench.
+#
+# Three services: db, api, web. Pinned image tags, health checks, non-root containers where
+# practical, a read-only corpus mount, local volumes, and no privileged mode. The database
+# is bound to the loopback interface only and is never exposed publicly.
+#
+# The default MODEL_MODE=mock requires no credentials and no outbound internet access.
+
+name: nabd-ai-prototype
+
+services:
+  db:
+    image: postgres:16.6-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-nabd_prototype}
+      POSTGRES_USER: ${POSTGRES_USER:-nabd_owner}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-nabd_owner_demo}
+      POSTGRES_INITDB_ARGS: "--data-checksums"
+    ports:
+      # Loopback only. The database is never published to a routable interface.
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./scripts/sql:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-nabd_owner} -d ${POSTGRES_DB:-nabd_prototype}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    security_opt:
+      - no-new-privileges:true
+    privileged: false
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      APP_ENV: ${APP_ENV:-local}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://nabd_app:nabd_app_demo@db:5432/nabd_prototype}
+      DEMO_SESSION_SECRET: ${DEMO_SESSION_SECRET:-synthetic-demo-session-key}
+      DEMO_SESSION_TTL_SECONDS: ${DEMO_SESSION_TTL_SECONDS:-3600}
+      MODEL_MODE: ${MODEL_MODE:-mock}
+      LIVE_MODEL_ENDPOINT: ${LIVE_MODEL_ENDPOINT:-}
+      LIVE_MODEL_NAME: ${LIVE_MODEL_NAME:-}
+      LIVE_MODEL_CONFIG_ID: ${LIVE_MODEL_CONFIG_ID:-}
+      LIVE_MODEL_API_KEY: ${LIVE_MODEL_API_KEY:-}
+      ENABLE_VECTOR_RETRIEVAL: ${ENABLE_VECTOR_RETRIEVAL:-false}
+      CORS_ALLOW_ORIGINS: ${CORS_ALLOW_ORIGINS:-http://localhost:5173}
+      CORPUS_DIR: /srv/data/synthetic_policy_collection_v1
+      ARTIFACTS_DIR: /srv/artifacts
+      CONTRACTS_DIR: /srv/contracts/jsonschema
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      # The frozen corpus and the control-plane fixtures are read-only at runtime. There is
+      # no upload path, no ingestion path and no repository mutation from the service.
+      - ./data:/srv/data:ro
+      - artifacts_data:/srv/artifacts
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health/ready', timeout=3).status==200 else 1)"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    privileged: false
+
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      API_ORIGIN: http://api:8000
+    ports:
+      - "127.0.0.1:5173:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:8080/ || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
+    security_opt:
+      - no-new-privileges:true
+    privileged: false
+
+volumes:
+  db_data:
+    driver: local
+  artifacts_data:
+    driver: local
+
+# No custom network is declared, so Compose creates a single bridge network shared by these
+# three services only. In default mock mode nothing in the stack requires internet access.

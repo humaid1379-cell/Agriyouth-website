@@ -99,9 +99,7 @@ def read_configuration(identity: AdminIdentity, db: DbSession) -> ConfigurationR
 def toggle_kill_switch(
     payload: KillSwitchRequest, identity: AdminIdentity, db: DbSession
 ) -> KillSwitchResponse:
-    set_kill_switch(
-        db, active=payload.active, actor_id=identity.identity_id, reason=payload.reason
-    )
+    set_kill_switch(db, active=payload.active, actor_id=identity.identity_id, reason=payload.reason)
     return _kill_switch_response(db)
 
 
@@ -138,11 +136,15 @@ def _tevv_response(db: DbSession, tevv_run_id: str) -> TevvRunResponse:
     run = db.get(TevvRunRow, tevv_run_id)
     if run is None:
         raise NotFoundError(ReasonCode.NOT_FOUND)
-    rows = db.execute(
-        select(TevvResultRow)
-        .where(TevvResultRow.tevv_run_id == tevv_run_id)
-        .order_by(TevvResultRow.scenario_id.asc(), TevvResultRow.repetition.asc())
-    ).scalars().all()
+    rows = (
+        db.execute(
+            select(TevvResultRow)
+            .where(TevvResultRow.tevv_run_id == tevv_run_id)
+            .order_by(TevvResultRow.scenario_id.asc(), TevvResultRow.repetition.asc())
+        )
+        .scalars()
+        .all()
+    )
     catalog = scenario_index()
     return TevvRunResponse(
         tevv_run_id=run.tevv_run_id,

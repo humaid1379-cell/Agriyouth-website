@@ -128,7 +128,9 @@ class SourceVersionRow(Base):
 class SourcePageRow(Base):
     __tablename__ = "source_pages"
     __table_args__ = (
-        UniqueConstraint("source_version_key", "page_number", name="uq_source_pages_source_version_key"),
+        UniqueConstraint(
+            "source_version_key", "page_number", name="uq_source_pages_source_version_key"
+        ),
     )
 
     source_page_id: Mapped[str] = mapped_column(String(160), primary_key=True)
@@ -288,9 +290,7 @@ class EvidenceExcerptRow(Base):
 
 class GeneratedClaimRow(Base):
     __tablename__ = "generated_claims"
-    __table_args__ = (
-        UniqueConstraint("case_id", "claim_ref", name="uq_generated_claims_case_id"),
-    )
+    __table_args__ = (UniqueConstraint("case_id", "claim_ref", name="uq_generated_claims_case_id"),)
 
     claim_id: Mapped[str] = mapped_column(String(96), primary_key=True)
     case_id: Mapped[str] = mapped_column(ForeignKey("cases.case_id"), nullable=False, index=True)
@@ -455,7 +455,9 @@ class TevvRunRow(Base):
 class TevvResultRow(Base):
     __tablename__ = "tevv_results"
     __table_args__ = (
-        UniqueConstraint("tevv_run_id", "scenario_id", "repetition", name="uq_tevv_results_tevv_run_id"),
+        UniqueConstraint(
+            "tevv_run_id", "scenario_id", "repetition", name="uq_tevv_results_tevv_run_id"
+        ),
     )
 
     tevv_result_id: Mapped[str] = mapped_column(String(128), primary_key=True)

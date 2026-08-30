@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import re
+from typing import Any
 
 from app.adapters.protocol import ModelAdapterError, ModelFault, RawModelResponse
 from app.domain.enums import Materiality, Severity, SupportState
@@ -58,9 +59,7 @@ def _word_set(text: str) -> frozenset[str]:
     return frozenset(_WORD_TOKEN.findall(text.casefold()))
 
 
-def term_weights(
-    excerpts: tuple[EvidenceExcerpt, ...], terms: tuple[str, ...]
-) -> dict[str, int]:
+def term_weights(excerpts: tuple[EvidenceExcerpt, ...], terms: tuple[str, ...]) -> dict[str, int]:
     """Integer inverse-document-frequency weights over the admitted excerpts.
 
     A term that appears in nearly every admitted excerpt ("policy", "request") carries
@@ -205,7 +204,7 @@ class DeterministicMockAdapter:
             )
 
         terms = question_terms(request.normalised_question)
-        claims = []
+        claims: list[dict[str, Any]] = []
         for index, (excerpt, statement) in enumerate(
             select_claim_sentences(request.excerpts, terms)
         ):
@@ -254,7 +253,7 @@ class DeterministicMockAdapter:
             return RawModelResponse('{"verified_claims": [', 4, MOCK_MODEL_REVISION)
 
         by_id = {excerpt.excerpt_id: excerpt for excerpt in request.excerpts}
-        verified = []
+        verified: list[dict[str, Any]] = []
 
         for claim in request.draft_claims:
             excerpt_id = claim.proposed_evidence_ids[0]
@@ -269,7 +268,9 @@ class DeterministicMockAdapter:
                         "support_spans": [],
                         "conflict_ids": [],
                         "qualification": "",
-                        "verification_note": "Cited an excerpt identifier outside the admitted set.",
+                        "verification_note": (
+                            "Cited an excerpt identifier outside the admitted set."
+                        ),
                     }
                 )
                 continue
@@ -296,7 +297,9 @@ class DeterministicMockAdapter:
                         "evidence_ids": [excerpt_id] if excerpt else [],
                         "support_spans": [],
                         "conflict_ids": [],
-                        "qualification": "The excerpt supports the requirement but not the stated period.",
+                        "qualification": (
+                            "The excerpt supports the requirement but not the stated period."
+                        ),
                         "verification_note": "Partial support only.",
                     }
                 )

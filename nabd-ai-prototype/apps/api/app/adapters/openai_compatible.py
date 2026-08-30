@@ -58,7 +58,9 @@ class OpenAICompatibleAdapter:
         self._verify_configuration = verify_configuration
 
     # -- transport ---------------------------------------------------------------
-    def _call(self, prompt: str, rendered_input: str, configuration: ModelConfiguration) -> RawModelResponse:
+    def _call(
+        self, prompt: str, rendered_input: str, configuration: ModelConfiguration
+    ) -> RawModelResponse:
         if urlparse(self._endpoint).netloc != self._allowed_host:  # pragma: no cover - defensive
             raise ModelAdapterError(
                 ReasonCode.MODEL_FALLBACK_ATTEMPTED,
@@ -125,7 +127,9 @@ class OpenAICompatibleAdapter:
         return RawModelResponse(content, duration_ms, returned_model or self._model)
 
     def draft(self, request: DraftRequest) -> RawModelResponse:
-        return self._call(load_prompt("draft_v1.md"), request.rendered_input, self._draft_configuration)
+        return self._call(
+            load_prompt("draft_v1.md"), request.rendered_input, self._draft_configuration
+        )
 
     def verify(self, request: VerificationRequest) -> RawModelResponse:
         return self._call(

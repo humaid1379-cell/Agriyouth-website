@@ -19,9 +19,11 @@ from app.services import audit
 
 
 def latest_event(session: Session) -> KillSwitchEventRow | None:
-    return session.execute(
-        select(KillSwitchEventRow).order_by(KillSwitchEventRow.occurred_at.desc())
-    ).scalars().first()
+    return (
+        session.execute(select(KillSwitchEventRow).order_by(KillSwitchEventRow.occurred_at.desc()))
+        .scalars()
+        .first()
+    )
 
 
 def kill_switch_active(session: Session) -> bool:
@@ -41,7 +43,9 @@ def current_state(session: Session) -> KillSwitchState:
     )
 
 
-def set_kill_switch(session: Session, *, active: bool, actor_id: str, reason: str) -> KillSwitchState:
+def set_kill_switch(
+    session: Session, *, active: bool, actor_id: str, reason: str
+) -> KillSwitchState:
     occurred_at = utc_now()
     session.add(
         KillSwitchEventRow(
@@ -62,4 +66,6 @@ def set_kill_switch(session: Session, *, active: bool, actor_id: str, reason: st
         payload_reference=f"active={active}",
     )
     session.flush()
-    return KillSwitchState(active=active, changed_at=occurred_at, changed_by=actor_id, reason=reason)
+    return KillSwitchState(
+        active=active, changed_at=occurred_at, changed_by=actor_id, reason=reason
+    )

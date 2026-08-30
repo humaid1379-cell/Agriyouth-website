@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from app.domain.enums import CaseState, IdentityStatus, RuleEffect, SupportState
 from app.domain.limits import (
+    CASE_WALL_CLOCK_SECONDS,
     CONCURRENT_CASES_MAX,
     EXCERPT_MAX_CHARS,
     EXCERPTS_USED_MAX,
@@ -20,7 +21,6 @@ from app.domain.limits import (
     SAME_ENDPOINT_RETRY_MAX,
     SOURCE_PLAN_MAX,
     TOTAL_EVIDENCE_CONTEXT_MAX_CHARS,
-    CASE_WALL_CLOCK_SECONDS,
 )
 from app.domain.reason_codes import ReasonCode
 from app.domain.versions import RULE_CATALOG_VERSION
@@ -28,7 +28,7 @@ from app.rules.framework import RuleContext, RuleOutcomeSpec, rule
 
 V = "1.0.0"
 
-ALL_STATES = tuple(CaseState)
+ALL_STATES: tuple[CaseState, ...] = tuple(CaseState)
 PRE_HUMAN_STATES = (
     CaseState.AUTHORIZATION_PREFLIGHT,
     CaseState.ACTOR_AND_SESSION_VERIFICATION,
@@ -101,7 +101,10 @@ def path_001(context: RuleContext) -> RuleOutcomeSpec:
     version=V,
     precedence=2,
     states=(CaseState.AUTHORIZATION_PREFLIGHT,),
-    purpose="Validate the exact synthetic authorization fixture, version, environment, data and role scope.",
+    purpose=(
+        "Validate the exact synthetic authorization fixture, version, environment, data "
+        "and role scope."
+    ),
 )
 def auth_001(context: RuleContext) -> RuleOutcomeSpec:
     authorization = context.authorization
@@ -119,7 +122,10 @@ def auth_001(context: RuleContext) -> RuleOutcomeSpec:
             input_refs=(authorization.authorization_id,),
             detail="The frozen corpus manifest hash is not the one this authorization admits.",
         )
-    if context.contract and authorization.use_case_contract_id != context.contract.use_case_contract_id:
+    if (
+        context.contract
+        and authorization.use_case_contract_id != context.contract.use_case_contract_id
+    ):
         return RuleOutcomeSpec.failed(
             ReasonCode.AUTHORIZATION_NOT_CURRENT_OR_IN_SCOPE,
             input_refs=(authorization.authorization_id,),
@@ -142,7 +148,10 @@ def auth_001(context: RuleContext) -> RuleOutcomeSpec:
     version=V,
     precedence=3,
     states=(CaseState.ACTOR_AND_SESSION_VERIFICATION,),
-    purpose="Validate the server session, its expiry, revocation state and role. Denies without disclosing case content.",
+    purpose=(
+        "Validate the server session, its expiry, revocation state and role. Denies "
+        "without disclosing case content."
+    ),
 )
 def id_001(context: RuleContext) -> RuleOutcomeSpec:
     identity = context.identity
@@ -163,7 +172,10 @@ def id_001(context: RuleContext) -> RuleOutcomeSpec:
             effect=RuleEffect.DENY_WITHOUT_DISCLOSURE,
             detail="Session is outside its validity window.",
         )
-    if context.authorization and identity.business_scope_id != context.authorization.business_scope_id:
+    if (
+        context.authorization
+        and identity.business_scope_id != context.authorization.business_scope_id
+    ):
         return RuleOutcomeSpec.failed(
             ReasonCode.ACCESS_DENIED,
             effect=RuleEffect.DENY_WITHOUT_DISCLOSURE,
@@ -251,7 +263,10 @@ def scope_001(context: RuleContext) -> RuleOutcomeSpec:
     version=V,
     precedence=6,
     states=(CaseState.SOURCE_ELIGIBILITY,),
-    purpose="Validate manifest membership, hash, lifecycle, use case, scope and access for each source.",
+    purpose=(
+        "Validate manifest membership, hash, lifecycle, use case, scope and access for "
+        "each source."
+    ),
 )
 def src_001(context: RuleContext) -> RuleOutcomeSpec:
     if context.hash_mismatches:
@@ -271,7 +286,9 @@ def src_001(context: RuleContext) -> RuleOutcomeSpec:
             input_refs=tuple(key for key, _ in context.excluded_sources),
             detail="No eligible, current, in-scope source remains after filtering.",
         )
-    required_classes = set(context.contract.required_source_authority_classes) if context.contract else set()
+    required_classes = (
+        set(context.contract.required_source_authority_classes) if context.contract else set()
+    )
     present_classes = {item.authority_class.value for item in context.eligible_sources}
     missing = sorted(required_classes - present_classes)
     if missing:
@@ -293,7 +310,10 @@ def src_001(context: RuleContext) -> RuleOutcomeSpec:
     version=V,
     precedence=7,
     states=(CaseState.SOURCE_ELIGIBILITY, CaseState.READ_ONLY_RETRIEVAL_AND_ISOLATION),
-    purpose="Treat injection or security indicators as a quarantine condition and log a security event.",
+    purpose=(
+        "Treat injection or security indicators as a quarantine condition and log a "
+        "security event."
+    ),
 )
 def iso_001(context: RuleContext) -> RuleOutcomeSpec:
     quarantined_and_admitted = sorted(
@@ -327,7 +347,10 @@ def iso_001(context: RuleContext) -> RuleOutcomeSpec:
     version=V,
     precedence=8,
     states=(CaseState.EVIDENCE_SUFFICIENCY,),
-    purpose="Ensure required source classes and date/scope criteria exist, and that no material conflict is unresolved.",
+    purpose=(
+        "Ensure required source classes and date or scope criteria exist, and that no "
+        "material conflict is unresolved."
+    ),
 )
 def evd_001(context: RuleContext) -> RuleOutcomeSpec:
     if not context.excerpts:
@@ -341,8 +364,12 @@ def evd_001(context: RuleContext) -> RuleOutcomeSpec:
             input_refs=tuple(conflict.conflict_id for conflict in context.triggered_conflicts),
             detail="A declared material conflict between active sources applies to this request.",
         )
-    required_classes = set(context.contract.required_source_authority_classes) if context.contract else set()
-    admitted_keys = {f"{excerpt.source_id}@{excerpt.source_version}" for excerpt in context.excerpts}
+    required_classes = (
+        set(context.contract.required_source_authority_classes) if context.contract else set()
+    )
+    admitted_keys = {
+        f"{excerpt.source_id}@{excerpt.source_version}" for excerpt in context.excerpts
+    }
     admitted_classes = {
         item.authority_class.value
         for item in context.eligible_sources
@@ -373,7 +400,10 @@ def clm_001(context: RuleContext) -> RuleOutcomeSpec:
         return RuleOutcomeSpec.failed(
             ReasonCode.MATERIAL_CLAIM_UNSUPPORTED_OR_CONFLICTED,
             input_refs=context.material_claim_failures,
-            detail="At least one material claim is unsupported, conflicted or has no exact citation.",
+            detail=(
+                "At least one material claim is unsupported, conflicted or has no exact "
+                "citation."
+            ),
         )
     if context.verification is None:
         return RuleOutcomeSpec.failed(
@@ -419,7 +449,10 @@ def clm_001(context: RuleContext) -> RuleOutcomeSpec:
     version=V,
     precedence=10,
     states=ALL_STATES,
-    purpose="Enforce request, context, call, retry, output, time and concurrency limits without expanded retry.",
+    purpose=(
+        "Enforce request, context, call, retry, output, time and concurrency limits "
+        "without expanded retry."
+    ),
 )
 def lim_001(context: RuleContext) -> RuleOutcomeSpec:
     checks: tuple[tuple[bool, ReasonCode, str], ...] = (
@@ -509,7 +542,9 @@ def fsm_001(context: RuleContext) -> RuleOutcomeSpec:
     version=V,
     precedence=12,
     states=(CaseState.STRUCTURAL_AND_SEMANTIC_VALIDATION,),
-    purpose="Validate packet required sections, fixed notices, references, versions and timestamps.",
+    purpose=(
+        "Validate packet required sections, fixed notices, references, versions and " "timestamps."
+    ),
 )
 def pkt_001(context: RuleContext) -> RuleOutcomeSpec:
     if context.packet_payload is None:
@@ -601,7 +636,10 @@ def sod_001(context: RuleContext) -> RuleOutcomeSpec:
             effect=RuleEffect.DENY_WITHOUT_DISCLOSURE,
             detail="The acting role is not an authorised reviewer role.",
         )
-    if context.authorization and context.reviewer_scope_id != context.authorization.business_scope_id:
+    if (
+        context.authorization
+        and context.reviewer_scope_id != context.authorization.business_scope_id
+    ):
         return RuleOutcomeSpec.failed(
             ReasonCode.ACCESS_DENIED,
             effect=RuleEffect.DENY_WITHOUT_DISCLOSURE,

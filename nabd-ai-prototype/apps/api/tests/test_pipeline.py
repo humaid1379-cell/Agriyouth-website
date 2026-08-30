@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import itertools
+
 import pytest
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -47,9 +49,7 @@ ACTION_QUESTION = (
 
 
 class TestHappyPath:
-    def test_benign_case_reaches_awaiting_review_with_a_sealed_packet(
-        self, processed_case
-    ) -> None:
+    def test_benign_case_reaches_awaiting_review_with_a_sealed_packet(self, processed_case) -> None:
         case, result = processed_case
         assert result.terminal_state is CaseState.AWAITING_AUTHORIZED_HUMAN_REVIEW
         assert result.route is Route.HUMAN_REVIEW_REQUIRED
@@ -97,15 +97,17 @@ class TestHappyPath:
         assert lineage.draft_model_configuration_id == "MC-MOCK-DRAFTER-V1"
         assert lineage.verifier_model_configuration_id == "MC-MOCK-VERIFIER-V1"
 
-    def test_every_state_transition_is_recorded_in_order(
-        self, db: Session, processed_case
-    ) -> None:
+    def test_every_state_transition_is_recorded_in_order(self, db: Session, processed_case) -> None:
         case, _ = processed_case
-        rows = db.execute(
-            select(CaseStateTransitionRow)
-            .where(CaseStateTransitionRow.case_id == case.case_id)
-            .order_by(CaseStateTransitionRow.sequence)
-        ).scalars().all()
+        rows = (
+            db.execute(
+                select(CaseStateTransitionRow)
+                .where(CaseStateTransitionRow.case_id == case.case_id)
+                .order_by(CaseStateTransitionRow.sequence)
+            )
+            .scalars()
+            .all()
+        )
         assert [row.sequence for row in rows] == list(range(1, len(rows) + 1))
         assert rows[-1].to_state == CaseState.AWAITING_AUTHORIZED_HUMAN_REVIEW.value
 
@@ -223,17 +225,15 @@ class TestStopPaths:
         self, db: Session, make_case, requester_identity, benign_question: str
     ) -> None:
         case = make_case(requester_identity, benign_question)
-        process_case(
-            db, case, requester_identity, ProcessOptions(skip_pre_issuance_audit=True)
+        process_case(db, case, requester_identity, ProcessOptions(skip_pre_issuance_audit=True))
+        rows = (
+            db.execute(select(DecisionPacketRow).where(DecisionPacketRow.case_id == case.case_id))
+            .scalars()
+            .all()
         )
-        rows = db.execute(
-            select(DecisionPacketRow).where(DecisionPacketRow.case_id == case.case_id)
-        ).scalars().all()
         assert rows == []
 
-    def test_expired_identity_is_denied_without_case_content(
-        self, db: Session, make_case
-    ) -> None:
+    def test_expired_identity_is_denied_without_case_content(self, db: Session, make_case) -> None:
         from app.services.identity import assertion_for_fixture
 
         expired = assertion_for_fixture("expired.requester@demo.nabd.local")
@@ -276,18 +276,14 @@ class TestAuditChain:
         assert verification.verified is True
         assert verification.event_count > 0
 
-    def test_chain_links_each_event_to_its_predecessor(
-        self, db: Session, processed_case
-    ) -> None:
+    def test_chain_links_each_event_to_its_predecessor(self, db: Session, processed_case) -> None:
         case, _ = processed_case
         rows = audit.load_chain(db, case.case_id)
         assert rows[0].previous_event_hash == "0" * 64
-        for previous, current in zip(rows, rows[1:], strict=False):
+        for previous, current in itertools.pairwise(rows):
             assert current.previous_event_hash == previous.event_hash
 
-    def test_tampering_with_a_stored_event_is_detected(
-        self, db: Session, processed_case
-    ) -> None:
+    def test_tampering_with_a_stored_event_is_detected(self, db: Session, processed_case) -> None:
         case, _ = processed_case
         rows = audit.load_chain(db, case.case_id)
         target = rows[len(rows) // 2]
@@ -309,9 +305,7 @@ class TestAuditChain:
         binding = confirmed.payload["binding"]
         assert binding["object_sha256"] == result.packet.integrity.packet_sha256  # type: ignore[union-attr]
 
-    def test_audit_rows_cannot_be_updated_or_deleted(
-        self, db: Session, processed_case
-    ) -> None:
+    def test_audit_rows_cannot_be_updated_or_deleted(self, db: Session, processed_case) -> None:
         from sqlalchemy import delete, text, update
 
         case, _ = processed_case
@@ -410,7 +404,9 @@ class TestReviewAndDisposition:
         assert (
             db.execute(
                 select(HumanDispositionRow).where(HumanDispositionRow.case_id == case.case_id)
-            ).scalars().all()
+            )
+            .scalars()
+            .all()
             == []
         )
 
@@ -489,9 +485,7 @@ class TestReviewAndDisposition:
         assert all(row.requester_identity_id != reviewer_identity.identity_id for row in queue)
         assert any(row.requester_identity_id == requester_identity.identity_id for row in queue)
 
-    def test_requester_cannot_open_the_review_queue(
-        self, db: Session, requester_identity
-    ) -> None:
+    def test_requester_cannot_open_the_review_queue(self, db: Session, requester_identity) -> None:
         with pytest.raises(AccessDeniedError):
             review_queue(db, requester_identity)
 
@@ -499,9 +493,7 @@ class TestReviewAndDisposition:
         self, db: Session, make_case, requester_identity, benign_question: str
     ) -> None:
         case = make_case(requester_identity, benign_question)
-        process_case(
-            db, case, requester_identity, ProcessOptions(skip_pre_issuance_audit=True)
-        )
+        process_case(db, case, requester_identity, ProcessOptions(skip_pre_issuance_audit=True))
         with pytest.raises(ControlError):
             displayable_packet(db, case.case_id)
 

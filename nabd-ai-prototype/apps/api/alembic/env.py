@@ -10,16 +10,17 @@ import sys
 from logging.config import fileConfig
 from pathlib import Path
 
-from alembic import context
 from sqlalchemy import engine_from_config, pool
+
+from alembic import context
 
 API_ROOT = Path(__file__).resolve().parents[1]
 if str(API_ROOT) not in sys.path:
     sys.path.insert(0, str(API_ROOT))
 
 from app.config import get_settings  # noqa: E402
-from app.repositories.database import Base  # noqa: E402
 from app.repositories import tables as _tables  # noqa: E402,F401  (import registers models)
+from app.repositories.database import Base  # noqa: E402
 
 config = context.config
 if config.config_file_name is not None:

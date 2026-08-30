@@ -20,6 +20,7 @@ from app.config import get_settings
 from app.domain.canonical import utc_now
 from app.domain.enums import (
     AuditEventType,
+    AuditOutcome,
     CaseState,
     DispositionValue,
     Materiality,
@@ -53,7 +54,8 @@ VALID_RATIONALE = (
 def _plan() -> dict[str, Any]:
     settings = get_settings()
     path = settings.corpus_dir / "test_cases.json"
-    return json.loads(path.read_text(encoding="utf-8"))
+    payload: dict[str, Any] = json.loads(path.read_text(encoding="utf-8"))
+    return payload
 
 
 def scenario_index() -> dict[str, dict[str, Any]]:
@@ -145,9 +147,10 @@ class ScenarioRunner:
         trace_id = new_id("tevv_run")
         try:
             if handler is not None:
-                return handler(scenario, expected, trace_id)
+                outcome: ScenarioOutcome = handler(scenario, expected, trace_id)
+                return outcome
             return self._run_default(scenario, expected, trace_id)
-        except Exception as error:  # noqa: BLE001 - a harness failure is BLOCKED, not PASS
+        except Exception as error:
             return ScenarioOutcome(
                 scenario_id=scenario_id,
                 status=TevvResultStatus.BLOCKED,
@@ -455,7 +458,7 @@ class ScenarioRunner:
             self.session,
             event_type=AuditEventType.SECURITY_EVENT,
             actor_id=TEVV_SERVICE_ID,
-            outcome=audit.AuditOutcome.DENIED,
+            outcome=AuditOutcome.DENIED,
             reason_code=ReasonCode.ILLEGAL_STATE_TRANSITION.value,
             severity=Severity.S0_CRITICAL,
             payload_reference=f"illegal_edges_rejected={rejected}",
@@ -597,9 +600,7 @@ class ScenarioRunner:
         actual["audit_chain_verified"] = verification.verified
         if not verification.verified:
             failures.append("the audit chain did not verify after closure")
-        actual["non_execution_notice_present"] = bool(
-            outcome.disposition.non_execution_notice
-        )
+        actual["non_execution_notice_present"] = bool(outcome.disposition.non_execution_notice)
         return self._finish(str(scenario["id"]), expected, actual, trace_id, case.case_id, failures)
 
     def _run_d_02(
@@ -667,7 +668,9 @@ class ScenarioRunner:
         actual["terminal_state"] = second.terminal_state.value
         actual["reason_code"] = second.reason_code
         del first_case, second_case
-        return self._finish(str(scenario["id"]), expected, actual, trace_id, second.case_id, failures)
+        return self._finish(
+            str(scenario["id"]), expected, actual, trace_id, second.case_id, failures
+        )
 
 
 def execute_tevv_run(
@@ -701,7 +704,7 @@ def execute_tevv_run(
         outcomes.append(outcome)
         session.add(
             TevvResultRow(
-                tevv_result_id=f"{run_id}:{outcome.scenario_id}:{outcome.repetition if hasattr(outcome, 'repetition') else 1}",
+                tevv_result_id=f"{run_id}:{outcome.scenario_id}:1",
                 tevv_run_id=run_id,
                 scenario_id=outcome.scenario_id,
                 repetition=1,
@@ -720,9 +723,7 @@ def execute_tevv_run(
             event_type=AuditEventType.TEVV_RESULT,
             actor_id=TEVV_SERVICE_ID,
             outcome=(
-                audit.AuditOutcome.PASS
-                if outcome.status is TevvResultStatus.PASS
-                else audit.AuditOutcome.FAIL
+                AuditOutcome.PASS if outcome.status is TevvResultStatus.PASS else AuditOutcome.FAIL
             ),
             payload_reference=f"{outcome.scenario_id}={outcome.status.value}",
         )

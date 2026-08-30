@@ -172,6 +172,8 @@ def evaluate_source_eligibility(
                 )
                 continue
 
-        decisions.append(EligibilityDecision(item, True, "OK", "Eligible under the frozen manifest."))
+        decisions.append(
+            EligibilityDecision(item, True, "OK", "Eligible under the frozen manifest.")
+        )
 
     return EligibilityReport(decisions=tuple(decisions), hash_mismatches=tuple(mismatches))

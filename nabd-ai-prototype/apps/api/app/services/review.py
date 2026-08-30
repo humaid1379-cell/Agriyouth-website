@@ -66,14 +66,19 @@ def _record_transition(
 ) -> None:
     current = CaseState(case.current_state)
     assert_transition(case.case_id, current, target)
-    sequence = int(
-        session.execute(
-            select(CaseStateTransitionRow.sequence)
-            .where(CaseStateTransitionRow.case_id == case.case_id)
-            .order_by(CaseStateTransitionRow.sequence.desc())
-        ).scalars().first()
-        or 0
-    ) + 1
+    sequence = (
+        int(
+            session.execute(
+                select(CaseStateTransitionRow.sequence)
+                .where(CaseStateTransitionRow.case_id == case.case_id)
+                .order_by(CaseStateTransitionRow.sequence.desc())
+            )
+            .scalars()
+            .first()
+            or 0
+        )
+        + 1
+    )
     session.add(
         CaseStateTransitionRow(
             transition_id=derived_id("event", case.case_id, f"t{sequence}"),
@@ -112,11 +117,15 @@ def displayable_packet(session: Session, case_id: str) -> DecisionPacketRow:
     binding matches the packet id, version and hash exactly. The stored ``displayable`` flag
     is not trusted on its own.
     """
-    row = session.execute(
-        select(DecisionPacketRow)
-        .where(DecisionPacketRow.case_id == case_id)
-        .order_by(DecisionPacketRow.packet_version.desc())
-    ).scalars().first()
+    row = (
+        session.execute(
+            select(DecisionPacketRow)
+            .where(DecisionPacketRow.case_id == case_id)
+            .order_by(DecisionPacketRow.packet_version.desc())
+        )
+        .scalars()
+        .first()
+    )
     if row is None:
         raise NotFoundError(ReasonCode.PACKET_NOT_AVAILABLE, case_id=case_id)
 
@@ -139,12 +148,16 @@ def review_queue(session: Session, identity: IdentityAssertion) -> list[CaseRow]
     """Cases awaiting review that this reviewer is eligible to see."""
     if identity.role is not DemoRole.REVIEWER:
         raise AccessDeniedError(ReasonCode.ACCESS_DENIED)
-    rows = session.execute(
-        select(CaseRow)
-        .where(CaseRow.current_state == CaseState.AWAITING_AUTHORIZED_HUMAN_REVIEW.value)
-        .where(CaseRow.business_scope_id == identity.business_scope_id)
-        .order_by(CaseRow.submitted_at.desc())
-    ).scalars().all()
+    rows = (
+        session.execute(
+            select(CaseRow)
+            .where(CaseRow.current_state == CaseState.AWAITING_AUTHORIZED_HUMAN_REVIEW.value)
+            .where(CaseRow.business_scope_id == identity.business_scope_id)
+            .order_by(CaseRow.submitted_at.desc())
+        )
+        .scalars()
+        .all()
+    )
     # Separation of duties applies to the queue as well as to the action: a reviewer never
     # sees a case it requested.
     return [row for row in rows if row.requester_identity_id != identity.identity_id]
@@ -250,17 +263,25 @@ def submit_disposition(
 
     is_final = disposition_value in FINAL_DISPOSITIONS
     if is_final:
-        existing = session.execute(
-            select(HumanDispositionRow).where(
-                HumanDispositionRow.packet_id == packet_row.packet_id,
-                HumanDispositionRow.packet_version == packet_row.packet_version,
-                HumanDispositionRow.is_final.is_(True),
+        existing = (
+            session.execute(
+                select(HumanDispositionRow).where(
+                    HumanDispositionRow.packet_id == packet_row.packet_id,
+                    HumanDispositionRow.packet_version == packet_row.packet_version,
+                    HumanDispositionRow.is_final.is_(True),
+                )
             )
-        ).scalars().first()
+            .scalars()
+            .first()
+        )
         if existing is not None:
             reason = ReasonCode.DISPOSITION_ALREADY_FINAL
             _record_transition(
-                session, case, CaseState.AWAITING_AUTHORIZED_HUMAN_REVIEW, reason, identity.identity_id
+                session,
+                case,
+                CaseState.AWAITING_AUTHORIZED_HUMAN_REVIEW,
+                reason,
+                identity.identity_id,
             )
             raise StopError(reason, case_id=case.case_id)
 
@@ -368,9 +389,7 @@ def submit_disposition(
             eligible_source_keys=frozenset(
                 f"{item.source_id}@{item.source_version}" for item in packet.evidence_manifest
             ),
-            admitted_excerpt_ids=frozenset(
-                item.excerpt_id for item in packet.evidence_manifest
-            ),
+            admitted_excerpt_ids=frozenset(item.excerpt_id for item in packet.evidence_manifest),
             issued_packet_sha256=issued_sha256,
             confirmed_pre_issuance_event_id=pre_issuance.event_id if pre_issuance else None,
             confirmed_pre_issuance_at=pre_issuance.application_time if pre_issuance else None,

@@ -98,7 +98,9 @@ def render(schema_id: str, model: type[BaseModel]) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--check", action="store_true", help="fail if a committed schema differs")
+    parser.add_argument(
+        "--check", action="store_true", help="fail if a committed schema differs"
+    )
     args = parser.parse_args()
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)

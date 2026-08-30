@@ -117,7 +117,12 @@ class TestClosedSchemas:
                 support_state="SUPPORTED",
                 evidence_ids=("EXC-a",),
                 support_spans=(
-                    {"excerpt_id": "EXC-b", "quote_start": 0, "quote_end": 4, "quoted_text": "text"},
+                    {
+                        "excerpt_id": "EXC-b",
+                        "quote_start": 0,
+                        "quote_end": 4,
+                        "quoted_text": "text",
+                    },
                 ),
                 conflict_ids=(),
             )
@@ -162,7 +167,7 @@ class TestCanonicalJson:
 
     def test_naive_datetime_is_rejected(self) -> None:
         with pytest.raises(CanonicalizationError):
-            format_timestamp(datetime(2025, 3, 1, 12, 0, 0))  # noqa: DTZ001
+            format_timestamp(datetime(2025, 3, 1, 12, 0, 0))
 
     def test_line_endings_and_unicode_are_normalised(self) -> None:
         assert normalise_text("a\r\nb") == "a\nb"

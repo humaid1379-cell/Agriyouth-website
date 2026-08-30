@@ -11,7 +11,7 @@ arguments: no API route, request body or browser input can set them.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
@@ -173,11 +173,15 @@ class CaseProcessor:
 
     # -- infrastructure ----------------------------------------------------------
     def _current_transition_sequence(self) -> int:
-        rows = self.session.execute(
-            select(CaseStateTransitionRow.sequence)
-            .where(CaseStateTransitionRow.case_id == self.case.case_id)
-            .order_by(CaseStateTransitionRow.sequence.desc())
-        ).scalars().first()
+        rows = (
+            self.session.execute(
+                select(CaseStateTransitionRow.sequence)
+                .where(CaseStateTransitionRow.case_id == self.case.case_id)
+                .order_by(CaseStateTransitionRow.sequence.desc())
+            )
+            .scalars()
+            .first()
+        )
         return int(rows or 0)
 
     def _elapsed_seconds(self) -> int:
@@ -190,13 +194,15 @@ class CaseProcessor:
             return self.options.concurrent_cases_override
         return int(
             self.session.execute(
-                select(CaseRow)
-                .where(
+                select(CaseRow).where(
                     CaseRow.processing_started_at.is_not(None),
                     CaseRow.processing_completed_at.is_(None),
                     CaseRow.case_id != self.case.case_id,
                 )
-            ).scalars().all().__len__()
+            )
+            .scalars()
+            .all()
+            .__len__()
         )
 
     def _transition_to(self, target: CaseState, reason_code: ReasonCode | None = None) -> None:
@@ -204,7 +210,9 @@ class CaseProcessor:
         self.transition_sequence += 1
         self.session.add(
             CaseStateTransitionRow(
-                transition_id=derived_id("event", self.case.case_id, f"t{self.transition_sequence}"),
+                transition_id=derived_id(
+                    "event", self.case.case_id, f"t{self.transition_sequence}"
+                ),
                 case_id=self.case.case_id,
                 sequence=self.transition_sequence,
                 from_state=self.state.value,
@@ -323,9 +331,7 @@ class CaseProcessor:
                 case_id=self.case.case_id,
                 state=self.state,
             )
-        produced = [
-            result for result in evaluated if result.rule_id != self.options.omit_rule_id
-        ]
+        produced = [result for result in evaluated if result.rule_id != self.options.omit_rule_id]
         if self.options.omit_rule_id and any(
             result.rule_id == self.options.omit_rule_id for result in ctx.results
         ):
@@ -779,11 +785,11 @@ class CaseProcessor:
     def _persist_model_runs(self) -> None:
         if self.gateway is None:
             return
-        existing = {
-            row for row in self.session.execute(
+        existing = set(
+            self.session.execute(
                 select(ModelRunRow.model_run_id).where(ModelRunRow.case_id == self.case.case_id)
             ).scalars()
-        }
+        )
         for run in self.gateway.runs:
             if run.model_run_id in existing:
                 continue
@@ -854,7 +860,9 @@ class CaseProcessor:
                 UncertaintyRecord(
                     produced_by=ORCHESTRATOR_SERVICE_ID,
                     created_at=now,
-                    uncertainty_id=derived_id("uncertainty", self.case.case_id, conflict.conflict_id),
+                    uncertainty_id=derived_id(
+                        "uncertainty", self.case.case_id, conflict.conflict_id
+                    ),
                     case_id=self.case.case_id,
                     kind=UncertaintyKind.SOURCE_CONFLICT,
                     description_en=conflict.description_en,
@@ -908,11 +916,19 @@ class CaseProcessor:
         by_excerpt = {excerpt.excerpt_id: excerpt for excerpt in self.excerpts}
         draft_by_ref = {claim.claim_ref: claim for claim in draft.claims}
         draft_run = next(
-            (r for r in (self.gateway.runs if self.gateway else []) if r.task_role is ModelTaskRole.DRAFTER),
+            (
+                r
+                for r in (self.gateway.runs if self.gateway else [])
+                if r.task_role is ModelTaskRole.DRAFTER
+            ),
             None,
         )
         verify_run = next(
-            (r for r in (self.gateway.runs if self.gateway else []) if r.task_role is ModelTaskRole.VERIFIER),
+            (
+                r
+                for r in (self.gateway.runs if self.gateway else [])
+                if r.task_role is ModelTaskRole.VERIFIER
+            ),
             None,
         )
         bound: list[GeneratedClaim] = []
@@ -1123,9 +1139,9 @@ __all__ = [
     "DataClassification",
     "ProcessOptions",
     "ProcessResult",
+    "StopError",
     "build_case_row",
     "normalise_question",
     "process_case",
     "question_digest",
-    "StopError",
 ]

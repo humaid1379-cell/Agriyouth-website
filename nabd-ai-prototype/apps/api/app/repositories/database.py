@@ -26,7 +26,7 @@ NAMING_CONVENTION = {
 }
 
 #: JSONB on PostgreSQL, JSON on SQLite.
-JsonPayload = JSONB().with_variant(JSON(), "sqlite")
+JsonPayload = JSONB().with_variant(JSON(), "sqlite")  # type: ignore[no-untyped-call]
 
 
 class Base(DeclarativeBase):

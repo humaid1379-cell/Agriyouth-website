@@ -19,7 +19,6 @@ from app.domain.reason_codes import ReasonCode
 from app.schemas.reasoning import DeterministicResult
 
 if TYPE_CHECKING:  # pragma: no cover - typing only
-    from app.services.fixtures import ConflictDeclaration, SourceManifestItem
     from app.schemas.evidence import EvidenceExcerpt
     from app.schemas.governance import (
         AuthorizationDecision,
@@ -27,6 +26,7 @@ if TYPE_CHECKING:  # pragma: no cover - typing only
         UseCaseContract,
     )
     from app.schemas.model_io import DraftResponse, VerificationResponse
+    from app.services.fixtures import ConflictDeclaration, SourceManifestItem
 
 RULE_SERVICE_ID = "service:deterministic-rule-engine"
 
@@ -109,9 +109,7 @@ class RuleOutcomeSpec:
     detail: str = ""
 
     @classmethod
-    def passed(
-        cls, *, input_refs: Sequence[str] = (), detail: str = ""
-    ) -> RuleOutcomeSpec:
+    def passed(cls, *, input_refs: Sequence[str] = (), detail: str = "") -> RuleOutcomeSpec:
         return cls(
             outcome=RuleOutcome.PASS,
             reason_code="OK",
@@ -216,7 +214,9 @@ def rule(
 
 
 def to_result(rule_def: Rule, context: RuleContext, spec: RuleOutcomeSpec) -> DeterministicResult:
-    reason = spec.reason_code.value if isinstance(spec.reason_code, ReasonCode) else spec.reason_code
+    reason = (
+        spec.reason_code.value if isinstance(spec.reason_code, ReasonCode) else spec.reason_code
+    )
     return DeterministicResult(
         produced_by=RULE_SERVICE_ID,
         created_at=context.evaluated_at,
@@ -257,5 +257,7 @@ def first_mandatory_stop(results: Sequence[DeterministicResult]) -> Deterministi
 
 
 def result_id_for(case_id: str, rule_id: str, occurrence: int = 0) -> str:
-    suffix = rule_id.replace("-", "") if occurrence == 0 else f"{rule_id.replace('-', '')}{occurrence}"
+    suffix = (
+        rule_id.replace("-", "") if occurrence == 0 else f"{rule_id.replace('-', '')}{occurrence}"
+    )
     return derived_id("rule_result", case_id, suffix)

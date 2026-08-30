@@ -45,7 +45,13 @@ TRACKED_PATHS: tuple[str, ...] = (
     "references/roadmap/SHA256SUMS",
 )
 
-EXCLUDED_DIR_NAMES = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", "node_modules"}
+EXCLUDED_DIR_NAMES = {
+    "__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    "node_modules",
+}
 
 
 def _iter_files(path: Path) -> list[Path]:
@@ -155,12 +161,16 @@ def build_bundle(output_root: Path, include_tevv: bool) -> dict[str, Any]:
 
     manifest_path = bundle_dir / "MANIFEST.json"
     manifest_path.write_text(
-        json.dumps(manifest, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8"
+        json.dumps(manifest, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
+        encoding="utf-8",
     )
 
     checksums = bundle_dir / "SHA256SUMS"
     checksums.write_text(
-        "".join(f"{entry['sha256']}  files/{entry['path']}\n" for entry in manifest["artifacts"]),
+        "".join(
+            f"{entry['sha256']}  files/{entry['path']}\n"
+            for entry in manifest["artifacts"]
+        ),
         encoding="utf-8",
     )
 
@@ -222,8 +232,10 @@ def main() -> int:
     print(f"manifest sha256  : {manifest['manifest_sha256']}")
     print(f"git commit       : {manifest['git_commit']}")
     print()
-    print("Built: NOT_EVIDENCED | Integration: NOT_EVIDENCED | "
-          "Operational: NOT_EVIDENCED | Authorization: NOT_GRANTED")
+    print(
+        "Built: NOT_EVIDENCED | Integration: NOT_EVIDENCED | "
+        "Operational: NOT_EVIDENCED | Authorization: NOT_GRANTED"
+    )
     return 0
 
 

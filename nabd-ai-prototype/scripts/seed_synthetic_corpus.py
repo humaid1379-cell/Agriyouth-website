@@ -72,9 +72,15 @@ def render_pdf_facsimile(text: str, destination: Path) -> int:
         body = page_text.split(">>>", 1)[1] if ">>>" in page_text else page_text
         page = document.new_page()
         page.insert_textbox(
-            fitz.Rect(56, 56, 539, 785), body.strip(), fontsize=9, fontname="helv", align=0
+            fitz.Rect(56, 56, 539, 785),
+            body.strip(),
+            fontsize=9,
+            fontname="helv",
+            align=0,
         )
-    document.set_metadata({"title": destination.stem, "producer": "nabd-seed", "creationDate": ""})
+    document.set_metadata(
+        {"title": destination.stem, "producer": "nabd-seed", "creationDate": ""}
+    )
     destination.parent.mkdir(parents=True, exist_ok=True)
     document.save(str(destination), deflate=True)
     page_count = document.page_count
@@ -91,7 +97,9 @@ def seed(*, reset: bool, render_pdf: bool) -> int:
     configurations = load_model_configurations()
 
     print(f"corpus manifest sha256 : {corpus.manifest_sha256}")
-    print(f"database               : {'sqlite' if settings.is_sqlite else 'postgresql'}")
+    print(
+        f"database               : {'sqlite' if settings.is_sqlite else 'postgresql'}"
+    )
 
     for item in corpus.sources:
         path = source_file_path(item)
@@ -136,7 +144,10 @@ def seed(*, reset: bool, render_pdf: bool) -> int:
                 )
 
         for authorization in authorizations.values():
-            if session.get(AuthorizationDecisionRow, authorization.authorization_id) is None:
+            if (
+                session.get(AuthorizationDecisionRow, authorization.authorization_id)
+                is None
+            ):
                 session.add(
                     AuthorizationDecisionRow(
                         authorization_id=authorization.authorization_id,
@@ -160,7 +171,10 @@ def seed(*, reset: bool, render_pdf: bool) -> int:
             )
 
         for configuration in configurations.values():
-            if session.get(ModelConfigurationRow, configuration.model_configuration_id) is None:
+            if (
+                session.get(ModelConfigurationRow, configuration.model_configuration_id)
+                is None
+            ):
                 session.add(
                     ModelConfigurationRow(
                         model_configuration_id=configuration.model_configuration_id,
@@ -245,7 +259,9 @@ def seed(*, reset: bool, render_pdf: bool) -> int:
                             char_start=page.char_start,
                             char_end=page.char_end,
                             block_count=page.block_count,
-                            page_text=document.raw_text[page.char_start : page.char_end],
+                            page_text=document.raw_text[
+                                page.char_start : page.char_end
+                            ],
                         )
                     )
             session.flush()
@@ -272,7 +288,9 @@ def seed(*, reset: bool, render_pdf: bool) -> int:
             session.flush()
 
             if render_pdf:
-                destination = settings.artifacts_dir / "derived_pdf" / f"{item.source_key}.pdf"
+                destination = (
+                    settings.artifacts_dir / "derived_pdf" / f"{item.source_key}.pdf"
+                )
                 pages = render_pdf_facsimile(document.raw_text, destination)
                 if pages != len(document.pages):
                     raise SeedError(
@@ -294,8 +312,12 @@ def seed(*, reset: bool, render_pdf: bool) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--reset", action="store_true", help="delete existing corpus rows first")
-    parser.add_argument("--no-pdf", action="store_true", help="skip the derived PDF facsimile")
+    parser.add_argument(
+        "--reset", action="store_true", help="delete existing corpus rows first"
+    )
+    parser.add_argument(
+        "--no-pdf", action="store_true", help="skip the derived PDF facsimile"
+    )
     args = parser.parse_args()
     try:
         return seed(reset=args.reset, render_pdf=not args.no_pdf)

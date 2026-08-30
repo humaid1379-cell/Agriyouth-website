@@ -55,14 +55,18 @@ class RetrievalResult:
 def question_terms(question: str) -> tuple[str, ...]:
     """Deterministic term extraction: lowercase word tokens minus a small stop list."""
     tokens = [token.casefold() for token in _WORD.findall(question)]
-    return tuple(dict.fromkeys(token for token in tokens if token not in _STOPWORDS and len(token) > 2))
+    return tuple(
+        dict.fromkeys(token for token in tokens if token not in _STOPWORDS and len(token) > 2)
+    )
 
 
 def _eligible_keys(eligible: tuple[SourceManifestItem, ...]) -> list[str]:
     return sorted(item.source_key for item in eligible)
 
 
-def _postgres_query(terms: tuple[str, ...], keys: list[str]) -> Select[tuple[SourceBlockRow, float]]:
+def _postgres_query(
+    terms: tuple[str, ...], keys: list[str]
+) -> Select[tuple[SourceBlockRow, float]]:
     # Terms are OR-combined: a policy question rarely has one passage containing every
     # word, and AND semantics would silently retrieve nothing. Terms come from a
     # ``[A-Za-z0-9]+`` tokeniser and are passed as a bound parameter, so the query text
@@ -74,7 +78,10 @@ def _postgres_query(terms: tuple[str, ...], keys: list[str]) -> Select[tuple[Sou
     rank = func.ts_rank_cd(literal_column("source_blocks.search_vector"), tsquery)
     return (
         select(SourceBlockRow, rank.label("rank_score"))
-        .join(SourceVersionRow, SourceVersionRow.source_version_key == SourceBlockRow.source_version_key)
+        .join(
+            SourceVersionRow,
+            SourceVersionRow.source_version_key == SourceBlockRow.source_version_key,
+        )
         .where(SourceBlockRow.source_version_key.in_(keys))
         .where(SourceVersionRow.lifecycle == "ACTIVE")
         .where(rank > 0)
@@ -156,7 +163,9 @@ def retrieve(
         item = by_key.get(block.source_version_key)
         if item is None:  # pragma: no cover - defensive; the filter above guarantees this
             continue
-        excerpt_id = derived_id("excerpt", case_id, f"{block.source_version_key}-{block.block_index}")
+        excerpt_id = derived_id(
+            "excerpt", case_id, f"{block.source_version_key}-{block.block_index}"
+        )
         excerpts.append(
             EvidenceExcerpt(
                 produced_by=RETRIEVAL_SERVICE_ID,

@@ -308,4 +308,4 @@ class TevvRunResponse(StrictModel):
 class HealthResponse(StrictModel):
     status: str
     environment_id: str
-    checks: dict[str, str] = {}
+    checks: dict[str, str] = Field(default_factory=dict)

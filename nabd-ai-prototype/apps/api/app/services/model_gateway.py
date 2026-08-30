@@ -14,6 +14,7 @@ attempted-fallback response produces a reason-coded failure.
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass, field
 
 from pydantic import ValidationError
@@ -185,9 +186,7 @@ class ModelGateway:
                 detail="response is not a JSON object",
             )
         if "refusal" in parsed:
-            raise ModelAdapterError(
-                ReasonCode.MODEL_REFUSAL, raw_output_chars=len(raw_text)
-            )
+            raise ModelAdapterError(ReasonCode.MODEL_REFUSAL, raw_output_chars=len(raw_text))
         return parsed
 
     def _parse_recording(
@@ -253,7 +252,7 @@ class ModelGateway:
         task_role: ModelTaskRole,
         case_id: str,
         rendered_input: str,
-        call: object,
+        call: Callable[[], RawModelResponse],
     ) -> RawModelResponse:
         """Reserve budget, call once, and allow at most one same-endpoint retry."""
         self._assert_adapter_boundaries()
@@ -264,7 +263,7 @@ class ModelGateway:
         attempt = 0
         while True:
             try:
-                raw = call()  # type: ignore[operator]
+                raw = call()
                 self._screen_output(raw, configuration)
                 return raw
             except ModelAdapterError as error:

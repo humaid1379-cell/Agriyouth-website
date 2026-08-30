@@ -24,7 +24,6 @@ from app.domain.enums import (
 )
 from app.domain.limits import RATIONALE_MIN_CHARS
 from app.schemas.base import HashStr, IdStr, StrictModel, VersionedRecord, VersionStr
-from app.schemas.evidence import EvidenceExcerpt
 from app.schemas.reasoning import (
     DeterministicResult,
     GeneratedClaim,

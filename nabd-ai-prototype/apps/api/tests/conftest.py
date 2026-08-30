@@ -79,7 +79,6 @@ def pytest_configure(config: pytest.Config) -> None:
 def engine() -> Generator[Engine, None, None]:
     from alembic import command
     from alembic.config import Config
-
     from app.repositories.database import build_engine, reset_engine
 
     dsn = os.environ["DATABASE_URL"]

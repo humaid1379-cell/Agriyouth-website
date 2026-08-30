@@ -54,7 +54,11 @@ from app.schemas.api import (
     StateTransitionView,
 )
 from app.services import audit
-from app.services.fixtures import load_corpus_fixtures, load_use_case_contract, primary_authorization
+from app.services.fixtures import (
+    load_corpus_fixtures,
+    load_use_case_contract,
+    primary_authorization,
+)
 from app.services.orchestrator import build_case_row, process_case
 from app.services.review import displayable_packet
 
@@ -71,11 +75,15 @@ def _reason_message(code: str | None) -> str | None:
 
 
 def _packet_row(db: DbSession, case_id: str) -> DecisionPacketRow | None:
-    return db.execute(
-        select(DecisionPacketRow)
-        .where(DecisionPacketRow.case_id == case_id)
-        .order_by(DecisionPacketRow.packet_version.desc())
-    ).scalars().first()
+    return (
+        db.execute(
+            select(DecisionPacketRow)
+            .where(DecisionPacketRow.case_id == case_id)
+            .order_by(DecisionPacketRow.packet_version.desc())
+        )
+        .scalars()
+        .first()
+    )
 
 
 def _summary(db: DbSession, case: CaseRow, identity_role: DemoRole) -> CaseSummary:
@@ -173,16 +181,27 @@ def read_case(case_id: str, identity: CurrentIdentity, db: DbSession) -> CaseSum
 @router.get("/cases/{case_id}/progress", response_model=CaseProgressResponse)
 def read_progress(case_id: str, identity: CurrentIdentity, db: DbSession) -> CaseProgressResponse:
     case = load_visible_case(db, case_id, identity)
-    transitions = db.execute(
-        select(CaseStateTransitionRow)
-        .where(CaseStateTransitionRow.case_id == case_id)
-        .order_by(CaseStateTransitionRow.sequence.asc())
-    ).scalars().all()
-    results = db.execute(
-        select(DeterministicResultRow)
-        .where(DeterministicResultRow.case_id == case_id)
-        .order_by(DeterministicResultRow.evaluated_at.asc(), DeterministicResultRow.precedence_rank.asc())
-    ).scalars().all()
+    transitions = (
+        db.execute(
+            select(CaseStateTransitionRow)
+            .where(CaseStateTransitionRow.case_id == case_id)
+            .order_by(CaseStateTransitionRow.sequence.asc())
+        )
+        .scalars()
+        .all()
+    )
+    results = (
+        db.execute(
+            select(DeterministicResultRow)
+            .where(DeterministicResultRow.case_id == case_id)
+            .order_by(
+                DeterministicResultRow.evaluated_at.asc(),
+                DeterministicResultRow.precedence_rank.asc(),
+            )
+        )
+        .scalars()
+        .all()
+    )
     return CaseProgressResponse(
         case=_summary(db, case, identity.role),
         transitions=tuple(
@@ -351,24 +370,38 @@ def read_lineage(case_id: str, identity: CurrentIdentity, db: DbSession) -> Line
     nodes: list[LineageNode] = []
     edges: list[LineageEdge] = []
 
-    excerpts = db.execute(
-        select(EvidenceExcerptRow)
-        .where(EvidenceExcerptRow.case_id == case_id)
-        .order_by(EvidenceExcerptRow.rank.asc())
-    ).scalars().all()
-    claims = db.execute(
-        select(GeneratedClaimRow)
-        .where(GeneratedClaimRow.case_id == case_id)
-        .order_by(GeneratedClaimRow.claim_ref.asc())
-    ).scalars().all()
-    links = db.execute(
-        select(ClaimEvidenceLinkRow).where(ClaimEvidenceLinkRow.case_id == case_id)
-    ).scalars().all()
-    results = db.execute(
-        select(DeterministicResultRow)
-        .where(DeterministicResultRow.case_id == case_id)
-        .order_by(DeterministicResultRow.precedence_rank.asc())
-    ).scalars().all()
+    excerpts = (
+        db.execute(
+            select(EvidenceExcerptRow)
+            .where(EvidenceExcerptRow.case_id == case_id)
+            .order_by(EvidenceExcerptRow.rank.asc())
+        )
+        .scalars()
+        .all()
+    )
+    claims = (
+        db.execute(
+            select(GeneratedClaimRow)
+            .where(GeneratedClaimRow.case_id == case_id)
+            .order_by(GeneratedClaimRow.claim_ref.asc())
+        )
+        .scalars()
+        .all()
+    )
+    links = (
+        db.execute(select(ClaimEvidenceLinkRow).where(ClaimEvidenceLinkRow.case_id == case_id))
+        .scalars()
+        .all()
+    )
+    results = (
+        db.execute(
+            select(DeterministicResultRow)
+            .where(DeterministicResultRow.case_id == case_id)
+            .order_by(DeterministicResultRow.precedence_rank.asc())
+        )
+        .scalars()
+        .all()
+    )
     packet = _packet_row(db, case_id)
 
     seen_sources: set[str] = set()

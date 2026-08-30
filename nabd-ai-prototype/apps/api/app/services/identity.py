@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import hmac
 import secrets
-from datetime import timedelta
+from datetime import datetime, timedelta
 from hashlib import sha256
 
 from sqlalchemy import select
@@ -30,7 +30,7 @@ from app.schemas.governance import DemoIdentity, IdentityAssertion
 from app.services.fixtures import load_identities
 
 IDENTITY_SERVICE_ID = "service:demo-identity"
-TOKEN_SEPARATOR = "."
+TOKEN_SEPARATOR = "."  # noqa: S105 - a delimiter between token parts, not a secret
 
 
 def _sign(session_id: str, nonce: str) -> str:
@@ -80,7 +80,10 @@ def create_session(db: Session, identity_id: str) -> tuple[str, IdentityAssertio
 
 
 def _assertion(
-    identity: DemoIdentity, session_id: str, issued_at, expires_at  # type: ignore[no-untyped-def]
+    identity: DemoIdentity,
+    session_id: str,
+    issued_at: datetime,
+    expires_at: datetime,
 ) -> IdentityAssertion:
     return IdentityAssertion(
         produced_by=IDENTITY_SERVICE_ID,
@@ -105,9 +108,11 @@ def resolve_session(db: Session, token: str) -> IdentityAssertion:
     if not hmac.compare_digest(signature, _sign(session_id, nonce)):
         raise IdentityError(ReasonCode.REQUESTER_OR_SESSION_INVALID)
 
-    row = db.execute(
-        select(DemoSessionRow).where(DemoSessionRow.session_id == session_id)
-    ).scalars().first()
+    row = (
+        db.execute(select(DemoSessionRow).where(DemoSessionRow.session_id == session_id))
+        .scalars()
+        .first()
+    )
     if row is None or row.revoked:
         raise IdentityError(ReasonCode.REQUESTER_OR_SESSION_INVALID)
     if not hmac.compare_digest(row.token_sha256, token_digest(token)):
@@ -140,6 +145,8 @@ def assertion_for_fixture(identity_id: str, *, minutes: int = 60) -> IdentityAss
     identity = load_identities()[identity_id]
     issued_at = utc_now()
     return _assertion(
-        identity, derived_id("session", identity_id, "fixture"), issued_at,
+        identity,
+        derived_id("session", identity_id, "fixture"),
+        issued_at,
         issued_at + timedelta(minutes=minutes),
     )

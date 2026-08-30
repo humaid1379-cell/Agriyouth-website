@@ -59,7 +59,12 @@ AUTHORED_SOURCES: tuple[dict[str, Any], ...] = (
         "revocation_reason": None,
         "quarantine_reason": None,
         "eligibility_purpose": "Eligible primary authority",
-        "topics": ["classification", "evidence_requirements", "review_period", "authority"],
+        "topics": [
+            "classification",
+            "evidence_requirements",
+            "review_period",
+            "authority",
+        ],
     },
     {
         "source_id": "SOP-001",
@@ -269,7 +274,9 @@ def write_manifest(manifest: dict[str, Any]) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--check", action="store_true", help="fail if the committed manifest differs")
+    parser.add_argument(
+        "--check", action="store_true", help="fail if the committed manifest differs"
+    )
     args = parser.parse_args()
 
     manifest = build_manifest()
@@ -281,9 +288,14 @@ def main() -> int:
             return 1
         current = MANIFEST_PATH.read_text(encoding="utf-8")
         if current != rendered:
-            print("manifest.json is out of date; run scripts/build_corpus_manifest.py", file=sys.stderr)
+            print(
+                "manifest.json is out of date; run scripts/build_corpus_manifest.py",
+                file=sys.stderr,
+            )
             return 1
-        print(f"manifest.json is current (manifest_sha256={manifest['manifest_sha256']})")
+        print(
+            f"manifest.json is current (manifest_sha256={manifest['manifest_sha256']})"
+        )
         return 0
 
     write_manifest(manifest)
