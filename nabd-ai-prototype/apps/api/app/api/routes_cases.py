@@ -17,7 +17,12 @@ from app.domain.enums import (
     DemoRole,
     Route,
 )
-from app.domain.errors import AccessDeniedError, NotFoundError, StopError
+from app.domain.errors import (
+    AccessDeniedError,
+    IllegalTransitionError,
+    NotFoundError,
+    StopError,
+)
 from app.domain.ids import new_case_id
 from app.domain.limits import limit_register_payload
 from app.domain.reason_codes import REASON_MESSAGES, ReasonCode
@@ -134,11 +139,13 @@ def create_case(
 @router.post("/cases/{case_id}/process", response_model=CaseSummary)
 def process(case_id: str, identity: RequesterIdentity, db: DbSession) -> CaseSummary:
     case = load_visible_case(db, case_id, identity)
-    if CaseState(case.current_state) is not CaseState.AUTHORIZATION_PREFLIGHT:
-        raise StopError(
-            ReasonCode.ILLEGAL_STATE_TRANSITION,
+    current = CaseState(case.current_state)
+    if current is not CaseState.AUTHORIZATION_PREFLIGHT:
+        # Replaying processing on a case that has already advanced is an illegal edge.
+        raise IllegalTransitionError(
             case_id=case_id,
-            state=CaseState(case.current_state),
+            from_state=current,
+            to_state=CaseState.ACTOR_AND_SESSION_VERIFICATION,
         )
     process_case(db, case, identity)
     return _summary(db, case, identity.role)

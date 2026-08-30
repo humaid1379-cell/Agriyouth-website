@@ -190,6 +190,30 @@ class ModelGateway:
             )
         return parsed
 
+    def _parse_recording(
+        self,
+        raw: RawModelResponse,
+        task_role: ModelTaskRole,
+        configuration: ModelConfiguration,
+        case_id: str,
+        rendered_input: str,
+    ) -> dict[str, object]:
+        """Parse, recording the attempt as a failed model run if it does not parse."""
+        try:
+            return self._parse(raw.text)
+        except ModelAdapterError as error:
+            self._record_run(
+                case_id=case_id,
+                task_role=task_role,
+                configuration=configuration,
+                rendered_input=rendered_input,
+                raw_text=raw.text,
+                duration_ms=raw.duration_ms,
+                succeeded=False,
+                reason_code=error.code.value,
+            )
+            raise
+
     def _record_run(
         self,
         *,
@@ -283,7 +307,9 @@ class ModelGateway:
             call=lambda: self.adapter.draft(request),
         )
         configuration = self.draft_configuration
-        parsed = self._parse(raw.text)
+        parsed = self._parse_recording(
+            raw, ModelTaskRole.DRAFTER, configuration, request.case_id, request.rendered_input
+        )
         try:
             response = DraftResponse.model_validate(parsed)
         except ValidationError as exc:
@@ -348,7 +374,9 @@ class ModelGateway:
             call=lambda: self.adapter.verify(request),
         )
         configuration = self.verify_configuration
-        parsed = self._parse(raw.text)
+        parsed = self._parse_recording(
+            raw, ModelTaskRole.VERIFIER, configuration, request.case_id, request.rendered_input
+        )
         try:
             response = VerificationResponse.model_validate(parsed)
         except ValidationError as exc:
