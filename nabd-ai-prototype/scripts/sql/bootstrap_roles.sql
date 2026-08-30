@@ -11,7 +11,9 @@
 DO $$
 BEGIN
   IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'nabd_owner') THEN
-    CREATE ROLE nabd_owner LOGIN PASSWORD 'nabd_owner_demo';
+    -- CREATEDB lets the owner role restore a backup into a separate local database,
+    -- which is deployment-validation check 10.
+    CREATE ROLE nabd_owner LOGIN CREATEDB PASSWORD 'nabd_owner_demo';
   END IF;
   IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'nabd_app') THEN
     CREATE ROLE nabd_app LOGIN PASSWORD 'nabd_app_demo';

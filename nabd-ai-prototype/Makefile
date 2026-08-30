@@ -148,12 +148,16 @@ else
 	$(RUN_ROOT) scripts/verify_audit_chain.py --case-id $(CASE_ID)
 endif
 
+.PHONY: deployment-validate
+deployment-validate: ## Run the automatable deployment-validation checks
+	$(RUN_ROOT) scripts/run_deployment_validation.py
+
 .PHONY: evidence-bundle
 evidence-bundle: ## Export a timestamped evidence bundle with a manifest and checksums
 	$(RUN_ROOT) scripts/export_evidence_bundle.py
 
 .PHONY: verify
-verify: manifest-check schemas-check lint typecheck test tevv ## Full developer verification
+verify: manifest-check schemas-check lint typecheck test tevv deployment-validate ## Full developer verification
 	@echo
 	@echo "Developer verification complete (gate G-A)."
 	@echo "Built: NOT_EVIDENCED | Integration: NOT_EVIDENCED | Operational: NOT_EVIDENCED | Authorization: NOT_GRANTED"
