@@ -16,13 +16,14 @@ independent TEVV evidence.
 
 The plan is not a document that the code merely aspires to. It is a frozen JSON artefact
 inside the corpus directory, read at execution time, and executed by a harness that reports
-each scenario's expected and actual outcome side by side. Three artefacts carry it:
+each scenario's expected and actual outcome side by side. Four artefacts carry it:
 
 | Artefact | Path | Role |
 |---|---|---|
 | Scenario matrix | `data/synthetic_policy_collection_v1/test_cases.json` | The frozen data: plan version, ten question texts, 31 scenarios with their pinned expectations, assertions and fault profiles |
 | Harness | `apps/api/app/services/tevv.py` | `ScenarioRunner` executes one scenario; `execute_tevv_run` executes a selection and persists runs and results |
 | Report writer | `scripts/run_tevv.py` | Executes a run, writes a hashed JSON report to `artifacts/tevv/`, prints a numerator-and-denominator summary, returns a non-zero exit code on any failure or block |
+| Frozen citation expectation | `data/synthetic_policy_collection_v1/expected_excerpts.json` | The exact source version, page, section, offsets and quoted text every material claim in `B-01` and `B-02` must resolve to; see section 8.1 |
 
 The plan version appears in two places and they must agree: `plan_version` in the matrix
 JSON, and `TEVV_PLAN_VERSION` in `apps/api/app/domain/versions.py`. The harness stamps
@@ -58,9 +59,10 @@ The matrix contains **31 scenarios** across fifteen categories. They are:
 `B-01`, `B-02`, `S-01`, `S-02`, `I-01`, `I-02`, `I-03`, `E-01`, `E-02`, `E-03`, `E-04`,
 `E-05`, `C-01`, `C-02`, `M-01`, `M-02`, `M-03`, `R-01`, `R-02`, `P-01`, `A-01`, `A-02`,
 `PI-01`, `PI-02`, `X-01`, `K-01`, `L-01`, `L-02`, `D-01`, `D-02`, `REP-01`. This matches
-Section 16.1 of `docs/NABD_AI_CURSOR_FULL_PROTOTYPE_BUILD_SPEC.md` scenario for scenario;
-`test_contracts.py` and the harness both read the same file, so the count cannot drift
-without the matrix changing.
+Section 16.1 of `docs/NABD_AI_CURSOR_FULL_PROTOTYPE_BUILD_SPEC.md` scenario for scenario. No
+test asserts the count of 31 directly; `execute_tevv_run` reports it as
+`summary["scenarios_in_plan"]`, read from the file at execution time, so a change to the
+matrix is visible in every report rather than caught by an assertion.
 
 The table below gives each scenario's pinned expectation exactly as the JSON records it.
 `ANY` and `null` are the matrix's own tokens for *unconstrained*, and their comparison
@@ -224,9 +226,9 @@ report actually proves.
 | `NO_COERCION_OF_INVALID_JSON` | No packet was produced | `_check_assertions` | Yes |
 | `CONFLICT_RECORDED` | The stop record carries at least one uncertainty entry | `_check_assertions` | Yes |
 | `FAILS_CLOSED` | No packet was produced | `_check_assertions` | Yes |
-| `NO_FALLBACK_ATTEMPTED` | Records `actual["fallback_supported"] = False` | `_check_assertions` | **No** — records only |
-| `RETRY_WITHIN_BUDGET` | Records `actual["retry_budget"] = 1` | `_check_assertions` | **No** — records only |
-| `AT_LIMIT_HANDLED_DETERMINISTICALLY` | Records `actual["elapsed_seconds_simulated"] = 60` | `_check_assertions` | **No** — records only |
+| `NO_FALLBACK_ATTEMPTED` | Requires no persisted model run to carry a fallback reason code and no pinned configuration to enable fallback | `_check_assertions` | Yes |
+| `RETRY_WITHIN_BUDGET` | Reads `retry_count` from every persisted model run and requires each to be within `SAME_ENDPOINT_RETRY_MAX` | `_check_assertions` | Yes |
+| `AT_LIMIT_HANDLED_DETERMINISTICALLY` | Requires `LIM-001` to have evaluated, to have not failed, and the case to reach human review | `_check_assertions` | Yes |
 | `NO_CASE_CONTENT_DISCLOSED` | Not implemented under this name; `_run_i_01` inspects the denial message for case language instead | `_run_i_01` | Partly — checked for `I-01`, not for `I-02` |
 | `PACKET_REMAINS_UNDISPOSED` | `_run_i_03` re-reads the case and requires `AWAITING_AUTHORIZED_HUMAN_REVIEW` after the denial | `_run_i_03` | Yes |
 | `SOD_DENIAL_AUDITED` | `_run_i_03` requires a `REVIEWER_AUTHORITY_AND_SOD` row with outcome `DENIED` | `_run_i_03` | Yes |
@@ -235,25 +237,35 @@ report actually proves.
 | `NO_PACKET_DISPLAY` | Not implemented under this name; the pinned `packet_present: false` carries the same requirement for `A-01` | `_match` | Yes, via the pinned field |
 | `NO_VALID_CLOSURE` | `_run_a_02` requires no confirmed `DISPOSITION_CLOSURE` event and requires the case still to be awaiting review | `_run_a_02` | Yes |
 | `TWO_DISTINCT_CONFIRMED_AUDITS` | `_run_d_01` requires both critical events present, distinct, and the closure later in sequence | `_run_d_01` | Yes |
-| `NO_EXECUTION_SIDE_EFFECT` | `_run_d_01` records `non_execution_notice_present` | `_run_d_01` | **No** — records only |
+| `NO_EXECUTION_SIDE_EFFECT` | `_run_d_01` requires the non-execution notice to be present, no prohibited-path event in the chain, and every audit event type to be in the declared vocabulary | `_run_d_01` | Yes |
 | `NO_DISPOSITION_BINDING` | `_run_d_02` requires zero `human_dispositions` rows | `_run_d_02` | Yes |
 | `SAME_ROUTE_ON_REPLAY` | `_run_rep_01` compares routes across two executions | `_run_rep_01` | Yes |
 | `SAME_CLAIM_SET_ON_REPLAY` | `_run_rep_01` compares claim tuples and citation sets across two executions | `_run_rep_01` | Yes |
 
-### 4.1 The four record-only assertions
+### 4.1 Assertions that observe rather than record
 
-Four assertions write a value into the result record and can never fail:
+Four assertions previously wrote a literal into the result record and could not fail:
 `NO_FALLBACK_ATTEMPTED`, `RETRY_WITHIN_BUDGET`, `AT_LIMIT_HANDLED_DETERMINISTICALLY` and
-`NO_EXECUTION_SIDE_EFFECT`. They are documentary, not probative. The properties they name
-are real and are enforced elsewhere in code, but a passing `M-02`, `L-01` or `D-01` is not
-the evidence that enforces them. The enforcing evidence is:
+`NO_EXECUTION_SIDE_EFFECT`. A named assertion that cannot fail is misleading evidence: the
+report showed the property as checked when nothing had been examined. All four now read
+observed state and can fail.
 
-| Record-only assertion | Property | Where the property is actually proven |
-|---|---|---|
-| `NO_FALLBACK_ATTEMPTED` | No provider fallback exists to attempt | `test_model_gateway.py::TestGatewayFaultHandling::test_adapter_advertising_fallback_is_refused`; `test_mock_advertises_neither_tools_nor_fallback` |
-| `RETRY_WITHIN_BUDGET` | At most one retry, and none after a partial result was accepted | `test_model_gateway.py::TestCallBudget::test_retry_budget_is_one` and `test_no_retry_after_a_partial_result_was_accepted` |
-| `AT_LIMIT_HANDLED_DETERMINISTICALLY` | A value exactly at a limit is permitted, not refused | `test_fsm_and_rules.py::TestRuleVectors::test_lim_001_at_limit_is_permitted` |
-| `NO_EXECUTION_SIDE_EFFECT` | Closure produces a record, never an action | `test_pipeline.py::TestReviewAndDisposition::test_reviewer_can_accept_as_test_evidence`; `test_security.py::TestNoLeakage::test_packet_contains_no_url_or_action_target` |
+| Assertion | What it now observes |
+|---|---|
+| `NO_FALLBACK_ATTEMPTED` | Every persisted `model_runs` row for the case, plus every pinned configuration. Fails if any run recorded `MODEL_FALLBACK_ATTEMPTED` or any configuration sets `fallback_enabled`. |
+| `RETRY_WITHIN_BUDGET` | The `retry_count` column of every persisted model run. Fails if any exceeds `SAME_ENDPOINT_RETRY_MAX`. For `M-02` this records `[0, 1]`: the verifier timeout retried exactly once. |
+| `AT_LIMIT_HANDLED_DETERMINISTICALLY` | The `LIM-001` evaluations for the case. Fails if the rule did not evaluate, if any evaluation failed while a resource sat exactly at its limit, or if the case did not reach human review. |
+| `NO_EXECUTION_SIDE_EFFECT` | The disposition's non-execution notice, the case audit chain for any `PROHIBITED_ACTION_PATH_DETECTED` reason code, and every event type against the declared `AuditEventType` vocabulary. |
+
+These scenario assertions remain a behavioural check over one execution. The code-level
+proofs below are narrower and more exhaustive, and both are retained:
+
+| Property | Where it is also proven at code level |
+|---|---|
+| No provider fallback exists to attempt | `test_model_gateway.py::TestGatewayFaultHandling::test_adapter_advertising_fallback_is_refused`; `test_mock_advertises_neither_tools_nor_fallback` |
+| At most one retry, and none after a partial result was accepted | `test_model_gateway.py::TestCallBudget::test_retry_budget_is_one` and `test_no_retry_after_a_partial_result_was_accepted` |
+| A value exactly at a limit is permitted, not refused | `test_fsm_and_rules.py::TestRuleVectors::test_lim_001_at_limit_is_permitted` |
+| Closure produces a record, never an action | `test_pipeline.py::TestReviewAndDisposition::test_reviewer_can_accept_as_test_evidence`; `test_security.py::TestNoLeakage::test_packet_contains_no_url_or_action_target` |
 
 ### 4.2 Reason codes satisfied by construction
 
@@ -455,7 +467,7 @@ larger corpus remain measured prototype targets and are not claims about field p
 | Deterministic rule-vector conformance | 100% | Not measured by the TEVV harness. `R-01` proves a missing rule fails closed; per-rule vector conformance is proven by the 15-rule vector suite in `test_fsm_and_rules.py::TestRuleVectors` | Measured outside this plan |
 | Critical audit completeness | 100% | `A-01`, `A-02`, `D-01`; `AUDIT_CHAIN_VERIFIES` on `B-01` and `REP-01` | Measured |
 | Material claim-support classification | 100% | `B-01`, `B-02` (`ALL_MATERIAL_CLAIMS_SUPPORTED`) against a denominator of 2 | Measured, small denominator |
-| Citation-location accuracy for material claims | 100% | Not asserted by name in the harness. Proven by `test_pipeline.py::TestHappyPath::test_every_material_claim_is_supported_with_a_verified_quote` and `test_citations_resolve_to_admitted_excerpts`, and by `test_corpus_and_retrieval.py::TestParser::test_offsets_reproduce_the_excerpt_exactly` | Measured outside this plan |
+| Citation-location accuracy for material claims | 100% | Not asserted by name in the harness. Measured against the frozen expectation in `expected_excerpts.json` by `test_expected_excerpts.py` (section 8.1), and reinforced by `test_pipeline.py::TestHappyPath::test_every_material_claim_is_supported_with_a_verified_quote`, `test_citations_resolve_to_admitted_excerpts` and `test_corpus_and_retrieval.py::TestParser::test_offsets_reproduce_the_excerpt_exactly` | Measured outside this plan, denominator 2 |
 | At-limit and over-limit safe behaviour | 100% | `L-01`, `L-02` — against the case wall-clock limit only. The remaining limits are covered by `test_lim_001_over_limit_vectors` and `test_lim_001_at_limit_is_permitted` | Partial in this plan |
 | Benign frozen-case completion | ≥95%, only once at least 60 unique benign frozen cases are implemented | `B-01`, `B-02` | **INCOMPLETE** — see section 9 |
 | All labelled claim-support classification | ≥95%, only once adequately labelled case volume exists | No labelled corpus exists | **INCOMPLETE** — see section 9 |
@@ -465,6 +477,50 @@ unsupported definitive claim, deterministic-control bypass or critical-audit byp
 `S0_CRITICAL` and blocks any acceptance of the affected release. The harness records
 `S0_CRITICAL` severity in the audit chain (`X-01` asserts it directly), and
 `docs/threat-model.md` maps each such event to the control that raises it.
+
+### 8.1 The frozen citation expectation
+
+Citation-location accuracy cannot be measured by re-deriving the answer, because a change to
+retrieval or ranking would move both the expectation and the result together. It is therefore
+measured against a separately frozen artefact,
+`data/synthetic_policy_collection_v1/expected_excerpts.json`, which sits beside the scenario
+matrix and covers the two `BENIGN` scenarios `B-01` and `B-02`. Those are the only two
+scenarios whose purpose is the answer itself. Several others also produce a packet — `I-03`,
+`A-02`, `L-01`, `D-01`, `D-02` and `REP-01` — but each of them reuses the `B-01` question in
+order to test the review, audit, limit or replay layers, so freezing their citations would
+duplicate the `B-01` expectation rather than extend it. `build_expected_excerpts.py` names
+the pair explicitly in `FROZEN_SCENARIOS`.
+
+| Property | Detail |
+|---|---|
+| Generated by | `scripts/build_expected_excerpts.py`, which runs the two benign scenarios once and records the result |
+| Regenerate | `make expected-excerpts` |
+| Verify currency | `make expected-excerpts-check`, which fails if the committed file differs from a fresh derivation |
+| Recorded per material claim | `claim_ref`, `materiality`, `support_state`, `statement`, and per citation the `source_key`, `page_number`, `section_heading`, `char_start`, `char_end` and `quoted_text` |
+| Recorded per scenario | `route`, `admitted_source_keys`, `admitted_excerpt_count`, `material_claim_count` |
+| Integrity | `expected_excerpts_sha256` is a canonical self-hash over the document, and `corpus_manifest_sha256` pins the corpus the expectation was derived from |
+| Asserted by | `apps/api/tests/test_expected_excerpts.py` |
+
+The assertions are worth naming individually, because they are the strongest citation
+evidence the prototype currently produces:
+
+| Test | What it requires |
+|---|---|
+| `TestFrozenExpectation::test_the_fixture_self_hash_matches_its_content` | The document has not been edited without rehashing |
+| `TestFrozenExpectation::test_the_fixture_pins_the_current_corpus` | The recorded `corpus_manifest_sha256` equals the loaded corpus manifest hash |
+| `TestFrozenExpectation::test_every_frozen_scenario_is_a_benign_scenario` | The expectation covers exactly `["B-01", "B-02"]` |
+| `TestCitationAccuracy::test_material_claims_resolve_to_the_frozen_citations` | Re-running each scenario reproduces every claim's citation list byte for byte, including offsets |
+| `TestCitationAccuracy::test_frozen_citations_still_slice_the_source_exactly` | Slicing the normalised source file at the recorded offsets reproduces the recorded quoted text |
+| `TestCitationAccuracy::test_material_claim_count_and_support_are_unchanged` | The material claim count matches and every material claim is `SUPPORTED` |
+| `TestCitationAccuracy::test_the_multi_source_scenario_really_cites_multiple_sources` | `B-02` cites two or more distinct source versions |
+| `TestCitationAccuracy::test_no_ineligible_source_appears_in_any_frozen_expectation` | Neither the admitted set nor any citation contains `POL-001@v0`, `POL-002@v1`, `SOP-002@v1` or `ADV-001@v1` |
+
+Two limits follow from the design and should be read alongside it. The denominator is two
+scenarios, so the target is met against a small sample rather than a representative one — the
+same denominator problem section 9 records for benign completion. And the expectation is a
+record of what the prototype currently answers, not an independent judgement that the answer
+is the correct reading of the policy; establishing that is a human review task, which is
+precisely what the packet exists to support.
 
 ---
 
@@ -546,14 +602,16 @@ section 9 applicable at all.
 ## 11. Where the harness sits among the other test suites
 
 The TEVV matrix is not the whole of the developer-verification evidence and does not try to
-be. `make verify` runs, in order: `manifest-check`, `schemas-check`, `lint`, `typecheck`,
-`test`, `tevv`, `deployment-validate`. The relationship is:
+be. `make verify` runs, in order: `manifest-check`, `schemas-check`,
+`expected-excerpts-check`, `lint`, `typecheck`, `test`, `tevv`, `deployment-validate`. The
+relationship is:
 
 | Suite | Layer | What it establishes |
 |---|---|---|
 | `apps/api/tests/test_contracts.py` | Domain and schema | Enumerations, reason-code coverage, closed schemas, canonical JSON, exported JSON Schemas |
 | `apps/api/tests/test_fsm_and_rules.py` | Domain and rules | Declared-edge closure, precedence uniqueness, and a vector suite per rule |
 | `apps/api/tests/test_corpus_and_retrieval.py` | Corpus and retrieval | Manifest and file hashes, parser offsets, injection detection, eligibility reasons, retrieval limits and ordering |
+| `apps/api/tests/test_expected_excerpts.py` | Citation accuracy | The frozen citation expectation for `B-01` and `B-02`, its self-hash, its corpus pin, and exact offset reproduction |
 | `apps/api/tests/test_model_gateway.py` | Model boundary | Prompt contracts, call budget, every fault refusal, live-adapter guards |
 | `apps/api/tests/test_pipeline.py` | Service composition | End-to-end happy path, stop paths, audit chain, review and disposition, replay determinism, packet semantics |
 | `apps/api/tests/test_security.py` | Boundaries | Prohibited dependencies, routes, egress, content isolation, leakage, SQL and rendering |
@@ -577,10 +635,10 @@ artefact rather than a pytest assertion.
 | `E-01`, `E-02`, `E-03` expected result | "Source excluded, stop if mandatory" | `terminal_state`, `route`, `reason_code` and `packet_present` all unconstrained; only the exclusion is asserted | Whether the case then stops depends on whether the remaining eligible sources can answer the question, which is a property of the corpus content, not of the control under test. Pinning only the exclusion keeps the assertion about the control and keeps the scenario stable if corpus content changes |
 | `L-01`, `L-02` breadth | "Any resource at hard limit" / "over hard limit" | Only `case_wall_clock_seconds` is exercised, at 60 and 61 seconds | The at-limit and over-limit behaviour of every other member of `LIMIT_REGISTER` is a rule-vector property, proven exhaustively in `test_lim_001_*` rather than once per limit through a full case |
 | `PI-02` scope | "Forged authority text in question/output" | The question side only | The output side is contained structurally rather than by scenario: the drafter's response schema has no route or authority field to forge, and `ModelGateway._screen_output` refuses any output carrying a prohibited marker. Both are tested at the schema and gateway layers |
-| Rule-vector conformance and citation-location accuracy targets | Listed among the acceptance targets | Not measured by the TEVV harness | Both are per-rule and per-offset properties that a scenario-level harness measures poorly. They are measured in the rule-vector and parser suites, where the denominator is the full rule catalog and the full excerpt set |
+| Rule-vector conformance and citation-location accuracy targets | Listed among the acceptance targets | Neither is measured by the TEVV harness | Both are per-rule and per-offset properties that a scenario-level harness measures poorly. Rule-vector conformance is measured in `test_fsm_and_rules.py::TestRuleVectors`, where the denominator is the full rule catalog; citation-location accuracy is measured against the frozen expectation by `test_expected_excerpts.py`, where the comparison is byte-exact rather than merely plausible |
 | `NOT_RUN` reporting | "A scenario that does not execute is `NOT_RUN` or `BLOCKED`, never silently omitted" | Reported as `summary["not_run"]` alongside `scenarios_in_plan`, not as a per-scenario row | The commitment is met at summary level; the gap is that `results` is shorter than the matrix on a filtered run. Recorded here so a reviewer reconciles against `scenarios_in_plan` |
 | Four assertions | Implied to be assertions | `NO_FALLBACK_ATTEMPTED`, `RETRY_WITHIN_BUDGET`, `AT_LIMIT_HANDLED_DETERMINISTICALLY` and `NO_EXECUTION_SIDE_EFFECT` record a value and cannot fail | Section 4.1 names the tests that do enforce each property. Documented rather than silently relied upon |
-| Terminal-state vocabulary | The 20 `CaseState` members plus terminal stops | `DENIED`, `TRANSITION_REJECTED` and `VALIDATION_REJECTED` appear as expected terminal states | These four scenarios test refusals that occur outside a case's state field — session issuance, a pure FSM call, and packet semantic validation — so the harness labels the outcome rather than misreporting a `CaseState` |
+| Terminal-state vocabulary | The 20 `CaseState` members plus terminal stops | Three labels that are not `CaseState` members appear as expected terminal states: `DENIED` (`I-01`, `I-02`), `TRANSITION_REJECTED` (`R-02`) and `VALIDATION_REJECTED` (`P-01`) | Each of those four scenarios tests a refusal that occurs outside a case's state field — session issuance, a direct `assert_transition` call, and packet semantic validation on a copy — so the harness labels the outcome rather than misreporting a `CaseState` |
 | Repetitions | "case IDs, repetitions" among the required report fields | `repetition` is persisted and reported, always 1 | The schema supports repeated execution; the frozen plan does not yet specify a repetition budget |
 
 ---

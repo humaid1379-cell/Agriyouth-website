@@ -13,6 +13,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
 
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.adapters.protocol import ModelFault
@@ -25,6 +26,7 @@ from app.domain.enums import (
     DispositionValue,
     Materiality,
     Route,
+    RuleOutcome,
     Severity,
     SupportState,
     TevvResultStatus,
@@ -32,12 +34,20 @@ from app.domain.enums import (
 from app.domain.errors import ControlError, IllegalTransitionError
 from app.domain.fsm import assert_transition
 from app.domain.ids import new_id
+from app.domain.limits import SAME_ENDPOINT_RETRY_MAX
 from app.domain.reason_codes import ReasonCode
 from app.domain.versions import COMPONENT_VERSIONS, TEVV_PLAN_VERSION
-from app.repositories.tables import CaseRow, DecisionPacketRow, TevvResultRow, TevvRunRow
+from app.repositories.tables import (
+    CaseRow,
+    DecisionPacketRow,
+    ModelRunRow,
+    TevvResultRow,
+    TevvRunRow,
+)
 from app.schemas.governance import IdentityAssertion
 from app.schemas.packet import DecisionReadinessPacket
 from app.services import audit
+from app.services.fixtures import load_model_configurations
 from app.services.identity import assertion_for_fixture
 from app.services.kill_switch import kill_switch_active, set_kill_switch
 from app.services.orchestrator import ProcessOptions, ProcessResult, build_case_row, process_case
@@ -139,6 +149,16 @@ class ScenarioRunner:
 
     def question(self, scenario: dict[str, Any]) -> str:
         return str(self.questions[scenario["question_key"]])
+
+    def _model_runs(self, case_id: str) -> list[ModelRunRow]:
+        """Persisted model runs for a case, so retry and fallback claims are observed."""
+        return list(
+            self.session.execute(
+                select(ModelRunRow)
+                .where(ModelRunRow.case_id == case_id)
+                .order_by(ModelRunRow.call_index.asc())
+            ).scalars()
+        )
 
     def run(self, scenario: dict[str, Any]) -> ScenarioOutcome:
         scenario_id = str(scenario["id"])
@@ -325,9 +345,33 @@ class ScenarioRunner:
         if "NO_COERCION_OF_INVALID_JSON" in assertions and result.packet is not None:
             failures.append("a packet was issued despite a malformed model response")
         if "NO_FALLBACK_ATTEMPTED" in assertions:
-            actual["fallback_supported"] = False
+            # Observed, not asserted by construction: no persisted model run may carry a
+            # fallback reason code, and no pinned configuration may enable fallback.
+            fallback_runs = [
+                row.model_run_id
+                for row in self._model_runs(result.case_id)
+                if row.reason_code == ReasonCode.MODEL_FALLBACK_ATTEMPTED.value
+            ]
+            fallback_configurations = sorted(
+                configuration.model_configuration_id
+                for configuration in load_model_configurations().values()
+                if configuration.fallback_enabled
+            )
+            actual["fallback_runs"] = fallback_runs
+            actual["configurations_enabling_fallback"] = fallback_configurations
+            if fallback_runs:
+                failures.append(f"a model run recorded a fallback attempt: {fallback_runs}")
+            if fallback_configurations:
+                failures.append(
+                    f"a pinned configuration enables fallback: {fallback_configurations}"
+                )
         if "RETRY_WITHIN_BUDGET" in assertions:
-            actual["retry_budget"] = 1
+            retries = [row.retry_count for row in self._model_runs(result.case_id)]
+            actual["retry_counts"] = retries
+            actual["retry_budget"] = SAME_ENDPOINT_RETRY_MAX
+            over = [count for count in retries if count > SAME_ENDPOINT_RETRY_MAX]
+            if over:
+                failures.append(f"a model run exceeded the same-endpoint retry budget: {over}")
         if "CONFLICT_RECORDED" in assertions:
             stop = result.stop_record
             recorded = bool(stop and stop.uncertainty)
@@ -335,7 +379,20 @@ class ScenarioRunner:
             if not recorded:
                 failures.append("no conflict uncertainty record was attached to the stop record")
         if "AT_LIMIT_HANDLED_DETERMINISTICALLY" in assertions:
-            actual["elapsed_seconds_simulated"] = 60
+            # A resource exactly at its hard limit must be admitted, not rejected: LIM-001
+            # has to pass and the case has to reach human review.
+            limit_results = [row for row in result.rule_results if row.rule_id == "LIM-001"]
+            failed_limits = [
+                row.reason_code for row in limit_results if row.outcome is RuleOutcome.FAIL
+            ]
+            actual["limit_rule_evaluations"] = len(limit_results)
+            actual["failed_limit_evaluations"] = failed_limits
+            if not limit_results:
+                failures.append("LIM-001 did not evaluate for an at-limit case")
+            if failed_limits:
+                failures.append(f"a resource exactly at its limit was rejected: {failed_limits}")
+            if result.route is not Route.HUMAN_REVIEW_REQUIRED:
+                failures.append("an at-limit case did not reach human review")
         if "FAILS_CLOSED" in assertions and result.packet is not None:
             failures.append("an over-limit case still produced a packet")
         return failures
@@ -600,7 +657,29 @@ class ScenarioRunner:
         actual["audit_chain_verified"] = verification.verified
         if not verification.verified:
             failures.append("the audit chain did not verify after closure")
+        # NO_EXECUTION_SIDE_EFFECT, observed rather than assumed: the disposition must carry
+        # its non-execution notice, no prohibited-path event may have been recorded, and
+        # every audit event type must come from the declared non-executing vocabulary.
         actual["non_execution_notice_present"] = bool(outcome.disposition.non_execution_notice)
+        if not outcome.disposition.non_execution_notice:
+            failures.append("the disposition carries no non-execution notice")
+
+        chain = audit.load_chain(self.session, case.case_id)
+        prohibited_events = [
+            row.event_id
+            for row in chain
+            if row.reason_code == ReasonCode.PROHIBITED_ACTION_PATH_DETECTED.value
+        ]
+        unexpected_types = sorted(
+            {row.event_type for row in chain} - {member.value for member in AuditEventType}
+        )
+        actual["prohibited_path_events"] = prohibited_events
+        actual["unexpected_audit_event_types"] = unexpected_types
+        if prohibited_events:
+            failures.append(f"a prohibited action path was recorded: {prohibited_events}")
+        if unexpected_types:
+            failures.append(f"an audit event type outside the vocabulary: {unexpected_types}")
+
         return self._finish(str(scenario["id"]), expected, actual, trace_id, case.case_id, failures)
 
     def _run_d_02(

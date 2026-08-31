@@ -346,12 +346,18 @@ setting so tests can point the loader at a temporary corpus, whereas `FIXTURES_D
 is the correct asymmetry, because a deployment must not be able to substitute its own
 authorization fixture.
 
-One related absence should be stated plainly: the specification's repository shape lists
-`data/synthetic_policy_collection_v1/expected_excerpts.json`, and that file does not exist.
-Its role is served by two things that do exist — `extracted_text_sha256` and `block_count`
-per source version in `manifest.json`, which the seed verifies against the parsed document,
-and the per-scenario `assertions` arrays in `test_cases.json`, which pin expected admitted
-and cited source sets directly.
+The specification's repository shape also lists
+`data/synthetic_policy_collection_v1/expected_excerpts.json`, and that file is present. It is
+a generated artefact rather than a hand-authored one: `scripts/build_expected_excerpts.py`
+runs the two benign scenarios once and records, per material claim, the exact source version,
+page number, section heading, character offsets and quoted text its citations resolved to.
+The document carries its own `expected_excerpts_sha256` self-hash and pins
+`corpus_manifest_sha256`, so it cannot be read as current against a different corpus.
+`make expected-excerpts-check` fails if the committed file is out of date, and
+`apps/api/tests/test_expected_excerpts.py` re-runs the scenarios and requires the same
+citations, so a retrieval, ranking or claim-selection change that moves a citation fails a
+test instead of silently redefining which passage the prototype says answers the question.
+Regenerating the file is deliberate: the diff is the record of that answer.
 
 ### 8.3 A packet carries its own pre-issuance audit reference, and the issued hash is retained separately
 
