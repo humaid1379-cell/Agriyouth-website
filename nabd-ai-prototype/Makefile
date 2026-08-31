@@ -83,6 +83,14 @@ manifest: ## Regenerate the frozen corpus manifest
 manifest-check: ## Fail if the committed corpus manifest is out of date
 	$(PY) scripts/build_corpus_manifest.py --check
 
+.PHONY: expected-excerpts
+expected-excerpts: ## Regenerate the frozen expected citations for the benign scenarios
+	$(RUN_ROOT) scripts/build_expected_excerpts.py
+
+.PHONY: expected-excerpts-check
+expected-excerpts-check: ## Fail if the frozen expected citations are out of date
+	$(RUN_ROOT) scripts/build_expected_excerpts.py --check
+
 .PHONY: schemas
 schemas: ## Regenerate the JSON Schema contracts
 	$(PY) scripts/export_json_schemas.py
@@ -157,7 +165,7 @@ evidence-bundle: ## Export a timestamped evidence bundle with a manifest and che
 	$(RUN_ROOT) scripts/export_evidence_bundle.py
 
 .PHONY: verify
-verify: manifest-check schemas-check lint typecheck test tevv deployment-validate ## Full developer verification
+verify: manifest-check schemas-check expected-excerpts-check lint typecheck test tevv deployment-validate ## Full developer verification
 	@echo
 	@echo "Developer verification complete (gate G-A)."
 	@echo "Built: NOT_EVIDENCED | Integration: NOT_EVIDENCED | Operational: NOT_EVIDENCED | Authorization: NOT_GRANTED"

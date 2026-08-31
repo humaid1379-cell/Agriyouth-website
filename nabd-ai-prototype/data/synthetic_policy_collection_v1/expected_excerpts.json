@@ -1,0 +1,167 @@
+{
+  "corpus_id": "synthetic_policy_collection_v1",
+  "corpus_manifest_sha256": "6dfcef807e120ef197a321290d297cfe007029c5104b57c7984d13141c98b944",
+  "expectations": [
+    {
+      "admitted_excerpt_count": 8,
+      "admitted_source_keys": [
+        "POL-001@v1",
+        "SOP-001@v1"
+      ],
+      "claims": [
+        {
+          "citations": [
+            {
+              "char_end": 1600,
+              "char_start": 1428,
+              "page_number": 2,
+              "quoted_text": "An internal policy exception request is incomplete, and shall not proceed to review, unless the exception file contains all three of the following mandatory evidence items.",
+              "section_heading": "3. Evidence Requirements",
+              "source_key": "POL-001@v1"
+            }
+          ],
+          "claim_ref": "C01",
+          "materiality": "MATERIAL",
+          "statement": "An internal policy exception request is incomplete, and shall not proceed to review, unless the exception file contains all three of the following mandatory evidence items.",
+          "support_state": "SUPPORTED"
+        },
+        {
+          "citations": [
+            {
+              "char_end": 919,
+              "char_start": 769,
+              "page_number": 1,
+              "quoted_text": "A Tier 2 request is a material exception affecting two or more procedural steps, or affecting any reporting obligation of the Corporate Services Unit.",
+              "section_heading": "2. Request Classification",
+              "source_key": "POL-001@v1"
+            }
+          ],
+          "claim_ref": "C02",
+          "materiality": "MATERIAL",
+          "statement": "A Tier 2 request is a material exception affecting two or more procedural steps, or affecting any reporting obligation of the Corporate Services Unit.",
+          "support_state": "SUPPORTED"
+        },
+        {
+          "citations": [
+            {
+              "char_end": 210,
+              "char_start": 37,
+              "page_number": 1,
+              "quoted_text": "This Internal Policy Exception Governance Policy establishes how the Corporate Services Unit classifies, evidences, reviews and records an internal policy exception request.",
+              "section_heading": "1. Purpose and Scope",
+              "source_key": "POL-001@v1"
+            }
+          ],
+          "claim_ref": "C03",
+          "materiality": "NON_MATERIAL",
+          "statement": "This Internal Policy Exception Governance Policy establishes how the Corporate Services Unit classifies, evidences, reviews and records an internal policy exception request.",
+          "support_state": "SUPPORTED"
+        },
+        {
+          "citations": [
+            {
+              "char_end": 368,
+              "char_start": 211,
+              "page_number": 1,
+              "quoted_text": "It applies to every exception request raised by Corporate Services Unit personnel about an internal policy or standard operating procedure owned by the unit.",
+              "section_heading": "1. Purpose and Scope",
+              "source_key": "POL-001@v1"
+            }
+          ],
+          "claim_ref": "C04",
+          "materiality": "NON_MATERIAL",
+          "statement": "It applies to every exception request raised by Corporate Services Unit personnel about an internal policy or standard operating procedure owned by the unit.",
+          "support_state": "SUPPORTED"
+        }
+      ],
+      "material_claim_count": 2,
+      "question": "What evidence must accompany an internal policy exception request in the Corporate Services Unit, and who is required to review a Tier 2 request?",
+      "question_key": "BENIGN_EVIDENCE_AND_REVIEWER",
+      "route": "HUMAN_REVIEW_REQUIRED",
+      "scenario_id": "B-01"
+    },
+    {
+      "admitted_excerpt_count": 8,
+      "admitted_source_keys": [
+        "POL-001@v1",
+        "POL-003@v1",
+        "SOP-001@v1"
+      ],
+      "claims": [
+        {
+          "citations": [
+            {
+              "char_end": 919,
+              "char_start": 769,
+              "page_number": 1,
+              "quoted_text": "A Tier 2 request is a material exception affecting two or more procedural steps, or affecting any reporting obligation of the Corporate Services Unit.",
+              "section_heading": "2. Request Classification",
+              "source_key": "POL-001@v1"
+            }
+          ],
+          "claim_ref": "C01",
+          "materiality": "MATERIAL",
+          "statement": "A Tier 2 request is a material exception affecting two or more procedural steps, or affecting any reporting obligation of the Corporate Services Unit.",
+          "support_state": "SUPPORTED"
+        },
+        {
+          "citations": [
+            {
+              "char_end": 182,
+              "char_start": 39,
+              "page_number": 1,
+              "quoted_text": "This standard operating procedure describes the exact steps for preparing an internal policy exception file within the Corporate Services Unit.",
+              "section_heading": "1. Scope and Ownership",
+              "source_key": "SOP-001@v1"
+            }
+          ],
+          "claim_ref": "C02",
+          "materiality": "MATERIAL",
+          "statement": "This standard operating procedure describes the exact steps for preparing an internal policy exception file within the Corporate Services Unit.",
+          "support_state": "SUPPORTED"
+        },
+        {
+          "citations": [
+            {
+              "char_end": 1436,
+              "char_start": 1356,
+              "page_number": 2,
+              "quoted_text": "The Records Governance Team performs a completeness check of the exception file.",
+              "section_heading": "3. Procedure Steps, continued",
+              "source_key": "SOP-001@v1"
+            }
+          ],
+          "claim_ref": "C03",
+          "materiality": "NON_MATERIAL",
+          "statement": "The Records Governance Team performs a completeness check of the exception file.",
+          "support_state": "SUPPORTED"
+        },
+        {
+          "citations": [
+            {
+              "char_end": 1632,
+              "char_start": 1437,
+              "page_number": 2,
+              "quoted_text": "The completeness check confirms that the three mandatory evidence items are present, dated within ninety calendar days, and drawn from documents that are active rather than superseded or revoked.",
+              "section_heading": "3. Procedure Steps, continued",
+              "source_key": "SOP-001@v1"
+            }
+          ],
+          "claim_ref": "C04",
+          "materiality": "NON_MATERIAL",
+          "statement": "The completeness check confirms that the three mandatory evidence items are present, dated within ninety calendar days, and drawn from documents that are active rather than superseded or revoked.",
+          "support_state": "SUPPORTED"
+        }
+      ],
+      "material_claim_count": 2,
+      "question": "Which procedural steps and owners apply when a Corporate Services Unit exception file is prepared and checked for completeness before review?",
+      "question_key": "BENIGN_MULTI_SOURCE_STEPS",
+      "route": "HUMAN_REVIEW_REQUIRED",
+      "scenario_id": "B-02"
+    }
+  ],
+  "expected_excerpts_sha256": "b6c52f6acda64438ca6ba975f277ead79b53b2a781b7a7d4f8af95331740fb8c",
+  "expected_excerpts_version": "1.0.0",
+  "generated_by": "scripts/build_expected_excerpts.py",
+  "notice": "Frozen expected citations for the benign scenarios. Each material claim must resolve to the exact source version, page and character offsets recorded here. A change to retrieval, ranking or claim selection that moves a citation fails the citation-accuracy test rather than silently redefining the expectation."
+}

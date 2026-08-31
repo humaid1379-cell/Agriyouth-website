@@ -99,11 +99,12 @@ evidence, produced by the implementation team, and they are not an acceptance of
 |---|---|---|
 | Corpus manifest currency | `make manifest-check` | Current at `6dfcef80…c98b944` |
 | JSON Schema currency | `make schemas-check` | 27/27 schemas current |
+| Frozen citation expectation | `make expected-excerpts-check` | Current at `b6c52f6a…1740fb8c` |
 | Python lint and format | `ruff check`, `ruff format --check` | 0 findings across 72 files |
 | Python static types | `mypy app` (strict) | 0 errors across 55 source files |
 | Frontend lint | `eslint .` | 0 findings |
 | Frontend static types | `tsc --noEmit` | 0 errors |
-| Backend tests | `make test-api` | **276/276 passed** — 148 unit, 101 integration, 27 security |
+| Backend tests | `make test-api` | **287/287 passed** — 148 unit, 112 integration, 27 security |
 | Frontend tests | `make test-web` | **16/16 passed** |
 | End-to-end tests | `make test-e2e` | **30/30 passed** — 15 scenarios in each of the `ltr` and `rtl` projects |
 | Frozen TEVV suite | `make tevv` | **31/31 passed** — 0 failed, 0 blocked, 0 not run |
