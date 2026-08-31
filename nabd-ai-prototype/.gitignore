@@ -11,8 +11,14 @@ htmlcov/
 .coverage
 *.egg-info/
 .env
+# Generated run outputs. They are evidence, but their retention mechanism is the
+# timestamped evidence bundle, not version control, so they do not churn the repository.
 artifacts/evidence_bundle_*/
 artifacts/derived_pdf/
+artifacts/tevv/
+artifacts/deployment/
+artifacts/e2e/
+artifacts/coverage/
 playwright-report/
 test-results/
 tsconfig.tsbuildinfo

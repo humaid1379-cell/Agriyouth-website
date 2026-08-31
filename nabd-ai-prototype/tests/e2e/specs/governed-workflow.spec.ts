@@ -255,7 +255,10 @@ test.describe('interface', () => {
   test('the login screen offers synthetic profiles and no password field', async ({ page }) => {
     await page.goto('/login');
     await expect(page.locator('input[type="password"]')).toHaveCount(0);
-    await expect(page.getByText(/synthetic/i).first()).toBeVisible();
+    // Asserted on the identity address rather than on English copy, so the test holds in
+    // both the ltr and rtl projects.
+    await expect(page.getByText('requester.analyst@demo.nabd.local')).toBeVisible();
+    await expect(page.getByText('reviewer.manager@demo.nabd.local')).toBeVisible();
   });
 
   test('no approval language appears anywhere in the shell', async ({ page }) => {
@@ -273,16 +276,21 @@ test.describe('interface', () => {
     }
   });
 
-  test('the language toggle switches document direction to rtl and back', async ({ page }) => {
+  test('the language toggle switches document direction and back', async ({ page }) => {
     await page.goto('/login');
-    const toggle = page.getByRole('button', { name: /العربية|arabic/i }).first();
-    if ((await toggle.count()) === 0) {
-      test.skip(true, 'language toggle not present on this screen');
-    }
-    await toggle.click();
-    await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
-    await page.getByRole('button', { name: /english/i }).first().click();
-    await expect(page.locator('html')).toHaveAttribute('dir', 'ltr');
+
+    // The starting language follows the browser locale, so the test toggles away from
+    // whichever direction it began in and then back.
+    const initial = await page.locator('html').getAttribute('dir');
+    const other = initial === 'rtl' ? 'ltr' : 'rtl';
+    const toLabel = other === 'rtl' ? 'العربية' : 'English';
+    const backLabel = other === 'rtl' ? 'English' : 'العربية';
+
+    await page.getByRole('button', { name: toLabel }).first().click();
+    await expect(page.locator('html')).toHaveAttribute('dir', other);
+
+    await page.getByRole('button', { name: backLabel }).first().click();
+    await expect(page.locator('html')).toHaveAttribute('dir', initial ?? 'ltr');
   });
 
   test('every interactive control is reachable by keyboard', async ({ page }) => {
