@@ -97,18 +97,33 @@ evidence, produced by the implementation team, and they are not an acceptance of
 
 | Check | Command | Result |
 |---|---|---|
-| Corpus manifest currency | `make manifest-check` | Manifest current |
+| Corpus manifest currency | `make manifest-check` | Current at `6dfcef80…c98b944` |
 | JSON Schema currency | `make schemas-check` | 27/27 schemas current |
-| Lint | `ruff check` and `ruff format --check` | 0 findings |
-| Static types | `mypy app` (strict) | 0 errors across 55 source files |
-| Backend tests | `make test-api` | See the final implementation report |
-| Frozen TEVV suite | `make tevv` | 31 scenarios in the plan |
-| Audit chain verification | `make audit-verify` | All chains verified |
-| Evidence bundle | `make evidence-bundle` | Manifest and SHA-256 checksums written |
+| Python lint and format | `ruff check`, `ruff format --check` | 0 findings across 72 files |
+| Python static types | `mypy app` (strict) | 0 errors across 55 source files |
+| Frontend lint | `eslint .` | 0 findings |
+| Frontend static types | `tsc --noEmit` | 0 errors |
+| Backend tests | `make test-api` | **276/276 passed** — 148 unit, 101 integration, 27 security |
+| Frontend tests | `make test-web` | **16/16 passed** |
+| End-to-end tests | `make test-e2e` | **30/30 passed** — 15 scenarios in each of the `ltr` and `rtl` projects |
+| Frozen TEVV suite | `make tevv` | **31/31 passed** — 0 failed, 0 blocked, 0 not run |
+| Audit chain verification | `make audit-verify` | **287/287 chains verified** |
+| Deployment validation | `make deployment-validate` | **11/12 passed** — 0 failed, 1 not run |
+| Evidence bundle | `make evidence-bundle` | 72 artifacts with a manifest and SHA-256 checksums |
 
-Live-model evaluation: `NOT_RUN`.
-Docker Compose build and clean-environment deployment validation: see `known_limitations.md`
-for what was and was not exercised in the build environment.
+Not run in this build, with reasons:
+
+* **Live-model evaluation** — the default mode is the deterministic mock. No live endpoint
+  was configured or exercised, so live-mode behaviour is `NOT_RUN`.
+* **Docker Compose image build** — Docker is unavailable in the build environment, so
+  deployment-validation check 1 is `NOT_RUN`. The API package installs from the same
+  `apps/api/pyproject.toml` dependency set the image installs, and the web bundle builds
+  with the same `npm run build` the image runs, but neither image was assembled.
+* **Image rollback** — only one build exists in this environment, so there is no previous
+  pinned image to roll back to. The schema rollback and re-upgrade were exercised.
+* **Manual browser accessibility smoke test** — automated checks cover bilingual direction,
+  keyboard reachability, focus visibility and colour-independent status. A human pass with
+  assistive technology has not been performed.
 
 ---
 
