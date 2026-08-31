@@ -62,7 +62,9 @@ class Check:
         return self
 
 
-def _run(argv: list[str], cwd: Path | None = None, timeout: int = 600) -> tuple[int, str]:
+def _run(
+    argv: list[str], cwd: Path | None = None, timeout: int = 600
+) -> tuple[int, str]:
     try:
         result = subprocess.run(  # noqa: S603 - fixed argv, no shell
             argv,
@@ -80,7 +82,9 @@ def _run(argv: list[str], cwd: Path | None = None, timeout: int = 600) -> tuple[
 
 
 def check_01_clean_build() -> Check:
-    check = Check(1, "Builds from a clean checkout using lockfiles and documented commands")
+    check = Check(
+        1, "Builds from a clean checkout using lockfiles and documented commands"
+    )
     if shutil.which("docker") is None:
         return check.not_run(
             "Docker is unavailable in this environment, so the Compose image build was not "
@@ -88,18 +92,26 @@ def check_01_clean_build() -> Check:
             "which is the same dependency set the image installs."
         )
     code, output = _run(["docker", "compose", "build"])
-    return check.passed("docker compose build succeeded") if code == 0 else check.failed(
-        "docker compose build failed", output=output
+    return (
+        check.passed("docker compose build succeeded")
+        if code == 0
+        else check.failed("docker compose build failed", output=output)
     )
 
 
 def check_02_migrations_and_seed() -> Check:
-    check = Check(2, "Migrations and the frozen corpus seed complete and validate manifest hashes")
-    code, output = _run([sys.executable, "scripts/seed_synthetic_corpus.py", "--no-pdf"])
+    check = Check(
+        2, "Migrations and the frozen corpus seed complete and validate manifest hashes"
+    )
+    code, output = _run(
+        [sys.executable, "scripts/seed_synthetic_corpus.py", "--no-pdf"]
+    )
     if code != 0:
         return check.failed("seed failed", output=output)
     if "every source file hash matched the frozen manifest" not in output:
-        return check.failed("seed did not confirm manifest hash validation", output=output)
+        return check.failed(
+            "seed did not confirm manifest hash validation", output=output
+        )
     manifest_code, manifest_output = _run(
         [sys.executable, "scripts/build_corpus_manifest.py", "--check"]
     )
@@ -111,12 +123,18 @@ def check_02_migrations_and_seed() -> Check:
 
 
 def check_03_mock_mode_needs_no_network() -> Check:
-    check = Check(3, "Default mock mode starts without network credentials or outbound access")
+    check = Check(
+        3, "Default mock mode starts without network credentials or outbound access"
+    )
     settings = get_settings()
     if settings.model_mode.value != "mock":
-        return check.failed(f"default model mode is {settings.model_mode.value}, not mock")
+        return check.failed(
+            f"default model mode is {settings.model_mode.value}, not mock"
+        )
     if settings.live_model_endpoint or settings.live_model_api_key:
-        return check.failed("a live endpoint or key is configured in the default environment")
+        return check.failed(
+            "a live endpoint or key is configured in the default environment"
+        )
     return check.passed(
         "MODEL_MODE=mock with no endpoint and no credential; the adapter runs in process",
         model_mode=settings.model_mode.value,
@@ -124,7 +142,9 @@ def check_03_mock_mode_needs_no_network() -> Check:
 
 
 def check_04_no_prohibited_surface() -> Check:
-    check = Check(4, "No prohibited connectors, packages, routes or configuration fields present")
+    check = Check(
+        4, "No prohibited connectors, packages, routes or configuration fields present"
+    )
     code, output = _run(
         [
             sys.executable,
@@ -139,7 +159,9 @@ def check_04_no_prohibited_surface() -> Check:
         return check.failed("prohibited-surface assertions failed", output=output)
     present_env = sorted(name for name in FORBIDDEN_ENV_VARS if name in os.environ)
     if present_env:
-        return check.failed("prohibited environment variables present", variables=present_env)
+        return check.failed(
+            "prohibited environment variables present", variables=present_env
+        )
     return check.passed(
         "security assertions passed and no prohibited environment variable is set",
         forbidden_route_fragments_checked=len(FORBIDDEN_ROUTE_FRAGMENTS),
@@ -147,7 +169,9 @@ def check_04_no_prohibited_surface() -> Check:
 
 
 def check_05_live_mode_fails_closed() -> Check:
-    check = Check(5, "Optional live mode allows one named endpoint and fails closed when absent")
+    check = Check(
+        5, "Optional live mode allows one named endpoint and fails closed when absent"
+    )
     code, output = _run(
         [
             sys.executable,
@@ -187,7 +211,10 @@ def check_06_health_endpoints() -> Check:
 
 
 def check_07_happy_and_stop_paths() -> Check:
-    check = Check(7, "A happy-path and a mandatory-stop case complete with audit chain verification")
+    check = Check(
+        7,
+        "A happy-path and a mandatory-stop case complete with audit chain verification",
+    )
     code, output = _run(
         [
             sys.executable,
@@ -208,7 +235,9 @@ def check_07_happy_and_stop_paths() -> Check:
 
 
 def check_08_reviewer_disposition() -> Check:
-    check = Check(8, "A valid non-self reviewer creates a test-only disposition with two audits")
+    check = Check(
+        8, "A valid non-self reviewer creates a test-only disposition with two audits"
+    )
     code, output = _run(
         [
             sys.executable,
@@ -227,7 +256,9 @@ def check_08_reviewer_disposition() -> Check:
 
 
 def check_09_kill_switch() -> Check:
-    check = Check(9, "The emergency kill switch blocks intake, processing and disposition")
+    check = Check(
+        9, "The emergency kill switch blocks intake, processing and disposition"
+    )
     code, output = _run(
         [
             sys.executable,
@@ -247,7 +278,10 @@ def check_09_kill_switch() -> Check:
 
 
 def check_10_backup_restore() -> Check:
-    check = Check(10, "A backup restores into a separate database and the audit chain still verifies")
+    check = Check(
+        10,
+        "A backup restores into a separate database and the audit chain still verifies",
+    )
     if shutil.which("pg_dump") is None or shutil.which("psql") is None:
         return check.not_run("pg_dump or psql is unavailable in this environment")
 
@@ -259,17 +293,23 @@ def check_10_backup_restore() -> Check:
     restore_db = "nabd_prototype_restore"
     dump_path = Path("/tmp") / "nabd_backup.sql"  # noqa: S108 - local workbench only
 
-    code, output = _run(["pg_dump", "--no-owner", "--file", str(dump_path), dsn], timeout=300)
+    code, output = _run(
+        ["pg_dump", "--no-owner", "--file", str(dump_path), dsn], timeout=300
+    )
     if code != 0:
         return check.failed("pg_dump failed", output=output)
 
     base_dsn = dsn.rsplit("/", 1)[0]
-    _run(["psql", f"{base_dsn}/postgres", "-c", f'DROP DATABASE IF EXISTS {restore_db}'])
+    _run(
+        ["psql", f"{base_dsn}/postgres", "-c", f"DROP DATABASE IF EXISTS {restore_db}"]
+    )
     create_code, create_output = _run(
         ["psql", f"{base_dsn}/postgres", "-c", f"CREATE DATABASE {restore_db}"]
     )
     if create_code != 0:
-        return check.failed("could not create the restore database", output=create_output)
+        return check.failed(
+            "could not create the restore database", output=create_output
+        )
 
     restore_code, restore_output = _run(
         ["psql", "-q", "-f", str(dump_path), f"{base_dsn}/{restore_db}"], timeout=300
@@ -278,7 +318,9 @@ def check_10_backup_restore() -> Check:
         return check.failed("restore failed", output=restore_output)
 
     verify_env = dict(os.environ)
-    verify_env["DATABASE_URL"] = settings.database_url.rsplit("/", 1)[0] + f"/{restore_db}"
+    verify_env["DATABASE_URL"] = (
+        settings.database_url.rsplit("/", 1)[0] + f"/{restore_db}"
+    )
     try:
         result = subprocess.run(  # noqa: S603 - fixed argv, no shell
             [sys.executable, "scripts/verify_audit_chain.py", "--all"],
@@ -293,11 +335,14 @@ def check_10_backup_restore() -> Check:
         return check.failed(f"verification in the restored database failed: {error}")
 
     dump_path.unlink(missing_ok=True)
-    _run(["psql", f"{base_dsn}/postgres", "-c", f"DROP DATABASE IF EXISTS {restore_db}"])
+    _run(
+        ["psql", f"{base_dsn}/postgres", "-c", f"DROP DATABASE IF EXISTS {restore_db}"]
+    )
 
     if result.returncode != 0:
         return check.failed(
-            "the audit chain did not verify in the restored database", output=result.stdout[-2000:]
+            "the audit chain did not verify in the restored database",
+            output=result.stdout[-2000:],
         )
     return check.passed(
         "backup restored into a separate database and every audit chain still verified",
@@ -306,7 +351,9 @@ def check_10_backup_restore() -> Check:
 
 
 def check_11_rollback() -> Check:
-    check = Check(11, "Rollback or redeploy to the previous pinned image and configuration")
+    check = Check(
+        11, "Rollback or redeploy to the previous pinned image and configuration"
+    )
     code, output = _run(
         [
             str(REPO_ROOT / ".venv" / "bin" / "alembic"),
@@ -317,7 +364,8 @@ def check_11_rollback() -> Check:
     )
     if code != 0:
         return check.not_run(
-            "the migration rollback step did not run in this environment: " + output[-300:]
+            "the migration rollback step did not run in this environment: "
+            + output[-300:]
         )
     up_code, up_output = _run(
         [str(REPO_ROOT / ".venv" / "bin" / "alembic"), "upgrade", "head"],
@@ -333,7 +381,10 @@ def check_11_rollback() -> Check:
 
 
 def check_12_accessibility_smoke() -> Check:
-    check = Check(12, "English and Arabic reflow, keyboard, focus, contrast, colour-independent status, reduced motion")
+    check = Check(
+        12,
+        "English and Arabic reflow, keyboard, focus, contrast, colour-independent status, reduced motion",
+    )
     web_dir = REPO_ROOT / "apps" / "web"
     if not (web_dir / "package.json").exists():
         return check.not_run("the web application has not been built in this checkout")
@@ -341,7 +392,9 @@ def check_12_accessibility_smoke() -> Check:
         return check.not_run("npm is unavailable in this environment")
     code, output = _run(["npm", "run", "test", "--", "--run"], cwd=web_dir, timeout=900)
     if code != 0:
-        return check.failed("frontend accessibility and status component tests failed", output=output)
+        return check.failed(
+            "frontend accessibility and status component tests failed", output=output
+        )
     return check.passed(
         "frontend component tests covering bilingual direction, keyboard access and "
         "colour-independent status passed. A manual browser smoke test remains NOT_RUN."
@@ -419,7 +472,8 @@ def main() -> int:
     stamp = utc_now().strftime("%Y%m%dT%H%M%SZ")
     destination = output_dir / f"deployment_validation_{stamp}.json"
     destination.write_text(
-        json.dumps(report, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8"
+        json.dumps(report, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
+        encoding="utf-8",
     )
 
     if args.json:
