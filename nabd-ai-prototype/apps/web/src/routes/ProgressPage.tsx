@@ -2,7 +2,16 @@ import { Link, useParams } from 'react-router-dom';
 
 import { useProgress } from '../api/hooks';
 import { StatusIndicator, statusKindFor } from '../components/StatusIndicator';
-import { Card, ErrorPanel, Loading, Mono, PageHeading, Section, Table } from '../components/ui';
+import {
+  Card,
+  Collapsible,
+  ErrorPanel,
+  Loading,
+  Mono,
+  PageHeading,
+  Section,
+  Table,
+} from '../components/ui';
 import { useTranslate } from '../i18n/LanguageProvider';
 
 export function ProgressPage() {
@@ -99,6 +108,10 @@ export function ProgressPage() {
         title={t('progress.ruleResults')}
         description={`${rules.length} evaluations, ${failures.length} failing.`}
       >
+        <Collapsible
+          summary={`${t('progress.ruleResults')} (${rules.length})`}
+          defaultOpen={failures.length > 0}
+        >
         <Table
           caption={t('progress.ruleResults')}
           headers={[
@@ -133,6 +146,7 @@ export function ProgressPage() {
             </tr>
           ))}
         </Table>
+        </Collapsible>
       </Section>
 
       <Section title={t('progress.limits')}>

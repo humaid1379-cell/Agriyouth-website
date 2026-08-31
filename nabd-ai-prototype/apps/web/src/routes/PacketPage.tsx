@@ -6,6 +6,7 @@ import {
   Badge,
   Button,
   Card,
+  Collapsible,
   DataList,
   ErrorPanel,
   Loading,
@@ -181,20 +182,38 @@ export function PacketPage() {
         )}
       </Section>
 
-      <Section title={t('packet.rules')}>
-        <Table
-          caption={t('packet.rules')}
-          headers={['Rule', 'Outcome', 'Reason', 'Effect']}
+      <Section
+        title={t('packet.rules')}
+        description={`${packet.rule_results.length} evaluations, ${
+          packet.rule_results.filter((rule) => rule.outcome === 'FAIL').length
+        } failing. Every evaluation is retained in the packet; the full list is collapsed for readability.`}
+      >
+        <Collapsible
+          summary={`${t('packet.rules')} (${packet.rule_results.length})`}
+          defaultOpen={packet.rule_results.some((rule) => rule.outcome === 'FAIL')}
         >
-          {packet.rule_results.map((rule, index) => (
-            <tr key={`${rule.rule_id}-${index}`} className="border-b border-slate-100 last:border-b-0">
-              <td className="px-3 py-2 font-mono text-xs">{rule.rule_id}</td>
-              <td className="px-3 py-2 text-xs">{rule.outcome}</td>
-              <td className="px-3 py-2 font-mono text-xs">{rule.reason_code}</td>
-              <td className="px-3 py-2 font-mono text-xs">{rule.effect}</td>
-            </tr>
-          ))}
-        </Table>
+          <Table caption={t('packet.rules')} headers={['Rule', 'Outcome', 'Reason', 'Effect']}>
+            {packet.rule_results.map((rule, index) => (
+              <tr
+                key={`${rule.rule_id}-${index}`}
+                className="border-b border-slate-100 last:border-b-0"
+              >
+                <td className="px-3 py-2 font-mono text-xs">{rule.rule_id}</td>
+                <td
+                  className={
+                    rule.outcome === 'FAIL'
+                      ? 'px-3 py-2 text-xs font-semibold text-status-stop'
+                      : 'px-3 py-2 text-xs'
+                  }
+                >
+                  {rule.outcome}
+                </td>
+                <td className="px-3 py-2 font-mono text-xs">{rule.reason_code}</td>
+                <td className="px-3 py-2 font-mono text-xs">{rule.effect}</td>
+              </tr>
+            ))}
+          </Table>
+        </Collapsible>
       </Section>
 
       <Section title={t('packet.integrity')}>

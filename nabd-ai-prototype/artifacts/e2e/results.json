@@ -1,0 +1,617 @@
+{
+  "config": {
+    "configFile": "/workspace/nabd-ai-prototype/tests/e2e/playwright.config.ts",
+    "rootDir": "/workspace/nabd-ai-prototype/tests/e2e/specs",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "../../artifacts/e2e/report",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../artifacts/e2e/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 15000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/workspace/nabd-ai-prototype/tests/e2e/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "chromium-ltr",
+        "name": "chromium-ltr",
+        "testDir": "/workspace/nabd-ai-prototype/tests/e2e/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/workspace/nabd-ai-prototype/tests/e2e/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "chromium-rtl",
+        "name": "chromium-rtl",
+        "testDir": "/workspace/nabd-ai-prototype/tests/e2e/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "version": "1.49.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "governed-workflow.spec.ts",
+      "file": "governed-workflow.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "health and readiness",
+          "file": "governed-workflow.spec.ts",
+          "line": 64,
+          "column": 6,
+          "specs": [
+            {
+              "title": "the workbench reports ready without leaking dependency detail",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-ltr",
+                  "projectName": "chromium-ltr",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 353,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-30T23:58:41.037Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "24694c4c5f3695bf15f4-d271ca3547e681fb6338",
+              "file": "governed-workflow.spec.ts",
+              "line": 65,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "governed happy path",
+          "file": "governed-workflow.spec.ts",
+          "line": 77,
+          "column": 6,
+          "specs": [
+            {
+              "title": "a bounded question reaches human review with exact citations",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-ltr",
+                  "projectName": "chromium-ltr",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 224,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-30T23:58:41.395Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "24694c4c5f3695bf15f4-f7b5f76371c3b17bc9db",
+              "file": "governed-workflow.spec.ts",
+              "line": 78,
+              "column": 3
+            },
+            {
+              "title": "a separate reviewer records a test-only disposition and two audits close it",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-ltr",
+                  "projectName": "chromium-ltr",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 170,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-30T23:58:41.622Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "24694c4c5f3695bf15f4-7b7af055bdf40dbf1210",
+              "file": "governed-workflow.spec.ts",
+              "line": 128,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "fail-closed paths",
+          "file": "governed-workflow.spec.ts",
+          "line": 158,
+          "column": 6,
+          "specs": [
+            {
+              "title": "an action-seeking request cannot proceed and calls no model",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-ltr",
+                  "projectName": "chromium-ltr",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 50,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-30T23:58:41.794Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "24694c4c5f3695bf15f4-e002bfd30b27ae007489",
+              "file": "governed-workflow.spec.ts",
+              "line": 159,
+              "column": 3
+            },
+            {
+              "title": "a declared source conflict stops before any model call",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-ltr",
+                  "projectName": "chromium-ltr",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 69,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-30T23:58:41.845Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "24694c4c5f3695bf15f4-8531534f0ac1fc7d4b7e",
+              "file": "governed-workflow.spec.ts",
+              "line": 171,
+              "column": 3
+            },
+            {
+              "title": "a requester cannot dispose of its own case",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-ltr",
+                  "projectName": "chromium-ltr",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 107,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-30T23:58:41.917Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "24694c4c5f3695bf15f4-11fc4f1771ed5e692bc8",
+              "file": "governed-workflow.spec.ts",
+              "line": 178,
+              "column": 3
+            },
+            {
+              "title": "there is no approval disposition value",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-ltr",
+                  "projectName": "chromium-ltr",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 116,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-30T23:58:42.025Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "24694c4c5f3695bf15f4-4fd49808ccc73690233f",
+              "file": "governed-workflow.spec.ts",
+              "line": 188,
+              "column": 3
+            },
+            {
+              "title": "the administrator cannot read case content",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-ltr",
+                  "projectName": "chromium-ltr",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 115,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-30T23:58:42.143Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "24694c4c5f3695bf15f4-9a244cb16ee156fbcb0d",
+              "file": "governed-workflow.spec.ts",
+              "line": 199,
+              "column": 3
+            },
+            {
+              "title": "the kill switch halts intake and can be cleared",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-ltr",
+                  "projectName": "chromium-ltr",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 35,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-30T23:58:42.260Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "24694c4c5f3695bf15f4-e384f2c53859cafc9928",
+              "file": "governed-workflow.spec.ts",
+              "line": 209,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "prohibited surface",
+          "file": "governed-workflow.spec.ts",
+          "line": 231,
+          "column": 6,
+          "specs": [
+            {
+              "title": "no mutating HTTP method and no upload route is mounted",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-ltr",
+                  "projectName": "chromium-ltr",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 32,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-30T23:58:42.297Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "24694c4c5f3695bf15f4-3d635784a0b7b685625f",
+              "file": "governed-workflow.spec.ts",
+              "line": 232,
+              "column": 3
+            },
+            {
+              "title": "security headers are present on API responses",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-ltr",
+                  "projectName": "chromium-ltr",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 7,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-30T23:58:42.331Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "24694c4c5f3695bf15f4-9d2a92fa4597feaf0aff",
+              "file": "governed-workflow.spec.ts",
+              "line": 245,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "interface",
+          "file": "governed-workflow.spec.ts",
+          "line": 254,
+          "column": 6,
+          "specs": [
+            {
+              "title": "the login screen offers synthetic profiles and no password field",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-ltr",
+                  "projectName": "chromium-ltr",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 470,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-30T23:58:42.340Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "24694c4c5f3695bf15f4-6061e66a0b4c9d35f4ce",
+              "file": "governed-workflow.spec.ts",
+              "line": 255,
+              "column": 3
+            },
+            {
+              "title": "no approval language appears anywhere in the shell",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-ltr",
+                  "projectName": "chromium-ltr",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 275,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-30T23:58:42.867Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "24694c4c5f3695bf15f4-606d84dfc9bd70b048f4",
+              "file": "governed-workflow.spec.ts",
+              "line": 261,
+              "column": 3
+            },
+            {
+              "title": "the language toggle switches document direction to rtl and back",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-ltr",
+                  "projectName": "chromium-ltr",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 413,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-30T23:58:43.143Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "24694c4c5f3695bf15f4-bb63fb8755b435421a70",
+              "file": "governed-workflow.spec.ts",
+              "line": 276,
+              "column": 3
+            },
+            {
+              "title": "every interactive control is reachable by keyboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-ltr",
+                  "projectName": "chromium-ltr",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 282,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-30T23:58:43.559Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "24694c4c5f3695bf15f4-6555b9df908e8aede57d",
+              "file": "governed-workflow.spec.ts",
+              "line": 288,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-30T23:58:40.614Z",
+    "duration": 3273.1209999999996,
+    "expected": 15,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

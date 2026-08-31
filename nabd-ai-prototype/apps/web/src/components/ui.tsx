@@ -102,6 +102,27 @@ export function Table({
   );
 }
 
+export function Collapsible({
+  summary,
+  children,
+  defaultOpen = false,
+}: {
+  summary: string;
+  children: ReactNode;
+  defaultOpen?: boolean;
+}) {
+  // <details> is used rather than a custom widget: it is keyboard operable, announced
+  // correctly by screen readers, and works with JavaScript disabled.
+  return (
+    <details open={defaultOpen} className="rounded-lg border border-slate-200 bg-white">
+      <summary className="cursor-pointer px-4 py-3 text-sm font-medium text-navy-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-nabd">
+        {summary}
+      </summary>
+      <div className="border-t border-slate-200 p-2">{children}</div>
+    </details>
+  );
+}
+
 export function Mono({ children }: { children: ReactNode }) {
   return <code className="break-all font-mono text-xs text-navy-slate">{children}</code>;
 }
