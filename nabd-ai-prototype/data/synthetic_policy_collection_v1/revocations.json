@@ -1,0 +1,39 @@
+{
+  "revocation_set_version": "1.0.0",
+  "notice": "Soft revocation registry. A revocation prevents future use of a source immediately. Historical records that cited the source retain their dated facts and are rendered with a revocation warning; they are never silently rewritten or deleted.",
+  "revocations": [
+    {
+      "revocation_id": "REV-001",
+      "source_key": "POL-002@v1",
+      "lifecycle": "REVOKED",
+      "revoked_at": "2024-12-31T23:59:59.000Z",
+      "revoked_by": "Corporate Services Unit / Records Governance Team",
+      "reason_en": "Interim transition policy withdrawn in full. It confers no authority and cannot be cited as evidence in an exception file.",
+      "reason_ar": "سُحبت السياسة الانتقالية المؤقتة بالكامل. وهي لا تمنح أي صلاحية ولا يمكن الاستشهاد بها كدليل في ملف استثناء.",
+      "historical_warning_en": "This source was in force during its dated effective period. Records created in that period retain their dated facts and carry this revocation warning.",
+      "future_use_blocked": true
+    },
+    {
+      "revocation_id": "REV-002",
+      "source_key": "POL-001@v0",
+      "lifecycle": "SUPERSEDED",
+      "revoked_at": "2025-01-14T23:59:59.000Z",
+      "revoked_by": "Corporate Services Unit / Records Governance Team",
+      "reason_en": "Superseded by POL-001@v1. Its twenty business day review period and its self-review allowance have been withdrawn.",
+      "reason_ar": "حلّت محلها النسخة POL-001@v1. وقد سُحبت مدة المراجعة البالغة عشرين يوم عمل وإتاحة المراجعة الذاتية.",
+      "historical_warning_en": "Retained for historical reference only. It must not be relied upon when preparing or reviewing an exception file.",
+      "future_use_blocked": true
+    },
+    {
+      "revocation_id": "REV-003",
+      "source_key": "ADV-001@v1",
+      "lifecycle": "QUARANTINED",
+      "revoked_at": "2025-04-02T00:00:00.000Z",
+      "revoked_by": "Corporate Services Unit / Records Governance Team",
+      "reason_en": "Quarantined because the body, title and metadata contain instruction-like text. It is not an authority document and cannot support a claim.",
+      "reason_ar": "تم عزلها لاحتواء نصها وعنوانها وبياناتها الوصفية على نص شبيه بالتعليمات. وهي ليست مستند صلاحية ولا يمكنها دعم أي ادعاء.",
+      "historical_warning_en": "Retained solely so that isolation, quarantine and prompt-injection controls can be exercised.",
+      "future_use_blocked": true
+    }
+  ]
+}

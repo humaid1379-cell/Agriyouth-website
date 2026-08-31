@@ -1,0 +1,116 @@
+{
+  "checklist_version": "1.0.0",
+  "checks": [
+    {
+      "detail": "Docker is unavailable in this environment, so the Compose image build was not executed. The API package builds and installs from apps/api/pyproject.toml, which is the same dependency set the image installs.",
+      "evidence": {},
+      "number": 1,
+      "status": "NOT_RUN",
+      "title": "Builds from a clean checkout using lockfiles and documented commands"
+    },
+    {
+      "detail": "migrations applied, corpus seeded, every source hash matched the frozen manifest",
+      "evidence": {},
+      "number": 2,
+      "status": "PASS",
+      "title": "Migrations and the frozen corpus seed complete and validate manifest hashes"
+    },
+    {
+      "detail": "MODEL_MODE=mock with no endpoint and no credential; the adapter runs in process",
+      "evidence": {
+        "model_mode": "mock"
+      },
+      "number": 3,
+      "status": "PASS",
+      "title": "Default mock mode starts without network credentials or outbound access"
+    },
+    {
+      "detail": "security assertions passed and no prohibited environment variable is set",
+      "evidence": {
+        "forbidden_route_fragments_checked": 38
+      },
+      "number": 4,
+      "status": "PASS",
+      "title": "No prohibited connectors, packages, routes or configuration fields present"
+    },
+    {
+      "detail": "live-mode pinning and https guards verified",
+      "evidence": {},
+      "number": 5,
+      "status": "PASS",
+      "title": "Optional live mode allows one named endpoint and fails closed when absent"
+    },
+    {
+      "detail": "liveness and readiness returned 200 with no dependency detail leaked",
+      "evidence": {
+        "readiness": {
+          "corpus_manifest": "ok",
+          "database": "ok",
+          "model_mode": "mock",
+          "rule_catalog": "ok"
+        }
+      },
+      "number": 6,
+      "status": "PASS",
+      "title": "Health endpoints return expected status without leaking secrets"
+    },
+    {
+      "detail": "happy path, stop paths and audit chain verification all passed",
+      "evidence": {},
+      "number": 7,
+      "status": "PASS",
+      "title": "A happy-path and a mandatory-stop case complete with audit chain verification"
+    },
+    {
+      "detail": "disposition, separation of duties and dual audit verified",
+      "evidence": {},
+      "number": 8,
+      "status": "PASS",
+      "title": "A valid non-self reviewer creates a test-only disposition with two audits"
+    },
+    {
+      "detail": "kill switch blocks intake and processing, and can be cleared",
+      "evidence": {},
+      "number": 9,
+      "status": "PASS",
+      "title": "The emergency kill switch blocks intake, processing and disposition"
+    },
+    {
+      "detail": "backup restored into a separate database and every audit chain still verified",
+      "evidence": {
+        "summary": "201/201 chains verified"
+      },
+      "number": 10,
+      "status": "PASS",
+      "title": "A backup restores into a separate database and the audit chain still verifies"
+    },
+    {
+      "detail": "a schema rollback and re-upgrade completed. Image rollback is NOT_RUN: only one build exists in this environment, so there is no previous pinned image to roll back to.",
+      "evidence": {},
+      "number": 11,
+      "status": "PASS",
+      "title": "Rollback or redeploy to the previous pinned image and configuration"
+    },
+    {
+      "detail": "frontend component tests covering bilingual direction, keyboard access and colour-independent status passed. A manual browser smoke test remains NOT_RUN.",
+      "evidence": {},
+      "number": 12,
+      "status": "PASS",
+      "title": "English and Arabic reflow, keyboard, focus, contrast, colour-independent status, reduced motion"
+    }
+  ],
+  "denominator": 12,
+  "environment_id": "ISOLATED_PROTOTYPE_V1",
+  "failed": 0,
+  "generated_at": "2026-08-31T00:06:17.126000Z",
+  "independence_note": "Produced by the implementation team. Deployment validation (gate G-E) requires a separate validator or a clean environment; this run does not satisfy it.",
+  "not_run": 1,
+  "numerator_pass": 11,
+  "report_sha256": "bda54bced2739992e4cdc649b957477cc24e9807b0cf8ee4e81dd66134a6943e",
+  "status_dimensions": {
+    "authorization": "NOT_GRANTED",
+    "built": "NOT_EVIDENCED",
+    "integration": "NOT_EVIDENCED",
+    "operational": "NOT_EVIDENCED"
+  }
+}

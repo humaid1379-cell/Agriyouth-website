@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    /* Arabic needs a taller line box than Latin for comfortable reading. */
+    line-height: 1.6;
+  }
+
+  html[lang='ar'] body {
+    font-family: 'Noto Sans Arabic', 'Noto Sans', sans-serif;
+    line-height: 1.9;
+  }
+
+  html[lang='ar'] h1,
+  html[lang='ar'] h2 {
+    font-family: 'Noto Kufi Arabic', 'Noto Sans Arabic', sans-serif;
+  }
+
+  body {
+    @apply bg-soft text-navy-deep antialiased;
+    font-family: 'Noto Sans', system-ui, sans-serif;
+  }
+
+  /* A visible focus ring on every interactive element, in both directions. */
+  :focus-visible {
+    outline: 2px solid #10bfe5;
+    outline-offset: 2px;
+  }
+
+  /* Respect a reduced-motion preference rather than merely shortening animations. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
+@media print {
+  header nav,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+}

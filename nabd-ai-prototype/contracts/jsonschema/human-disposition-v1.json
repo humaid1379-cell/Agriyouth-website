@@ -1,0 +1,79 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/human-disposition-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "A test-only reviewer disposition. It never unlocks an execution path.",
+  "properties": {
+    "authority_reverified_at": {
+      "title": "Authority Reverified At"
+    },
+    "case_id": {
+      "title": "Case Id"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_classification": {},
+    "decided_at": {
+      "title": "Decided At"
+    },
+    "disposition_id": {
+      "title": "Disposition Id"
+    },
+    "disposition_value": {},
+    "human_rationale": {
+      "title": "Human Rationale"
+    },
+    "is_final": {
+      "title": "Is Final"
+    },
+    "non_execution_notice": {
+      "title": "Non Execution Notice"
+    },
+    "packet_id": {
+      "title": "Packet Id"
+    },
+    "packet_sha256": {
+      "title": "Packet Sha256"
+    },
+    "packet_version": {
+      "title": "Packet Version"
+    },
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "reviewer_identity_id": {
+      "title": "Reviewer Identity Id"
+    },
+    "reviewer_role": {
+      "title": "Reviewer Role"
+    },
+    "reviewer_role_id": {
+      "title": "Reviewer Role Id"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    },
+    "sod_check_passed": {
+      "title": "Sod Check Passed"
+    }
+  },
+  "required": [
+    "produced_by",
+    "disposition_id",
+    "case_id",
+    "packet_id",
+    "packet_version",
+    "packet_sha256",
+    "reviewer_identity_id",
+    "reviewer_role_id",
+    "disposition_value",
+    "human_rationale",
+    "decided_at",
+    "authority_reverified_at",
+    "is_final"
+  ],
+  "title": "HumanDisposition",
+  "type": "object"
+}

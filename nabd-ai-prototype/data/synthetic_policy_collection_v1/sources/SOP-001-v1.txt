@@ -1,0 +1,23 @@
+<<<PAGE 1>>>
+## 1. Scope and Ownership
+This standard operating procedure describes the exact steps for preparing an internal policy exception file within the Corporate Services Unit. The procedure is owned by the Records Governance Team of the Corporate Services Unit. The Records Governance Team lead is the accountable owner for the procedure text, and the Corporate Services operations manager is the accountable owner for procedure performance. This document is synthetic material created for the NABD AI isolated prototype.
+
+## 2. Procedure Steps
+Step 1. The requesting analyst opens an exception request in the exception register and states the internal policy or procedure from which an exception is sought. Ownership: requesting analyst.
+
+Step 2. The Records Governance Team assigns the intake classification tier under the Internal Policy Exception Governance Policy and records the tier in the exception register on the same working day. Ownership: Records Governance Team.
+
+Step 3. The requesting analyst attaches the three mandatory evidence items required by the evidence requirements clause of the Internal Policy Exception Governance Policy. The analyst records, for each item, the document identifier, the document version and the clause or step number. Ownership: requesting analyst.
+
+<<<PAGE 2>>>
+## 3. Procedure Steps, continued
+Step 4. The Records Governance Team performs a completeness check of the exception file. The completeness check confirms that the three mandatory evidence items are present, dated within ninety calendar days, and drawn from documents that are active rather than superseded or revoked. An incomplete file is returned to the requesting analyst and is not assigned for review. Ownership: Records Governance Team.
+
+Step 5. The records officer records the exception file reference in the exception register within two business days of the completeness check passing. Ownership: records officer.
+
+Step 6. The Records Governance Team assigns the completed exception file to an eligible reviewer under the review and authority clause of the Internal Policy Exception Governance Policy. The assignment record names the reviewer and the assignment date. Ownership: Records Governance Team.
+
+Step 7. The reviewer records the review outcome in the exception register. The records officer closes or retains the file open according to the recorded outcome. Ownership: reviewer, then records officer.
+
+## 4. Escalation
+Where a completeness check fails twice for the same exception request, the Records Governance Team escalates the request to the Corporate Services operations manager, who decides in writing whether the request is withdrawn or reworked. Escalation does not shorten or extend the review period stated in the Internal Policy Exception Governance Policy.

@@ -1,0 +1,97 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/source-record-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "access_labels": {
+      "title": "Access Labels"
+    },
+    "authority_class": {},
+    "business_scope_id": {
+      "title": "Business Scope Id"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_classification": {},
+    "effective_from": {
+      "title": "Effective From"
+    },
+    "effective_to": {
+      "title": "Effective To"
+    },
+    "extracted_text_sha256": {
+      "title": "Extracted Text Sha256"
+    },
+    "integrity_reference": {
+      "title": "Integrity Reference"
+    },
+    "lifecycle": {},
+    "owner": {
+      "title": "Owner"
+    },
+    "page_structure": {
+      "title": "Page Structure"
+    },
+    "permitted_use_case_ids": {
+      "title": "Permitted Use Case Ids"
+    },
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "quarantine_reason": {
+      "title": "Quarantine Reason"
+    },
+    "revocation_reason": {
+      "title": "Revocation Reason"
+    },
+    "revoked_at": {
+      "title": "Revoked At"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    },
+    "source_id": {
+      "title": "Source Id"
+    },
+    "source_path": {
+      "title": "Source Path"
+    },
+    "source_sha256": {
+      "title": "Source Sha256"
+    },
+    "source_version": {
+      "title": "Source Version"
+    },
+    "superseded_by": {
+      "title": "Superseded By"
+    },
+    "supersedes": {
+      "title": "Supersedes"
+    },
+    "title": {
+      "title": "Title"
+    }
+  },
+  "required": [
+    "produced_by",
+    "source_id",
+    "source_version",
+    "title",
+    "owner",
+    "authority_class",
+    "lifecycle",
+    "effective_from",
+    "business_scope_id",
+    "permitted_use_case_ids",
+    "access_labels",
+    "source_path",
+    "source_sha256",
+    "extracted_text_sha256",
+    "page_structure",
+    "integrity_reference"
+  ],
+  "title": "SourceRecord",
+  "type": "object"
+}

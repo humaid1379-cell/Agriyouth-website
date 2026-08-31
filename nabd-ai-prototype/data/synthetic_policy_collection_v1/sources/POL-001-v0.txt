@@ -1,0 +1,16 @@
+<<<PAGE 1>>>
+## 1. Purpose and Scope
+This earlier version of the Internal Policy Exception Governance Policy established how the Corporate Services Unit handled an internal policy exception request before the current version took effect. It is retained for historical reference only. This document is synthetic material created for the NABD AI isolated prototype.
+
+## 2. Request Classification
+An internal policy exception request was classified as either routine or non-routine. A routine request affected a single procedural step. A non-routine request affected two or more procedural steps or any reporting obligation. The three-tier classification did not exist in this version.
+
+<<<PAGE 2>>>
+## 3. Evidence Requirements
+An exception request was required to contain the governing policy clause from which the exception was sought. A separate operational procedure reference and a dated impact statement were recommended but were not mandatory evidence items under this version.
+
+## 4. Review and Authority
+A routine exception request could be reviewed by the submitting analyst where no other reviewer was available within the review period. The reviewer was required to complete the review of a non-routine exception request within twenty business days of assignment.
+
+## 5. Status
+This version has been superseded. Personnel shall not rely on this document when preparing or reviewing an exception file. Where this document states a review period of twenty business days, or permits review by the submitting analyst, those statements have been withdrawn by the current version of the policy.

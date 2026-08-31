@@ -1,0 +1,84 @@
+{
+  "fixture_set_version": "1.0.0",
+  "notice": "The single bounded V1 use case. There is no API that widens it.",
+  "contracts": [
+    {
+      "use_case_contract_id": "UC-POLICY-SOP-EVIDENCE-V1",
+      "schema_version": "nabd-schema-v1",
+      "produced_by": "build:data/fixtures/use_case_contract.json",
+      "created_at": "2025-01-01T00:00:00.000Z",
+      "title_en": "Internal Policy and SOP Evidence Assistant",
+      "title_ar": "مساعد أدلة السياسات وإجراءات التشغيل الداخلية",
+      "description_en": "Answers one bounded internal question about what a frozen synthetic policy or standard operating procedure states, with exact citations, and prepares a Decision Readiness Packet for an authorised human reviewer. It never approves, executes, transmits or activates anything.",
+      "description_ar": "يجيب عن سؤال داخلي واحد محدد حول ما تنص عليه سياسة أو إجراء تشغيل قياسي اصطناعي مجمّد، مع استشهادات دقيقة، ويُعدّ حزمة جاهزية قرار لمراجع بشري مخوّل. ولا يوافق على أي إجراء أو ينفّذه أو يرسله أو يفعّله.",
+      "permitted_purpose": "INTERNAL_POLICY_SOP_EVIDENCE_LOOKUP",
+      "permitted_question_kinds": [
+        "WHAT_DOES_THE_POLICY_STATE",
+        "WHAT_EVIDENCE_IS_REQUIRED",
+        "WHICH_PROCEDURE_STEP_APPLIES",
+        "WHO_IS_REQUIRED_TO_REVIEW",
+        "WHAT_PERIOD_OR_THRESHOLD_APPLIES"
+      ],
+      "required_source_authority_classes": [
+        "GOVERNING_POLICY"
+      ],
+      "supporting_source_authority_classes": [
+        "STANDARD_OPERATING_PROCEDURE"
+      ],
+      "excluded_scope_terms": [
+        "approve",
+        "approval",
+        "authorise",
+        "authorize",
+        "sign off",
+        "sign-off",
+        "execute",
+        "activate",
+        "deploy",
+        "send",
+        "email",
+        "notify",
+        "notification",
+        "webhook",
+        "transfer",
+        "pay",
+        "payment",
+        "invoice",
+        "purchase",
+        "procure",
+        "transaction",
+        "update the record",
+        "write back",
+        "write-back",
+        "delete",
+        "grant access",
+        "revoke access",
+        "on my behalf",
+        "do it for me",
+        "take action"
+      ],
+      "excluded_outcomes": [
+        "OPERATIONAL_APPROVAL",
+        "EXECUTION_OF_AN_ACTION",
+        "MESSAGE_OR_NOTIFICATION_DISPATCH",
+        "PAYMENT_OR_TRANSACTION",
+        "RECORD_MUTATION_IN_AN_OPERATIONAL_SYSTEM",
+        "ACCESS_GRANT_OR_REVOCATION",
+        "LEGAL_CLINICAL_OR_FINANCIAL_ADVICE",
+        "PREDICTION_OF_A_FUTURE_OUTCOME"
+      ],
+      "multi_question_markers": [
+        " and also ",
+        "; also",
+        "additionally, ",
+        " as well as whether ",
+        " plus tell me ",
+        " second question"
+      ],
+      "max_question_chars": 2000,
+      "min_question_chars": 20,
+      "business_scope_id": "BUSINESS_UNIT_V1",
+      "data_boundary_id": "SYNTHETIC_ONLY"
+    }
+  ]
+}

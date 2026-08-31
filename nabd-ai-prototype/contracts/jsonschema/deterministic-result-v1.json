@@ -1,0 +1,58 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/deterministic-result-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {
+      "title": "Case Id"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_classification": {},
+    "detail": {
+      "title": "Detail"
+    },
+    "effect": {},
+    "evaluated_at": {
+      "title": "Evaluated At"
+    },
+    "input_refs": {
+      "title": "Input Refs"
+    },
+    "outcome": {},
+    "precedence_rank": {
+      "title": "Precedence Rank"
+    },
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "reason_code": {
+      "title": "Reason Code"
+    },
+    "rule_id": {
+      "title": "Rule Id"
+    },
+    "rule_version": {
+      "title": "Rule Version"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    }
+  },
+  "required": [
+    "produced_by",
+    "rule_id",
+    "rule_version",
+    "case_id",
+    "input_refs",
+    "outcome",
+    "reason_code",
+    "effect",
+    "precedence_rank",
+    "evaluated_at"
+  ],
+  "title": "DeterministicResult",
+  "type": "object"
+}

@@ -1,0 +1,102 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/model-configuration-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Exactly one pinned configuration is active per run. Any material change is a new ID.",
+  "properties": {
+    "authorization": {},
+    "built": {},
+    "context_limit_chars": {
+      "title": "Context Limit Chars"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_classification": {},
+    "data_handling_note": {
+      "title": "Data Handling Note"
+    },
+    "effective_from": {
+      "title": "Effective From"
+    },
+    "effective_to": {
+      "title": "Effective To"
+    },
+    "endpoint_or_artifact_hash": {
+      "title": "Endpoint Or Artifact Hash"
+    },
+    "evaluation_version": {
+      "title": "Evaluation Version"
+    },
+    "fallback_enabled": {
+      "title": "Fallback Enabled"
+    },
+    "integration": {},
+    "max_same_endpoint_retries": {
+      "title": "Max Same Endpoint Retries"
+    },
+    "mode": {},
+    "model_configuration_id": {
+      "title": "Model Configuration Id"
+    },
+    "model_revision": {
+      "title": "Model Revision"
+    },
+    "operational": {},
+    "output_limit_chars": {
+      "title": "Output Limit Chars"
+    },
+    "output_schema_id": {
+      "title": "Output Schema Id"
+    },
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "prompt_version": {
+      "title": "Prompt Version"
+    },
+    "provider_runtime": {
+      "title": "Provider Runtime"
+    },
+    "revoked": {
+      "title": "Revoked"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    },
+    "seed": {
+      "title": "Seed"
+    },
+    "task_role": {},
+    "temperature_milli": {
+      "title": "Temperature Milli"
+    },
+    "timeout_seconds": {
+      "title": "Timeout Seconds"
+    },
+    "tool_calling_enabled": {
+      "title": "Tool Calling Enabled"
+    },
+    "top_p_milli": {
+      "title": "Top P Milli"
+    }
+  },
+  "required": [
+    "produced_by",
+    "model_configuration_id",
+    "provider_runtime",
+    "model_revision",
+    "endpoint_or_artifact_hash",
+    "task_role",
+    "prompt_version",
+    "output_schema_id",
+    "context_limit_chars",
+    "output_limit_chars",
+    "data_handling_note",
+    "evaluation_version",
+    "effective_from"
+  ],
+  "title": "ModelConfiguration",
+  "type": "object"
+}

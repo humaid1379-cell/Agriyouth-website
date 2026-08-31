@@ -1,0 +1,155 @@
+{
+  "fixture_set_version": "1.0.0",
+  "notice": "Seeded synthetic demo identities. The browser may select a demo profile, but it never submits role, scope, authority or separation-of-duties fields. The API derives all of those from a short-lived server-signed demo session.",
+  "identities": [
+    {
+      "identity_id": "requester.analyst@demo.nabd.local",
+      "schema_version": "nabd-schema-v1",
+      "produced_by": "build:data/fixtures/identities.json",
+      "created_at": "2025-01-01T00:00:00.000Z",
+      "display_name_en": "Synthetic requester (analyst)",
+      "display_name_ar": "مقدّم الطلب الاصطناعي (محلل)",
+      "role": "REQUESTER",
+      "role_id": "ROLE_SYNTHETIC_REQUESTER_V1",
+      "business_scope_id": "BUSINESS_UNIT_V1",
+      "status": "ACTIVE",
+      "capabilities": [
+        "CREATE_OWN_CASE",
+        "VIEW_OWN_CASE",
+        "VIEW_OWN_PACKET",
+        "VIEW_OWN_EVIDENCE",
+        "VIEW_OWN_AUDIT",
+        "VIEW_OWN_LINEAGE"
+      ],
+      "prohibitions": [
+        "CANNOT_REVIEW_OR_DISPOSE_ANY_CASE",
+        "CANNOT_MODIFY_SOURCES",
+        "CANNOT_MODIFY_CONFIGURATION",
+        "CANNOT_TOGGLE_KILL_SWITCH"
+      ],
+      "selectable_in_ui": true,
+      "notes_en": "Creates and views its own synthetic cases only."
+    },
+    {
+      "identity_id": "reviewer.manager@demo.nabd.local",
+      "schema_version": "nabd-schema-v1",
+      "produced_by": "build:data/fixtures/identities.json",
+      "created_at": "2025-01-01T00:00:00.000Z",
+      "display_name_en": "Synthetic independent reviewer (manager)",
+      "display_name_ar": "المراجع المستقل الاصطناعي (مدير)",
+      "role": "REVIEWER",
+      "role_id": "ROLE_SYNTHETIC_REVIEWER_V1",
+      "business_scope_id": "BUSINESS_UNIT_V1",
+      "status": "ACTIVE",
+      "capabilities": [
+        "VIEW_REVIEW_QUEUE",
+        "VIEW_PACKET",
+        "VIEW_EVIDENCE",
+        "VIEW_AUDIT",
+        "VIEW_LINEAGE",
+        "SUBMIT_TEST_DISPOSITION"
+      ],
+      "prohibitions": [
+        "CANNOT_REQUEST_A_CASE",
+        "CANNOT_MODIFY_RULES",
+        "CANNOT_MODIFY_SOURCES",
+        "CANNOT_MODIFY_GATE_OR_CONFIGURATION",
+        "CANNOT_TOGGLE_KILL_SWITCH"
+      ],
+      "selectable_in_ui": true,
+      "notes_en": "Manager grade. Submits test-only dispositions on cases it did not request."
+    },
+    {
+      "identity_id": "admin.platform@demo.nabd.local",
+      "schema_version": "nabd-schema-v1",
+      "produced_by": "build:data/fixtures/identities.json",
+      "created_at": "2025-01-01T00:00:00.000Z",
+      "display_name_en": "Synthetic administrator (platform)",
+      "display_name_ar": "مسؤول المنصة الاصطناعي",
+      "role": "ADMINISTRATOR",
+      "role_id": "ROLE_SYNTHETIC_ADMINISTRATOR_V1",
+      "business_scope_id": "BUSINESS_UNIT_V1",
+      "status": "ACTIVE",
+      "capabilities": [
+        "VIEW_NON_SECRET_CONFIGURATION",
+        "VIEW_AUDIT_VERIFICATION",
+        "VIEW_TEVV_RESULTS",
+        "RUN_TEVV_IN_LOCAL_OR_DEMO_MODE",
+        "TOGGLE_KILL_SWITCH"
+      ],
+      "prohibitions": [
+        "CANNOT_GRANT_AUTHORIZATION",
+        "CANNOT_SUBMIT_A_CASE",
+        "CANNOT_REVIEW_A_CASE",
+        "CANNOT_MODIFY_SOURCE_CONTENT",
+        "CANNOT_VIEW_CASE_CONTENT"
+      ],
+      "selectable_in_ui": true,
+      "notes_en": "Operates controls. Holds no authority to grant authorization and cannot read case content."
+    },
+    {
+      "identity_id": "expired.requester@demo.nabd.local",
+      "schema_version": "nabd-schema-v1",
+      "produced_by": "build:data/fixtures/identities.json",
+      "created_at": "2025-01-01T00:00:00.000Z",
+      "display_name_en": "Expired requester session (denial test fixture)",
+      "display_name_ar": "جلسة مقدّم طلب منتهية (عيّنة اختبار الرفض)",
+      "role": "REQUESTER",
+      "role_id": "ROLE_SYNTHETIC_REQUESTER_V1",
+      "business_scope_id": "BUSINESS_UNIT_V1",
+      "status": "EXPIRED",
+      "capabilities": [],
+      "prohibitions": ["MUST_NEVER_ACCESS_CASE_DATA"],
+      "selectable_in_ui": false,
+      "notes_en": "Denial pathway fixture (I-02). Must never access case data."
+    },
+    {
+      "identity_id": "revoked.reviewer@demo.nabd.local",
+      "schema_version": "nabd-schema-v1",
+      "produced_by": "build:data/fixtures/identities.json",
+      "created_at": "2025-01-01T00:00:00.000Z",
+      "display_name_en": "Revoked reviewer (denial test fixture)",
+      "display_name_ar": "مراجع ملغى (عيّنة اختبار الرفض)",
+      "role": "REVIEWER",
+      "role_id": "ROLE_SYNTHETIC_REVIEWER_V1",
+      "business_scope_id": "BUSINESS_UNIT_V1",
+      "status": "REVOKED",
+      "capabilities": [],
+      "prohibitions": ["MUST_NEVER_ACCESS_CASE_DATA"],
+      "selectable_in_ui": false,
+      "notes_en": "Denial pathway fixture. Must never access case data or bind a disposition."
+    },
+    {
+      "identity_id": "unknown.person@demo.nabd.local",
+      "schema_version": "nabd-schema-v1",
+      "produced_by": "build:data/fixtures/identities.json",
+      "created_at": "2025-01-01T00:00:00.000Z",
+      "display_name_en": "Unknown requester (denial test fixture)",
+      "display_name_ar": "مقدّم طلب مجهول (عيّنة اختبار الرفض)",
+      "role": "REQUESTER",
+      "role_id": "ROLE_SYNTHETIC_REQUESTER_V1",
+      "business_scope_id": "BUSINESS_UNIT_V1",
+      "status": "UNKNOWN",
+      "capabilities": [],
+      "prohibitions": ["MUST_NEVER_ACCESS_CASE_DATA"],
+      "selectable_in_ui": false,
+      "notes_en": "Denial pathway fixture (I-01). Not seeded as a usable identity."
+    },
+    {
+      "identity_id": "crossscope.reviewer@demo.nabd.local",
+      "schema_version": "nabd-schema-v1",
+      "produced_by": "build:data/fixtures/identities.json",
+      "created_at": "2025-01-01T00:00:00.000Z",
+      "display_name_en": "Out-of-scope reviewer (denial test fixture)",
+      "display_name_ar": "مراجع خارج النطاق (عيّنة اختبار الرفض)",
+      "role": "REVIEWER",
+      "role_id": "ROLE_SYNTHETIC_REVIEWER_V1",
+      "business_scope_id": "BUSINESS_UNIT_FIELD_OPS",
+      "status": "ACTIVE",
+      "capabilities": ["VIEW_REVIEW_QUEUE"],
+      "prohibitions": ["MUST_NEVER_ACCESS_CASE_DATA_OUTSIDE_ITS_SCOPE"],
+      "selectable_in_ui": false,
+      "notes_en": "Active but scoped to another business unit. Used for cross-scope denial tests."
+    }
+  ]
+}

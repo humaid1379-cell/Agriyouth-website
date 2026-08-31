@@ -1,0 +1,78 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/authorization-decision-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "A synthetic test fixture. It is not human-owner approval or deployment authority.",
+  "properties": {
+    "allowed_component_versions": {
+      "title": "Allowed Component Versions"
+    },
+    "allowed_model_configuration_ids": {
+      "title": "Allowed Model Configuration Ids"
+    },
+    "allowed_role_ids": {
+      "title": "Allowed Role Ids"
+    },
+    "authorization_id": {
+      "title": "Authorization Id"
+    },
+    "authorization_status": {
+      "title": "Authorization Status"
+    },
+    "business_scope_id": {
+      "title": "Business Scope Id"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_boundary_id": {
+      "title": "Data Boundary Id"
+    },
+    "data_classification": {},
+    "demo_period_end": {
+      "title": "Demo Period End"
+    },
+    "demo_period_start": {
+      "title": "Demo Period Start"
+    },
+    "environment_id": {
+      "title": "Environment Id"
+    },
+    "fixture_notice": {
+      "title": "Fixture Notice"
+    },
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "revoked": {
+      "title": "Revoked"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    },
+    "source_manifest_sha256": {
+      "title": "Source Manifest Sha256"
+    },
+    "use_case_contract_id": {
+      "title": "Use Case Contract Id"
+    }
+  },
+  "required": [
+    "produced_by",
+    "authorization_id",
+    "fixture_notice",
+    "environment_id",
+    "data_boundary_id",
+    "business_scope_id",
+    "use_case_contract_id",
+    "source_manifest_sha256",
+    "allowed_component_versions",
+    "allowed_role_ids",
+    "allowed_model_configuration_ids",
+    "demo_period_start",
+    "demo_period_end"
+  ],
+  "title": "AuthorizationDecision",
+  "type": "object"
+}

@@ -1,0 +1,39 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/draft-request-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {
+      "title": "Case Id"
+    },
+    "excerpts": {
+      "title": "Excerpts"
+    },
+    "normalised_question": {
+      "title": "Normalised Question"
+    },
+    "output_schema_id": {
+      "title": "Output Schema Id"
+    },
+    "permitted_purpose": {
+      "title": "Permitted Purpose"
+    },
+    "prompt_version": {
+      "title": "Prompt Version"
+    },
+    "rendered_input": {
+      "title": "Rendered Input"
+    }
+  },
+  "required": [
+    "case_id",
+    "normalised_question",
+    "permitted_purpose",
+    "output_schema_id",
+    "prompt_version",
+    "excerpts",
+    "rendered_input"
+  ],
+  "title": "DraftRequest",
+  "type": "object"
+}

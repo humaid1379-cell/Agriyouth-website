@@ -1,0 +1,76 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/use-case-contract-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "The single bounded V1 question contract and its exclusions.",
+  "properties": {
+    "business_scope_id": {
+      "title": "Business Scope Id"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_boundary_id": {
+      "title": "Data Boundary Id"
+    },
+    "data_classification": {},
+    "description_ar": {
+      "title": "Description Ar"
+    },
+    "description_en": {
+      "title": "Description En"
+    },
+    "excluded_outcomes": {
+      "title": "Excluded Outcomes"
+    },
+    "excluded_scope_terms": {
+      "title": "Excluded Scope Terms"
+    },
+    "max_question_chars": {
+      "title": "Max Question Chars"
+    },
+    "permitted_purpose": {
+      "title": "Permitted Purpose"
+    },
+    "permitted_question_kinds": {
+      "title": "Permitted Question Kinds"
+    },
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "required_source_authority_classes": {
+      "title": "Required Source Authority Classes"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    },
+    "title_ar": {
+      "title": "Title Ar"
+    },
+    "title_en": {
+      "title": "Title En"
+    },
+    "use_case_contract_id": {
+      "title": "Use Case Contract Id"
+    }
+  },
+  "required": [
+    "produced_by",
+    "use_case_contract_id",
+    "title_en",
+    "title_ar",
+    "description_en",
+    "description_ar",
+    "permitted_purpose",
+    "permitted_question_kinds",
+    "required_source_authority_classes",
+    "excluded_scope_terms",
+    "excluded_outcomes",
+    "max_question_chars",
+    "business_scope_id",
+    "data_boundary_id"
+  ],
+  "title": "UseCaseContract",
+  "type": "object"
+}

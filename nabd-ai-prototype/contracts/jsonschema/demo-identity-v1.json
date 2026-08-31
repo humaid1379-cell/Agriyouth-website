@@ -1,0 +1,62 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/demo-identity-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "A seeded synthetic identity. Never a real person and never an IdP subject.",
+  "properties": {
+    "business_scope_id": {
+      "title": "Business Scope Id"
+    },
+    "capabilities": {
+      "title": "Capabilities"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_classification": {},
+    "display_name_ar": {
+      "title": "Display Name Ar"
+    },
+    "display_name_en": {
+      "title": "Display Name En"
+    },
+    "identity_id": {
+      "title": "Identity Id"
+    },
+    "notes_en": {
+      "title": "Notes En"
+    },
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "prohibitions": {
+      "title": "Prohibitions"
+    },
+    "role": {},
+    "role_id": {
+      "title": "Role Id"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    },
+    "selectable_in_ui": {
+      "title": "Selectable In Ui"
+    },
+    "status": {}
+  },
+  "required": [
+    "produced_by",
+    "identity_id",
+    "display_name_en",
+    "display_name_ar",
+    "role",
+    "role_id",
+    "business_scope_id",
+    "status",
+    "capabilities",
+    "prohibitions"
+  ],
+  "title": "DemoIdentity",
+  "type": "object"
+}

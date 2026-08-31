@@ -1,0 +1,60 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/status-record-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "The four independent status dimensions. They are never merged into one value.",
+  "properties": {
+    "accepted_at": {
+      "title": "Accepted At"
+    },
+    "accepted_by": {
+      "title": "Accepted By"
+    },
+    "authorization": {},
+    "built": {},
+    "component_id": {
+      "title": "Component Id"
+    },
+    "component_version": {
+      "title": "Component Version"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_classification": {},
+    "evidence_refs": {
+      "title": "Evidence Refs"
+    },
+    "expires_at": {
+      "title": "Expires At"
+    },
+    "integration": {},
+    "limitations": {
+      "title": "Limitations"
+    },
+    "narrow_claim": {
+      "title": "Narrow Claim"
+    },
+    "operational": {},
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    },
+    "status_record_id": {
+      "title": "Status Record Id"
+    }
+  },
+  "required": [
+    "produced_by",
+    "status_record_id",
+    "component_id",
+    "component_version",
+    "narrow_claim",
+    "limitations"
+  ],
+  "title": "StatusRecord",
+  "type": "object"
+}

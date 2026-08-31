@@ -1,0 +1,37 @@
+{
+  "conflict_set_version": "1.0.0",
+  "notice": "Declared material conflicts between eligible active synthetic sources. Conflict detection is deterministic: it fires only when the normalised question matches the declared trigger terms and admitted excerpts exist on both sides. A model never decides that a conflict exists or that it is resolved.",
+  "conflicts": [
+    {
+      "conflict_id": "CONF-001",
+      "topic": "review_period_restricted_records",
+      "materiality": "MATERIAL",
+      "description_en": "The governing exception policy states a ten business day review period for a Tier 2 exception request, while the records access standard states a five business day review period where the exception file affects access to restricted records. Both documents are active and in scope, so the difference must be escalated in writing rather than resolved by the system.",
+      "description_ar": "تنص سياسة حوكمة الاستثناءات على مدة مراجعة قدرها عشرة أيام عمل لطلب استثناء من الفئة الثانية، بينما ينص معيار الوصول إلى السجلات على مدة مراجعة قدرها خمسة أيام عمل عندما يمس ملف الاستثناء الوصول إلى السجلات المقيدة. وكلا المستندين ساري ومشمول بالنطاق، لذا يجب تصعيد الاختلاف كتابةً.",
+      "trigger_all_terms": ["restricted"],
+      "trigger_any_terms": [
+        "review period",
+        "business days",
+        "deadline",
+        "timeline",
+        "how long",
+        "how many days",
+        "complete the review"
+      ],
+      "party_a": {
+        "source_key": "POL-001@v1",
+        "page_number": 2,
+        "section_heading": "4. Review and Authority",
+        "assertion": "Ten business days for a Tier 2 exception request."
+      },
+      "party_b": {
+        "source_key": "POL-003@v1",
+        "page_number": 2,
+        "section_heading": "3. Restricted Records Exception Review Period",
+        "assertion": "Five business days where the exception file affects access to restricted records."
+      },
+      "required_resolution": "Escalate the difference in writing to the Records Governance Team lead before the review is assigned. The prototype must stop rather than select a period.",
+      "expected_reason_code": "EVIDENCE_INSUFFICIENT_OR_CONFLICTED"
+    }
+  ]
+}

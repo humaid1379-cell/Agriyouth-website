@@ -1,0 +1,74 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/model-run-record-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "call_index": {
+      "title": "Call Index"
+    },
+    "case_id": {
+      "title": "Case Id"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_classification": {},
+    "duration_ms": {
+      "title": "Duration Ms"
+    },
+    "input_chars": {
+      "title": "Input Chars"
+    },
+    "input_sha256": {
+      "title": "Input Sha256"
+    },
+    "mode": {},
+    "model_configuration_id": {
+      "title": "Model Configuration Id"
+    },
+    "model_run_id": {
+      "title": "Model Run Id"
+    },
+    "output_chars": {
+      "title": "Output Chars"
+    },
+    "output_sha256": {
+      "title": "Output Sha256"
+    },
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "reason_code": {
+      "title": "Reason Code"
+    },
+    "retry_count": {
+      "title": "Retry Count"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    },
+    "succeeded": {
+      "title": "Succeeded"
+    },
+    "task_role": {}
+  },
+  "required": [
+    "produced_by",
+    "model_run_id",
+    "case_id",
+    "model_configuration_id",
+    "task_role",
+    "call_index",
+    "retry_count",
+    "input_chars",
+    "output_chars",
+    "input_sha256",
+    "output_sha256",
+    "duration_ms",
+    "succeeded",
+    "mode"
+  ],
+  "title": "ModelRunRecord",
+  "type": "object"
+}

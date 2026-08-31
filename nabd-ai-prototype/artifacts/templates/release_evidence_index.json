@@ -1,0 +1,341 @@
+{
+  "template_id": "TPL-RELEASE-EVIDENCE-INDEX-V1",
+  "template_version": "1.0.0",
+  "template_kind": "CONTROL_ARTIFACT",
+  "schema_id": "release-evidence-index-v1",
+  "environment_id": "ISOLATED_PROTOTYPE_V1",
+  "data_boundary_id": "SYNTHETIC_ONLY",
+  "business_scope_id": "BUSINESS_UNIT_V1",
+  "specification_reference": "docs/NABD_AI_CURSOR_FULL_PROTOTYPE_BUILD_SPEC.md, Sections 7.1, 16.2, 17, 17.1, 17.2",
+  "control_artifact_notice": "This template is a control artifact. It does not itself constitute evidence. Its presence in the repository does not indicate that any artifact exists, that any gate has been completed, or that any status dimension has changed. Evidence exists only when each entry below names a retained immutable artifact, carries a verified SHA-256 digest, and is bound to a completed gate record prepared and reviewed by distinct identities.",
+  "completion_state": "<PENDING>",
+  "status_built": "NOT_EVIDENCED",
+  "status_integration": "NOT_EVIDENCED",
+  "status_operational": "NOT_EVIDENCED",
+  "status_authorization": "NOT_GRANTED",
+  "status_merge_prohibited": true,
+  "status_merge_note": "The four status dimensions are independent and are recorded separately (INV-14). They must never be merged, averaged, ranked or reduced to a single overall or generic readiness state. Any consumer of this index that renders a combined status is non-conformant.",
+  "status_dimension_detail": {
+    "built": {
+      "dimension": "built",
+      "value": "NOT_EVIDENCED",
+      "default": "NOT_EVIDENCED",
+      "permitted_values": ["NOT_EVIDENCED", "PARTIALLY_EVIDENCED", "EVIDENCED"],
+      "enumeration_type": "StatusEvidence",
+      "supporting_evidence_artifact_ids": [],
+      "accepted_by_human_owner": false,
+      "acceptance_record_path": "<PENDING>",
+      "accepted_at_utc": null,
+      "conditions": [],
+      "review_due_date": null,
+      "expiry_date": null
+    },
+    "integration": {
+      "dimension": "integration",
+      "value": "NOT_EVIDENCED",
+      "default": "NOT_EVIDENCED",
+      "permitted_values": ["NOT_EVIDENCED", "PARTIALLY_EVIDENCED", "EVIDENCED"],
+      "enumeration_type": "StatusEvidence",
+      "supporting_evidence_artifact_ids": [],
+      "accepted_by_human_owner": false,
+      "acceptance_record_path": "<PENDING>",
+      "accepted_at_utc": null,
+      "conditions": [],
+      "review_due_date": null,
+      "expiry_date": null
+    },
+    "operational": {
+      "dimension": "operational",
+      "value": "NOT_EVIDENCED",
+      "default": "NOT_EVIDENCED",
+      "permitted_values": ["NOT_EVIDENCED", "HISTORICAL_CONFIRMED", "EVIDENCED"],
+      "enumeration_type": "OperationalStatus",
+      "supporting_evidence_artifact_ids": [],
+      "accepted_by_human_owner": false,
+      "acceptance_record_path": "<PENDING>",
+      "accepted_at_utc": null,
+      "conditions": [],
+      "review_due_date": null,
+      "expiry_date": null,
+      "note": "ISOLATED_PROTOTYPE_V1 has no operational use, no real data, no institutional workload and no service monitoring. This dimension therefore remains at its default."
+    },
+    "authorization": {
+      "dimension": "authorization",
+      "value": "NOT_GRANTED",
+      "default": "NOT_GRANTED",
+      "permitted_values": ["NOT_GRANTED", "GRANTED_WITH_CONDITIONS", "GRANTED"],
+      "enumeration_type": "AuthorizationStatus",
+      "supporting_evidence_artifact_ids": [],
+      "accepted_by_human_owner": false,
+      "acceptance_record_path": "<PENDING>",
+      "accepted_at_utc": null,
+      "conditions": [],
+      "review_due_date": null,
+      "expiry_date": null,
+      "note": "The SYNTHETIC_DEMO_AUTHORIZATION fixture is a build-controlled test fixture. It is not human-owner approval, deployment authorization or institutional authority, and it does not change this dimension."
+    }
+  },
+  "release": {
+    "release_id": "<PENDING>",
+    "repository": "nabd-ai-prototype",
+    "commit_sha": "<PENDING>",
+    "branch": "<PENDING>",
+    "generated_at_utc": "<PENDING>",
+    "generated_by": "<TO BE COMPLETED BY TECHNICAL OWNER>",
+    "index_sha256": "<PENDING: 64-character lowercase hexadecimal SHA-256 of this file with this field omitted from the preimage>",
+    "evidence_bundle_path": "<PENDING>",
+    "evidence_bundle_sha256": "<PENDING>",
+    "component_versions": {
+      "workflow": "<PENDING>",
+      "schema": "<PENDING>",
+      "canonical_json_profile": "<PENDING>",
+      "rule_catalog": "<PENDING>",
+      "corpus": "<PENDING>",
+      "source_manifest_sha256": "<PENDING>",
+      "retrieval": "<PENDING>",
+      "prompt_draft": "<PENDING>",
+      "prompt_verify": "<PENDING>",
+      "packet_schema": "<PENDING>",
+      "audit_chain": "<PENDING>",
+      "use_case_contract": "<PENDING>",
+      "model_configuration_ids": [],
+      "container_image_digests": {
+        "db": "<PENDING>",
+        "api": "<PENDING>",
+        "web": "<PENDING>"
+      }
+    }
+  },
+  "independence_declaration": {
+    "rule": "Three-function separation is mandatory. The technical owner prepares code and developer evidence. The independent evaluator or reviewer reviews code, security, TEVV and deployment results. The human owner or delegate accepts or rejects a narrow evidence or status claim. One identity must not perform all three functions for the same component, version, status dimension and evidence set.",
+    "invariant_reference": "INV-16 prohibits self-acceptance: a developer, model, evaluator, administrator or evidence record cannot accept its own status claim.",
+    "technical_owner_identity": "<TO BE COMPLETED BY TECHNICAL OWNER>",
+    "independent_evaluator_identities": [],
+    "human_owner_or_delegate_identity": "<TO BE COMPLETED BY HUMAN OWNER OR DELEGATE>",
+    "identities_confirmed_distinct": false,
+    "confirmed_by": "<PENDING>",
+    "confirmed_at_utc": null,
+    "exceptions_and_compensating_controls": "<PENDING>",
+    "validation_rule": "An entry whose preparer_identity, independent_evaluator_identity and human_owner_acceptor_identity are not three distinct identities is invalid and must be reassigned before it is treated as evidence."
+  },
+  "assurance_gates": [
+    {
+      "gate_id": "G-A",
+      "name": "Developer verification",
+      "independence_rule": "The implementation team may execute, but cannot independently accept its own evidence.",
+      "result_kind": "Candidate Built and Integration evidence",
+      "template_path": null,
+      "completion_state": "NOT_STARTED",
+      "evidence_artifact_ids": [],
+      "open_blocking_defect_ids": []
+    },
+    {
+      "gate_id": "G-B",
+      "name": "Independent code review",
+      "independence_rule": "The reviewer did not author the reviewed changes and cannot be the sole status acceptor.",
+      "result_kind": "Code-review evidence",
+      "template_path": "artifacts/templates/independent_code_review.md",
+      "completion_state": "NOT_STARTED",
+      "evidence_artifact_ids": [],
+      "open_blocking_defect_ids": []
+    },
+    {
+      "gate_id": "G-C",
+      "name": "Independent security testing",
+      "independence_rule": "The tester is separate from the primary developer; no real or production data or credentials are used.",
+      "result_kind": "Security evidence",
+      "template_path": "artifacts/templates/security_test_report.md",
+      "completion_state": "NOT_STARTED",
+      "evidence_artifact_ids": [],
+      "open_blocking_defect_ids": []
+    },
+    {
+      "gate_id": "G-D",
+      "name": "TEVV",
+      "independence_rule": "The test executor and evaluator are independent from the sole code author where feasible.",
+      "result_kind": "Candidate system Built and Integration evidence",
+      "template_path": "artifacts/templates/tevv_report.md",
+      "completion_state": "NOT_STARTED",
+      "evidence_artifact_ids": [],
+      "open_blocking_defect_ids": []
+    },
+    {
+      "gate_id": "G-E",
+      "name": "Deployment validation",
+      "independence_rule": "A separate validator or a clean environment is required.",
+      "result_kind": "Deployment-validation evidence only",
+      "template_path": "artifacts/templates/deployment_validation_checklist.md",
+      "completion_state": "NOT_STARTED",
+      "evidence_artifact_ids": [],
+      "open_blocking_defect_ids": []
+    },
+    {
+      "gate_id": "G-F",
+      "name": "Human-owner evidence acceptance",
+      "independence_rule": "The owner accepts the evidence presented, but cannot replace missing tests or independently accept their own work.",
+      "result_kind": "Accept or reject a narrow status claim; no implicit operation or authorization",
+      "template_path": "artifacts/templates/human_owner_acceptance_record.md",
+      "completion_state": "NOT_STARTED",
+      "evidence_artifact_ids": [],
+      "open_blocking_defect_ids": []
+    }
+  ],
+  "assurance_order": {
+    "sequence": ["G-A", "G-B", "G-C", "G-D", "G-E", "G-F"],
+    "rule": "The sequence is developer verification, then independent code review, then security testing, then TEVV, then deployment validation, then human-owner acceptance. A failed stage blocks movement until correction and targeted regression or retest. Retain failed evidence visibly; do not overwrite it. Any unresolved S0_CRITICAL or S1_HIGH defect blocks acceptance of the affected release.",
+    "current_stage": "<PENDING>"
+  },
+  "enumerations": {
+    "status_evidence": ["NOT_EVIDENCED", "PARTIALLY_EVIDENCED", "EVIDENCED"],
+    "operational_status": ["NOT_EVIDENCED", "HISTORICAL_CONFIRMED", "EVIDENCED"],
+    "authorization_status": ["NOT_GRANTED", "GRANTED_WITH_CONDITIONS", "GRANTED"],
+    "severity": ["S0_CRITICAL", "S1_HIGH", "S2_MODERATE", "S3_LOW"],
+    "status_dimension": ["built", "integration", "operational", "authorization"],
+    "assurance_gate": ["G-A", "G-B", "G-C", "G-D", "G-E", "G-F"],
+    "gate_completion_state": ["NOT_STARTED", "IN_PROGRESS", "BLOCKED", "CONCLUDED_WITH_OPEN_DEFECTS", "CONCLUDED_AT_RECORDED_VERSION"],
+    "acceptance_decision": ["ACCEPT_BUILT_EVIDENCE", "ACCEPT_INTEGRATION_EVIDENCE", "ACCEPT_WITH_CONDITIONS", "REJECT_EVIDENCE", "REQUEST_RETEST", "STOP_AND_REVISE"],
+    "acceptance_state": ["NOT_SUBMITTED", "SUBMITTED_FOR_DECISION", "DECISION_RECORDED", "SUPERSEDED", "REVOKED"],
+    "artifact_verification_state": ["NOT_VERIFIED", "DIGEST_VERIFIED", "DIGEST_MISMATCH"],
+    "revocation_status": ["NOT_REVOKED", "REVOKED", "SUPERSEDED"],
+    "relationship_type": [
+      "DERIVED_FROM",
+      "SUPERSEDES",
+      "SUPERSEDED_BY",
+      "VERIFIES",
+      "VERIFIED_BY",
+      "RETESTS",
+      "RETESTED_BY",
+      "RAISES_DEFECT",
+      "CLOSES_DEFECT",
+      "BLOCKED_BY",
+      "SUPPORTS_CLAIM_IN",
+      "REFERENCED_BY_ACCEPTANCE_RECORD",
+      "INPUT_TO_GATE",
+      "OUTPUT_OF_GATE"
+    ]
+  },
+  "placeholder_tokens": {
+    "<TO BE COMPLETED BY TECHNICAL OWNER>": "The technical owner supplies the value.",
+    "<TO BE COMPLETED BY INDEPENDENT EVALUATOR>": "A named independent evaluator, reviewer, security tester or deployment validator supplies the value.",
+    "<TO BE COMPLETED BY HUMAN OWNER OR DELEGATE>": "The human owner or delegate supplies the value.",
+    "<PENDING>": "Not yet determined.",
+    "<NOT_RUN>": "The activity has not been executed.",
+    "<NONE_RECORDED>": "Deliberately empty at completion time; must be affirmed by the completer.",
+    "null": "No value has been recorded. Never interpret null as an accepted, verified or evidenced state."
+  },
+  "completion_rules": [
+    "No field may be left as a placeholder in a completed index. An unresolved placeholder is read as not evidenced and never as a pass.",
+    "Every entry in evidence_artifacts must reference a retained immutable artifact and carry a 64-character lowercase hexadecimal SHA-256 digest that has been independently recomputed.",
+    "An entry records exactly one status dimension. Never combine dimensions in one entry and never derive an overall state from the set.",
+    "Percentage-only reporting is prohibited in any linked report. A measured value must carry its numerator and denominator.",
+    "Superseded entries are retained with acceptance.state set to SUPERSEDED and a SUPERSEDED_BY relationship. Never delete or overwrite an entry.",
+    "An entry may reference an acceptance decision only when that decision appears in a completed human_owner_acceptance_record.md identified by acceptance.record_path.",
+    "Remove the EXAMPLE-000 entry before use."
+  ],
+  "live_model_evaluation": {
+    "default_model_mode": "mock",
+    "live_model_tests": "NOT_RUN",
+    "note": "Live-model evaluation is NOT_RUN in the default deterministic mock mode. No credential is required, requested or present, and no outbound model call is made. Results obtained under the deterministic mock adapter describe the surrounding deterministic control system and do not measure the behaviour of any live language model."
+  },
+  "blocking_defect_summary": {
+    "open_s0_critical": "<PENDING>",
+    "open_s1_high": "<PENDING>",
+    "open_s2_moderate": "<PENDING>",
+    "open_s3_low": "<PENDING>",
+    "defect_register_path": "artifacts/templates/defect_register.csv",
+    "rule": "Any unresolved S0_CRITICAL or S1_HIGH defect blocks acceptance of the affected release."
+  },
+  "known_limitations_reference": {
+    "path": "artifacts/templates/known_limitations.md",
+    "sha256": "<PENDING>",
+    "reviewed_by_human_owner": false
+  },
+  "evidence_artifacts": [
+    {
+      "evidence_artifact_id": "EXAMPLE-000",
+      "is_example_entry": true,
+      "example_notice": "ILLUSTRATIVE EXAMPLE ENTRY ONLY - REMOVE BEFORE USE. This entry records no evidence, asserts no result and supports no claim. It exists solely to make the field semantics unambiguous.",
+      "artifact_path": "<PENDING: repository-relative path to the retained immutable artifact>",
+      "artifact_sha256": "<PENDING: 64-character lowercase hexadecimal SHA-256 of the retained artifact>",
+      "artifact_type": "<PENDING: for example independent code review record, raw security scan output, TEVV run report, deployment validation transcript, audit chain verification output>",
+      "artifact_media_type": "<PENDING>",
+      "artifact_bytes": null,
+      "produced_at_utc": "<PENDING>",
+      "assurance_gate": "<PENDING: G-A | G-B | G-C | G-D | G-E | G-F>",
+      "status_dimension": "<PENDING: built | integration | operational | authorization>",
+      "status_value_claimed": "NOT_EVIDENCED",
+      "component_id": "<PENDING>",
+      "component_version": "<PENDING>",
+      "environment_id": "ISOLATED_PROTOTYPE_V1",
+      "data_boundary_id": "SYNTHETIC_ONLY",
+      "business_scope_id": "BUSINESS_UNIT_V1",
+      "period": {
+        "start_utc": "<PENDING>",
+        "end_utc": "<PENDING>"
+      },
+      "narrow_claim": "<PENDING: one specific bounded claim about one component version, in one environment, over one period, claiming no more than the attached artifact shows>",
+      "limitations": "<PENDING: what this artifact does not demonstrate, including scenarios not run and coverage marked incomplete>",
+      "preparer_identity": "<TO BE COMPLETED BY TECHNICAL OWNER>",
+      "independent_evaluator_identity": "<TO BE COMPLETED BY INDEPENDENT EVALUATOR>",
+      "human_owner_acceptor_identity": "<TO BE COMPLETED BY HUMAN OWNER OR DELEGATE>",
+      "identities_confirmed_distinct": false,
+      "verification": {
+        "state": "NOT_VERIFIED",
+        "digest_recomputed_by": "<PENDING>",
+        "digest_recomputed_at_utc": null,
+        "digest_matches_recorded_value": false
+      },
+      "acceptance": {
+        "state": "NOT_SUBMITTED",
+        "decision": "<PENDING>",
+        "decided_by": "<PENDING>",
+        "decided_at_utc": null,
+        "record_path": "<PENDING>",
+        "record_sha256": "<PENDING>",
+        "conditions": [],
+        "review_due_date": null,
+        "expiry_date": null,
+        "revocation_status": "NOT_REVOKED",
+        "revocation_reason": "<NONE_RECORDED>",
+        "revocation_path": "<PENDING: the documented route by which this acceptance may be withdrawn>"
+      },
+      "relationships": [
+        {
+          "relationship_type": "OUTPUT_OF_GATE",
+          "target_kind": "assurance_gate",
+          "target_id": "<PENDING>",
+          "note": "<PENDING>"
+        },
+        {
+          "relationship_type": "DERIVED_FROM",
+          "target_kind": "evidence_artifact",
+          "target_id": "<PENDING>",
+          "note": "<PENDING>"
+        },
+        {
+          "relationship_type": "VERIFIED_BY",
+          "target_kind": "evidence_artifact",
+          "target_id": "<PENDING>",
+          "note": "<PENDING>"
+        },
+        {
+          "relationship_type": "SUPERSEDED_BY",
+          "target_kind": "evidence_artifact",
+          "target_id": "<PENDING>",
+          "note": "<PENDING>"
+        },
+        {
+          "relationship_type": "RAISES_DEFECT",
+          "target_kind": "defect",
+          "target_id": "<PENDING>",
+          "note": "<PENDING>"
+        }
+      ],
+      "defect_ids": [],
+      "trace_ids": [],
+      "evidence_register_row_id": "<PENDING>",
+      "retained_immutably": false,
+      "retention_location": "<PENDING>"
+    }
+  ]
+}

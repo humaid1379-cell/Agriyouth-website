@@ -1,0 +1,49 @@
+{
+  "$id": "https://nabd.local/contracts/jsonschema/uncertainty-record-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "affected_claim_refs": {
+      "title": "Affected Claim Refs"
+    },
+    "affected_source_ids": {
+      "title": "Affected Source Ids"
+    },
+    "case_id": {
+      "title": "Case Id"
+    },
+    "created_at": {
+      "title": "Created At"
+    },
+    "data_classification": {},
+    "description_ar": {
+      "title": "Description Ar"
+    },
+    "description_en": {
+      "title": "Description En"
+    },
+    "increases_risk": {
+      "title": "Increases Risk"
+    },
+    "kind": {},
+    "produced_by": {
+      "description": "Actor or service provenance for this record.",
+      "title": "Produced By"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    },
+    "uncertainty_id": {
+      "title": "Uncertainty Id"
+    }
+  },
+  "required": [
+    "produced_by",
+    "uncertainty_id",
+    "case_id",
+    "kind",
+    "description_en"
+  ],
+  "title": "UncertaintyRecord",
+  "type": "object"
+}

@@ -1,0 +1,13 @@
+<<<PAGE 1>>>
+## 1. Purpose
+This Interim Exception Handling Policy was issued to shorten the handling of internal policy exception requests during a transition period in the Corporate Services Unit. This document is synthetic material created for the NABD AI isolated prototype.
+
+## 2. Interim Handling
+Under this interim policy an exception request could be accepted by the direct supervisor of the requesting analyst without the three mandatory evidence items, provided the supervisor recorded a short justification in the exception register. The interim policy also allowed a review period of three business days for any tier of exception request.
+
+<<<PAGE 2>>>
+## 3. Revocation
+This interim policy has been revoked in full. It confers no authority, imposes no obligation, and shall not be cited as evidence in an exception file. Any exception file that relied on this interim policy must be reworked under the current Internal Policy Exception Governance Policy before it is assigned for review.
+
+## 4. Historical Note
+The revocation does not alter the dated historical fact that this interim policy was in force during the transition period. Records created during that period retain their dated facts and are marked with a revocation warning in the exception register.

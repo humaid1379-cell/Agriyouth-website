@@ -1,0 +1,28 @@
+<<<PAGE 1>>>
+## 1. Purpose and Scope
+This Internal Policy Exception Governance Policy establishes how the Corporate Services Unit classifies, evidences, reviews and records an internal policy exception request. It applies to every exception request raised by Corporate Services Unit personnel about an internal policy or standard operating procedure owned by the unit. This document is synthetic material created for the NABD AI isolated prototype and describes no real institution.
+
+## 2. Request Classification
+Every internal policy exception request shall be classified on intake into exactly one of three tiers. A Tier 1 request is a routine exception affecting a single procedural step with no effect on records retention, access control or reporting obligations. A Tier 2 request is a material exception affecting two or more procedural steps, or affecting any reporting obligation of the Corporate Services Unit. A Tier 3 request is a restricted exception affecting access to restricted records, or affecting a control that the unit has designated as mandatory.
+
+The intake classification is recorded by the Records Governance Team and cannot be changed by the requesting analyst after the exception file has been opened. Where the correct tier is ambiguous, the request shall be classified at the higher tier until the Records Governance Team resolves the ambiguity in writing.
+
+<<<PAGE 2>>>
+## 3. Evidence Requirements
+An internal policy exception request is incomplete, and shall not proceed to review, unless the exception file contains all three of the following mandatory evidence items. First, the exact governing policy clause from which the exception is sought, cited by document identifier, version and clause number. Second, the operational procedure step affected by the exception, cited by the standard operating procedure identifier and step number. Third, a dated impact statement describing the effect of the exception on records retention, access control and reporting obligations.
+
+A Tier 3 request shall additionally contain a written statement of the restricted records affected. Evidence items must be dated within ninety calendar days of the intake date. Evidence that is undated, unsourced, or drawn from a superseded or revoked document shall not be counted towards the three mandatory evidence items.
+
+## 4. Review and Authority
+A Tier 2 or Tier 3 exception request shall be reviewed by a Corporate Services reviewer holding a manager grade or above. The reviewer shall not be the analyst who submitted the request, and shall not report directly to that analyst. A Tier 1 request shall be reviewed by any Corporate Services reviewer other than the submitting analyst.
+
+The reviewer shall complete the review of a Tier 2 exception request within ten business days of the date the completed exception file is assigned for review. The reviewer records one of three review outcomes: return for clarification, accept the exception file, or reject the exception file. No review outcome authorises an operational change by itself; the change is enacted separately under the applicable institutional procedure.
+
+<<<PAGE 3>>>
+## 5. Records and Audit
+The Records Governance Team maintains the exception register. Each exception file receives a unique file reference on intake, and the register records the intake date, the tier, the reviewer identity, the review outcome and the date of the review outcome. The register is retained for seven years from the date of the review outcome.
+
+An exception file that has been returned for clarification remains open. It is closed only when a reviewer records an accept or reject outcome, or when the requesting analyst formally withdraws the request in writing to the Records Governance Team.
+
+## 6. Version Control
+This version of the policy supersedes all earlier versions of the Internal Policy Exception Governance Policy. Where an earlier version states a different review period, a different reviewer requirement, or a different evidence requirement, the statement in this version prevails. Personnel shall not rely on a superseded or revoked policy document when preparing or reviewing an exception file.

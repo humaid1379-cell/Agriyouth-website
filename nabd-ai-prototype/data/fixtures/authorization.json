@@ -1,0 +1,76 @@
+{
+  "fixture_set_version": "1.0.0",
+  "notice": "Build-controlled synthetic authorization fixtures. There is deliberately no API that creates, edits, extends or grants an authorization. The primary fixture is a TEST FIXTURE and is not human-owner approval, deployment authorization, or production authority.",
+  "primary_authorization_id": "SYNTHETIC_DEMO_AUTHORIZATION",
+  "authorizations": [
+    {
+      "authorization_id": "SYNTHETIC_DEMO_AUTHORIZATION",
+      "schema_version": "nabd-schema-v1",
+      "produced_by": "build:scripts/seed_synthetic_corpus.py",
+      "created_at": "2025-01-01T00:00:00.000Z",
+      "fixture_notice": "TEST FIXTURE - synthetic demo authorization. Not human-owner approval, not deployment authorization, not production authority.",
+      "environment_id": "ISOLATED_PROTOTYPE_V1",
+      "data_boundary_id": "SYNTHETIC_ONLY",
+      "business_scope_id": "BUSINESS_UNIT_V1",
+      "use_case_contract_id": "UC-POLICY-SOP-EVIDENCE-V1",
+      "source_manifest_sha256": "6dfcef807e120ef197a321290d297cfe007029c5104b57c7984d13141c98b944",
+      "allowed_component_versions": {
+        "workflow": "workflow-v1.0.0",
+        "schema": "nabd-schema-v1",
+        "canonical_json_profile": "nabd-canonical-json-v1",
+        "rule_catalog": "rule-catalog-v1.0.0",
+        "corpus": "synthetic_policy_collection_v1",
+        "retrieval": "retrieval-lexical-v1.0.0",
+        "prompt_draft": "prompt-draft-v1.0.0",
+        "prompt_verify": "prompt-verify-v1.0.0",
+        "packet_schema": "decision-readiness-packet-v1",
+        "audit_chain": "audit-chain-sha256-v1",
+        "use_case_contract": "UC-POLICY-SOP-EVIDENCE-V1"
+      },
+      "allowed_role_ids": [
+        "ROLE_SYNTHETIC_REQUESTER_V1",
+        "ROLE_SYNTHETIC_REVIEWER_V1",
+        "ROLE_SYNTHETIC_ADMINISTRATOR_V1"
+      ],
+      "allowed_model_configuration_ids": [
+        "MC-MOCK-DRAFTER-V1",
+        "MC-MOCK-VERIFIER-V1"
+      ],
+      "demo_period_start": "2025-01-01T00:00:00.000Z",
+      "demo_period_end": "2030-12-31T23:59:59.000Z",
+      "authorization_status": "NOT_GRANTED",
+      "revoked": false
+    },
+    {
+      "authorization_id": "SYNTHETIC_EXPIRED_AUTHORIZATION",
+      "schema_version": "nabd-schema-v1",
+      "produced_by": "build:scripts/seed_synthetic_corpus.py",
+      "created_at": "2024-01-01T00:00:00.000Z",
+      "fixture_notice": "TEST FIXTURE - synthetic demo authorization. Not human-owner approval, not deployment authorization, not production authority.",
+      "environment_id": "ISOLATED_PROTOTYPE_V1",
+      "data_boundary_id": "SYNTHETIC_ONLY",
+      "business_scope_id": "BUSINESS_UNIT_V1",
+      "use_case_contract_id": "UC-POLICY-SOP-EVIDENCE-V1",
+      "source_manifest_sha256": "6dfcef807e120ef197a321290d297cfe007029c5104b57c7984d13141c98b944",
+      "allowed_component_versions": {
+        "workflow": "workflow-v1.0.0",
+        "schema": "nabd-schema-v1",
+        "canonical_json_profile": "nabd-canonical-json-v1",
+        "rule_catalog": "rule-catalog-v1.0.0",
+        "corpus": "synthetic_policy_collection_v1",
+        "retrieval": "retrieval-lexical-v1.0.0",
+        "prompt_draft": "prompt-draft-v1.0.0",
+        "prompt_verify": "prompt-verify-v1.0.0",
+        "packet_schema": "decision-readiness-packet-v1",
+        "audit_chain": "audit-chain-sha256-v1",
+        "use_case_contract": "UC-POLICY-SOP-EVIDENCE-V1"
+      },
+      "allowed_role_ids": ["ROLE_SYNTHETIC_REQUESTER_V1"],
+      "allowed_model_configuration_ids": ["MC-MOCK-DRAFTER-V1", "MC-MOCK-VERIFIER-V1"],
+      "demo_period_start": "2024-01-01T00:00:00.000Z",
+      "demo_period_end": "2024-06-30T23:59:59.000Z",
+      "authorization_status": "NOT_GRANTED",
+      "revoked": false
+    }
+  ]
+}
